@@ -3,276 +3,980 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inside Roleplay | L'Histoire</title>
-    
-    <!-- Icône de l'onglet (Favicon) -->
+    <title>Inside Roleplay | L'Exode — Archives de San Andreas</title>
     <link rel="icon" type="image/png" href="logo.png">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --color-bg: #0b0717;
-            --color-primary: #ff3366;
-            --color-secondary: #f9d423;
-            --color-purple: #7a28cb;
+            --bg: #080612;
+            --bg2: #0d0a1a;
+            --pink: #ff3366;
+            --gold: #f9d423;
+            --purple: #7a28cb;
+            --purple-light: #a855f7;
+            --cyan: #00e5ff;
+            --text: #e8e0f0;
+            --muted: #6b6480;
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--color-bg);
-            color: #ffffff;
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--bg);
+            color: var(--text);
             overflow-x: hidden;
         }
 
-        .cosmic-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: 
-                radial-gradient(circle at 20% 40%, rgba(122, 40, 203, 0.15) 0%, transparent 60%),
-                radial-gradient(circle at 80% 60%, rgba(255, 51, 102, 0.1) 0%, transparent 50%);
-            z-index: -2;
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(var(--purple), var(--pink)); border-radius: 3px; }
+
+        #progress-bar {
+            position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+            background: linear-gradient(90deg, var(--purple), var(--pink), var(--gold));
+            z-index: 1000;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 10px var(--pink);
         }
 
-        .stars {
-            background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat top center;
-            z-index: -1;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0.3;
+        #bg-canvas {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0; pointer-events: none;
+            opacity: 0.6;
         }
 
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        nav {
+            position: fixed; width: 100%; z-index: 100; top: 3px;
+            background: rgba(8,6,18,0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(122,40,203,0.2);
+        }
+        .nav-inner {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 1.5rem; height: 64px;
+        }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: white; }
+        .nav-logo img { width: 32px; height: 32px; object-fit: contain; }
+        .nav-logo span { font-family: 'Bebas Neue', cursive; font-size: 1.4rem; letter-spacing: 2px; }
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a {
+            font-size: 0.85rem; font-weight: 600; letter-spacing: 1px;
+            text-decoration: none; color: rgba(255,255,255,0.5);
+            transition: color 0.2s; text-transform: uppercase;
+        }
+        .nav-links a:hover { color: white; }
+        .nav-links a.active { color: var(--purple-light); border-bottom: 2px solid var(--purple-light); padding-bottom: 2px; }
+        .nav-btn {
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+            color: white; padding: 0.4rem 1rem; border-radius: 6px;
+            font-size: 0.8rem; font-weight: 600; cursor: pointer;
+            text-decoration: none; display: flex; align-items: center; gap: 6px;
+            transition: all 0.2s;
+        }
+        .nav-btn:hover { background: rgba(255,255,255,0.15); }
+
+        #hero {
+            position: relative; min-height: 100vh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            text-align: center; z-index: 1;
+            overflow: hidden;
+        }
+
+        .hero-vignette {
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at center, transparent 30%, rgba(8,6,18,0.95) 100%);
+            z-index: 1; pointer-events: none;
+        }
+
+        .hero-content { position: relative; z-index: 2; }
+
+        .classified-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            border: 1px solid rgba(122,40,203,0.5);
+            background: rgba(122,40,203,0.1);
+            padding: 6px 18px; border-radius: 2px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem; letter-spacing: 3px; color: var(--purple-light);
+            text-transform: uppercase; margin-bottom: 2rem;
+            animation: badge-appear 1s ease 0.5s both;
+        }
+        .classified-badge::before { content: '■'; font-size: 0.5rem; animation: blink 1s infinite; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+        .hero-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: clamp(5rem, 15vw, 13rem);
+            line-height: 0.85;
+            letter-spacing: 4px;
+            animation: title-appear 1.2s cubic-bezier(0.16,1,0.3,1) 0.8s both;
+        }
+
+        .hero-title .line1 { display: block; color: white; }
+        .hero-title .line2 {
+            display: block;
+            background: linear-gradient(135deg, var(--purple-light), var(--pink));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .glitch-wrapper { position: relative; display: inline-block; }
+        .glitch-wrapper::before, .glitch-wrapper::after {
+            content: attr(data-text);
+            position: absolute; top: 0; left: 0;
+            background: linear-gradient(135deg, var(--purple-light), var(--pink));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glitch-loop 5s infinite;
+        }
+        .glitch-wrapper::before { left: 2px; animation-delay: 0.3s; filter: hue-rotate(90deg); }
+        .glitch-wrapper::after  { left: -2px; animation-delay: 0.6s; filter: hue-rotate(270deg); }
+
+        @keyframes glitch-loop {
+            0%,94%,100% { clip-path: none; transform: none; opacity: 0; }
+            95% { clip-path: polygon(0 20%,100% 20%,100% 35%,0 35%); transform: translate(-3px,0); opacity: 0.7; }
+            96% { clip-path: polygon(0 60%,100% 60%,100% 70%,0 70%); transform: translate(3px,0); opacity: 0.7; }
+            97% { clip-path: polygon(0 5%,100% 5%,100% 15%,0 15%); transform: translate(-1px,0); opacity: 0.7; }
+            98% { clip-path: none; transform: none; opacity: 0; }
+        }
+
+        .hero-sub {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem; letter-spacing: 6px; color: var(--muted);
+            text-transform: uppercase; margin-top: 1.5rem;
+            animation: badge-appear 1s ease 1.4s both;
+        }
+
+        .scroll-cue {
+            position: absolute; bottom: 2rem; left: 50%;
+            transform: translateX(-50%); z-index: 2;
+            display: flex; flex-direction: column; align-items: center; gap: 6px;
+            animation: badge-appear 1s ease 2s both;
+            cursor: pointer;
+        }
+        .scroll-cue span { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 3px; color: var(--muted); }
+        .scroll-line { width: 1px; height: 50px; background: linear-gradient(var(--purple), transparent); animation: scroll-pulse 2s ease-in-out infinite; }
+        @keyframes scroll-pulse { 0%,100%{opacity:0.3;transform:scaleY(0.8)} 50%{opacity:1;transform:scaleY(1)} }
+
+        @keyframes badge-appear { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes title-appear { from{opacity:0;transform:translateY(60px) skewY(2deg)} to{opacity:1;transform:translateY(0) skewY(0)} }
+
+        #chapter-nav {
+            position: sticky; top: 67px; z-index: 90;
+            background: rgba(8,6,18,0.92); backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            padding: 0 1.5rem;
+            overflow-x: auto; white-space: nowrap;
+        }
+        #chapter-nav::-webkit-scrollbar { height: 0; }
+        .chapter-nav-inner { max-width: 1200px; margin: 0 auto; display: flex; }
+        .chap-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 14px 20px; font-size: 0.75rem; font-weight: 600;
+            letter-spacing: 1px; text-transform: uppercase;
+            color: var(--muted); cursor: pointer; border: none;
+            background: none; border-bottom: 2px solid transparent;
+            transition: all 0.25s; white-space: nowrap; font-family: 'IBM Plex Mono', monospace;
+        }
+        .chap-btn:hover { color: white; }
+        .chap-btn.active { color: white; border-bottom-color: var(--purple-light); }
+        .chap-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+        #lore-content {
+            position: relative; z-index: 1;
+            max-width: 1100px; margin: 0 auto;
+            padding: 80px 1.5rem 120px;
+        }
+
+        .era-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem; letter-spacing: 4px; color: var(--muted);
+            text-transform: uppercase; margin-bottom: 2rem; margin-top: 5rem;
+            display: flex; align-items: center; gap: 12px;
+        }
+        .era-label::before { content:''; flex: 1; height: 1px; background: rgba(255,255,255,0.06); }
+        .era-label::after { content:''; width: 20px; height: 1px; background: var(--purple); }
+
+        .timeline { position: relative; }
+        .timeline::before {
+            content:''; position: absolute;
+            left: 50%; top: 0; bottom: 0; width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--purple) 10%, var(--pink) 50%, var(--gold) 90%, transparent);
+            transform: translateX(-50%);
+            opacity: 0.2;
+        }
+
+        .event-card {
+            display: grid; grid-template-columns: 1fr 60px 1fr;
+            gap: 0; margin-bottom: 3rem; opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1);
+        }
+        .event-card.visible { opacity: 1; transform: translateY(0); }
+
+        .event-card.left .card-content { grid-column: 1; grid-row: 1; padding-right: 2.5rem; text-align: right; }
+        .event-card.left .card-spacer  { grid-column: 2; grid-row: 1; }
+        .event-card.left .card-empty   { grid-column: 3; grid-row: 1; }
+
+        .event-card.right .card-empty   { grid-column: 1; grid-row: 1; }
+        .event-card.right .card-spacer  { grid-column: 2; grid-row: 1; }
+        .event-card.right .card-content { grid-column: 3; grid-row: 1; padding-left: 2.5rem; text-align: left; }
+
+        .card-spacer {
+            display: flex; flex-direction: column; align-items: center; position: relative;
+        }
+
+        .timeline-dot {
+            width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0;
+            border: 3px solid var(--bg); position: relative; z-index: 2;
+            margin-top: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .timeline-dot.purple { background: var(--purple-light); box-shadow: 0 0 12px var(--purple); }
+        .timeline-dot.pink   { background: var(--pink); box-shadow: 0 0 12px var(--pink); }
+        .timeline-dot.gold   { background: var(--gold); box-shadow: 0 0 18px var(--gold); animation: pulse-gold 2s infinite; }
+        @keyframes pulse-gold { 0%,100%{box-shadow:0 0 18px var(--gold)} 50%{box-shadow:0 0 35px var(--gold), 0 0 60px rgba(249,212,35,0.3)} }
+
+        .event-card:hover .timeline-dot { transform: scale(1.4); }
+
+        .card-inner {
+            background: rgba(255,255,255,0.025);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px; overflow: hidden;
+            cursor: pointer;
             transition: all 0.3s ease;
+            position: relative;
+        }
+        .card-inner:hover { background: rgba(255,255,255,0.05); transform: translateY(-3px); }
+
+        .card-inner.purple-card { border-color: rgba(122,40,203,0.3); }
+        .card-inner.pink-card   { border-color: rgba(255,51,102,0.3); }
+        .card-inner.gold-card   { border-color: rgba(249,212,35,0.35); }
+
+        .card-inner.purple-card:hover { box-shadow: 0 8px 40px rgba(122,40,203,0.2); border-color: rgba(122,40,203,0.6); }
+        .card-inner.pink-card:hover   { box-shadow: 0 8px 40px rgba(255,51,102,0.2); border-color: rgba(255,51,102,0.6); }
+        .card-inner.gold-card:hover   { box-shadow: 0 8px 40px rgba(249,212,35,0.2); border-color: rgba(249,212,35,0.6); }
+
+        .card-accent {
+            height: 3px; width: 100%;
+            background: linear-gradient(90deg, var(--purple), transparent);
+        }
+        .card-accent.pink  { background: linear-gradient(90deg, var(--pink), transparent); }
+        .card-accent.gold  { background: linear-gradient(90deg, var(--gold), transparent); }
+        .event-card.right .card-accent,
+        .event-card.right .card-accent.pink,
+        .event-card.right .card-accent.gold {
+            background-direction: reverse;
         }
 
-        .glass-card:hover {
-            background: rgba(255, 255, 255, 0.06);
-            transform: translateY(-2px);
+        .card-body { padding: 1.5rem; }
+
+        .card-date {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+            margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px;
+        }
+        .event-card.right .card-date { justify-content: flex-start; }
+        .event-card.left .card-date  { justify-content: flex-end; }
+
+        .date-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+        .card-date.purple { color: var(--purple-light); }
+        .card-date.pink   { color: var(--pink); }
+        .card-date.gold   { color: var(--gold); }
+
+        .card-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.7rem; letter-spacing: 2px;
+            color: white; margin-bottom: 0.75rem; line-height: 1;
         }
 
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--color-bg); }
-        ::-webkit-scrollbar-thumb { background: var(--color-purple); border-radius: 4px; }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
+        .card-preview {
+            font-size: 0.9rem; line-height: 1.7; color: rgba(232,224,240,0.7);
+            font-weight: 400;
         }
-        .animate-float {
-            animation: float 4s ease-in-out infinite;
+
+        .card-expand-btn {
+            display: flex; align-items: center; gap: 6px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase;
+            color: var(--muted); padding: 0.75rem 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            background: rgba(0,0,0,0.2); cursor: pointer;
+            transition: color 0.2s;
+            justify-content: center;
+        }
+        .card-expand-btn:hover { color: white; }
+        .event-card.right .card-expand-btn { justify-content: flex-start; }
+        .event-card.left  .card-expand-btn { justify-content: flex-end; }
+        .expand-icon { transition: transform 0.3s ease; font-size: 0.6rem; }
+        .expanded .expand-icon { transform: rotate(180deg); }
+
+        .card-extra {
+            max-height: 0; overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.16,1,0.3,1), padding 0.4s ease;
+            padding: 0 1.5rem;
+        }
+        .card-extra.open { max-height: 500px; padding: 1rem 1.5rem 1.5rem; }
+        .card-extra p {
+            font-size: 0.9rem; line-height: 1.75; color: rgba(232,224,240,0.65);
+            margin-top: 0.75rem;
+        }
+        .card-extra strong { color: rgba(232,224,240,0.9); font-weight: 600; }
+
+        .redact {
+            background: rgba(255,255,255,0.85); color: transparent;
+            border-radius: 2px; cursor: pointer;
+            transition: all 0.3s ease; user-select: none;
+            display: inline;
+        }
+        .redact:hover, .redact.revealed {
+            background: transparent; color: var(--pink);
+        }
+        .redact-tip {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.6rem; color: var(--muted); letter-spacing: 1px;
+            display: inline-block; margin-left: 4px;
+        }
+
+        .tag {
+            display: inline-block; padding: 2px 8px; border-radius: 3px;
+            font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem;
+            letter-spacing: 1px; text-transform: uppercase; font-weight: 500;
+            margin: 2px;
+        }
+        .tag.gov  { background: rgba(122,40,203,0.2); border: 1px solid rgba(122,40,203,0.4); color: var(--purple-light); }
+        .tag.corp { background: rgba(0,229,255,0.1);  border: 1px solid rgba(0,229,255,0.3);  color: var(--cyan); }
+        .tag.peup { background: rgba(255,51,102,0.15); border: 1px solid rgba(255,51,102,0.35); color: var(--pink); }
+        .tag.mil  { background: rgba(249,212,35,0.1);  border: 1px solid rgba(249,212,35,0.3);  color: var(--gold); }
+        .tag-row { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 0.75rem; }
+        .event-card.left .tag-row { justify-content: flex-end; }
+        .event-card.right .tag-row { justify-content: flex-start; }
+
+        #finale {
+            position: relative; z-index: 1;
+            padding: 80px 1.5rem 120px;
+            text-align: center;
+        }
+        .finale-inner {
+            max-width: 800px; margin: 0 auto;
+            background: rgba(249,212,35,0.03);
+            border: 1px solid rgba(249,212,35,0.15);
+            border-radius: 16px; padding: 4rem;
+            position: relative; overflow: hidden;
+        }
+        .finale-glow {
+            position: absolute; top: 50%; left: 50%;
+            width: 500px; height: 300px;
+            transform: translate(-50%,-50%);
+            background: radial-gradient(ellipse, rgba(249,212,35,0.06), transparent 70%);
+            pointer-events: none;
+        }
+        .live-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(249,212,35,0.1); border: 1px solid rgba(249,212,35,0.3);
+            padding: 5px 14px; border-radius: 100px; margin-bottom: 1.5rem;
+            font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem;
+            letter-spacing: 3px; color: var(--gold);
+        }
+        .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: live-pulse 1.5s infinite; }
+        @keyframes live-pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+
+        .finale-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            letter-spacing: 4px; color: white;
+            margin-bottom: 1rem; position: relative; z-index: 1;
+        }
+        .finale-title span {
+            background: linear-gradient(135deg, var(--gold), #ff9f00);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+
+        .finale-text {
+            font-size: 1rem; line-height: 1.85; color: rgba(232,224,240,0.7);
+            margin-bottom: 1.25rem; position: relative; z-index: 1;
+        }
+
+        .tension-bar {
+            display: flex; align-items: center; gap: 12px;
+            justify-content: center; margin: 2rem 0;
+        }
+        .tension-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem; letter-spacing: 2px; color: var(--muted);
+        }
+        .tension-track {
+            flex: 1; max-width: 300px; height: 4px;
+            background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden;
+        }
+        .tension-fill {
+            height: 100%; width: 0; border-radius: 2px;
+            background: linear-gradient(90deg, var(--purple), var(--pink), var(--gold));
+            box-shadow: 0 0 10px var(--pink);
+            transition: width 2s cubic-bezier(0.16,1,0.3,1);
+        }
+        .tension-fill.animate { width: 78%; }
+        .tension-pct {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem; color: var(--gold); letter-spacing: 1px;
+        }
+
+        .rowlins-profile {
+            display: inline-flex; align-items: center; gap: 1rem;
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 10px; padding: 1rem 1.5rem; margin: 1.5rem 0;
+            text-align: left; position: relative; z-index: 1;
+        }
+        .profile-avatar {
+            width: 48px; height: 48px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Bebas Neue'; font-size: 1.2rem; color: white; flex-shrink: 0;
+        }
+        .profile-name { font-family: 'Bebas Neue'; font-size: 1.1rem; letter-spacing: 2px; color: white; }
+        .profile-role { font-family: 'IBM Plex Mono'; font-size: 0.65rem; letter-spacing: 2px; color: var(--muted); }
+        .profile-threat { display: flex; align-items: center; gap: 6px; margin-top: 6px; }
+        .threat-bar { display: flex; gap: 2px; }
+        .threat-pip { width: 12px; height: 4px; border-radius: 1px; background: rgba(255,255,255,0.1); }
+        .threat-pip.filled { background: var(--pink); box-shadow: 0 0 4px var(--pink); }
+        .threat-label { font-family: 'IBM Plex Mono'; font-size: 0.6rem; color: var(--pink); letter-spacing: 1px; }
+
+        .cta-area { display: flex; gap: 1rem; justify-content: center; margin-top: 2.5rem; flex-wrap: wrap; }
+        .cta-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 0.8rem 1.8rem; border-radius: 8px;
+            font-family: 'Rajdhani'; font-size: 0.9rem; font-weight: 700;
+            letter-spacing: 1px; text-transform: uppercase;
+            text-decoration: none; cursor: pointer; transition: all 0.3s;
+        }
+        .cta-primary {
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            color: white; border: none;
+            box-shadow: 0 4px 20px rgba(255,51,102,0.3);
+        }
+        .cta-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255,51,102,0.5); }
+        .cta-secondary {
+            background: transparent; color: white;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .cta-secondary:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+
+        footer {
+            position: relative; z-index: 1;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            background: rgba(0,0,0,0.4); padding: 2.5rem 1.5rem;
+            text-align: center;
+        }
+        .footer-inner { max-width: 1200px; margin: 0 auto; }
+        footer p { font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem; }
+        .footer-links { display: flex; justify-content: center; gap: 1rem; }
+        .footer-links a { color: var(--muted); font-size: 1.2rem; transition: color 0.2s; text-decoration: none; }
+        .footer-links a:hover { color: var(--pink); }
+
+        @media (max-width: 768px) {
+            .timeline::before { left: 20px; }
+            .event-card { grid-template-columns: 40px 1fr; grid-template-rows: auto; }
+            .event-card.left .card-content,
+            .event-card.right .card-content { 
+                grid-column: 2; grid-row: 1; 
+                padding-left: 1.5rem; padding-right: 0;
+                text-align: left;
+            }
+            .event-card.left .card-spacer,
+            .event-card.right .card-spacer { grid-column: 1; grid-row: 1; }
+            .card-date { justify-content: flex-start !important; }
+            .tag-row { justify-content: flex-start !important; }
+            .card-expand-btn { justify-content: flex-start !important; }
+            .event-card.left .card-empty,
+            .event-card.right .card-empty { display: none; }
+            .timeline-dot { margin-top: 1.5rem; }
+            .nav-links { display: none; }
+            .finale-inner { padding: 2rem 1.5rem; }
         }
     </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col">
+<body>
 
-    <div class="cosmic-bg"></div>
-    <div class="stars"></div>
+<div id="progress-bar"></div>
+<canvas id="bg-canvas"></canvas>
 
-    <nav class="fixed w-full z-50 glass-card border-b border-white/10 bg-[#0b0717]/80">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <a href="index.html" class="flex items-center gap-2 group">
-                    <img src="logo.png" alt="Icon" class="w-8 h-8 object-contain group-hover:rotate-12 transition-transform" onerror="this.src='https://via.placeholder.com/32/ff3366/ffffff?text=I'">
-                    <span class="font-bold text-xl tracking-wider group-hover:text-pink-400 transition-colors">Inside Roleplay</span>
-                </a>
-                <div class="hidden md:flex space-x-8 text-sm font-medium">
-                    <a href="index.html" class="text-gray-400 hover:text-white transition-colors">Accueil</a>
-                    <a href="Lore.html" class="text-white border-b-2 border-purple-500 pb-1">Lore</a>
-                    <a href="index.html#features" class="text-gray-400 hover:text-white transition-colors">Fonctionnalités</a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">Boutique</a>
-                </div>
-                <div>
-                    <a href="#" class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-md text-sm font-semibold transition flex items-center gap-2">
-                        <i class="fa-brands fa-discord text-[#5865F2]"></i> Se connecter
-                    </a>
-                </div>
-            </div>
+<nav>
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo">
+            <img src="logo.png" alt="Logo" onerror="this.src='https://via.placeholder.com/32/ff3366/ffffff?text=I'">
+            <span>Inside Roleplay</span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Accueil</a>
+            <a href="Lore.html" class="active">Lore</a>
+            <a href="index.html#features">Fonctionnalités</a>
+            <a href="#">Boutique</a>
         </div>
-    </nav>
+        <a href="#" class="nav-btn">
+            <i class="fa-brands fa-discord" style="color:#5865F2"></i> Se connecter
+        </a>
+    </div>
+</nav>
 
-    <header class="pt-32 pb-12 px-4 text-center relative z-10 animate-float">
-        <div class="inline-block px-4 py-1 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-300 text-sm font-bold tracking-widest uppercase mb-6">
-            Les Archives de San Andreas
+<section id="hero">
+    <div class="hero-vignette"></div>
+    <div class="hero-content">
+        <div class="classified-badge">
+            <span>Archives de San Andreas — Dossier Classifié</span>
         </div>
-        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-4 text-transparent bg-clip-text bg-gradient-to-r from-gray-100 to-gray-400">
-            L'EXODE
+        <h1 class="hero-title">
+            <span class="line1">L'</span>
+            <span class="line2">
+                <span class="glitch-wrapper" data-text="EXODE">EXODE</span>
+            </span>
         </h1>
-        <p class="text-xl text-purple-400 tracking-widest font-semibold">INSIDE</p>
-    </header>
+        <p class="hero-sub">INSIDE ROLEPLAY &nbsp;·&nbsp; 1990 — PRÉSENT</p>
+    </div>
+    <div class="scroll-cue" onclick="document.getElementById('chapter-nav').scrollIntoView({behavior:'smooth'})">
+        <span>PARCOURIR</span>
+        <div class="scroll-line"></div>
+    </div>
+</section>
 
-    <main class="flex-grow py-12 px-4 md:px-8 relative z-10">
-        <div class="max-w-5xl mx-auto relative">
-            
-            <div class="absolute left-6 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-purple-600 via-pink-500 to-yellow-500 opacity-30 transform md:-translate-x-1/2 rounded-full"></div>
+<div id="chapter-nav">
+    <div class="chapter-nav-inner">
+        <button class="chap-btn active" onclick="scrollToEvent(0)">
+            <span class="chap-dot" style="background:var(--purple-light)"></span> Années 90
+        </button>
+        <button class="chap-btn" onclick="scrollToEvent(1)">
+            <span class="chap-dot" style="background:var(--pink)"></span> 1995 — L'Épidémie
+        </button>
+        <button class="chap-btn" onclick="scrollToEvent(3)">
+            <span class="chap-dot" style="background:var(--purple-light)"></span> 1997 — Le Mur
+        </button>
+        <button class="chap-btn" onclick="scrollToEvent(4)">
+            <span class="chap-dot" style="background:var(--purple-light)"></span> 1997 — Les Classes
+        </button>
+        <button class="chap-btn" onclick="scrollToEvent(5)">
+            <span class="chap-dot" style="background:var(--pink)"></span> 2000 — Rowlins
+        </button>
+        <button class="chap-btn" onclick="scrollToEvent(6)">
+            <span class="chap-dot" style="background:var(--pink)"></span> 2013 — Attentat
+        </button>
+        <button class="chap-btn" onclick="document.getElementById('finale').scrollIntoView({behavior:'smooth'})">
+            <span class="chap-dot" style="background:var(--gold)"></span> Aujourd'hui
+        </button>
+    </div>
+</div>
 
-            <div class="relative flex flex-col md:flex-row items-center mb-16 md:mb-24">
-                <div class="absolute left-6 md:left-1/2 w-5 h-5 rounded-full bg-purple-400 shadow-[0_0_15px_#7a28cb] transform -translate-x-1/2 border-4 border-[#0b0717]"></div>
-                <div class="w-full md:w-1/2 md:pr-16 pl-16 md:pl-0 text-left md:text-right">
-                    <div class="glass-card p-6 md:p-8 rounded-2xl border-l-4 md:border-l-0 md:border-r-4 border-purple-500 shadow-[0_4px_20px_rgba(122,40,203,0.1)]">
-                        <h3 class="text-2xl font-bold text-white mb-3">DANS LES ANNÉES 90</h3>
-                        <p class="text-gray-300 leading-relaxed text-sm md:text-base">
-                            À San Andreas, une île en pleine croissance, les habitants vivaient dans la paix de l'après-guerre froide. Il y avait beaucoup de commerces dans les rues et de fêtes. Le gouverneur voulait faire en sorte que les habitants oublient les problèmes du passé pour créer une communauté soudée et un futur radieux.
-                        </p>
+<section id="lore-content">
+    <div class="timeline">
+
+        <div class="event-card left" id="event-0">
+            <div class="card-content">
+                <div class="card-inner purple-card">
+                    <div class="card-accent"></div>
+                    <div class="card-body">
+                        <div class="tag-row">
+                            <span class="tag gov">Gouvernement</span>
+                            <span class="tag peup">Peuple</span>
+                        </div>
+                        <div class="card-date purple">
+                            <span class="date-dot" style="background:var(--purple-light)"></span>
+                            ANNÉES 90
+                        </div>
+                        <div class="card-title">L'ÂGE D'OR</div>
+                        <div class="card-preview">
+                            À San Andreas, une île en pleine croissance, les habitants vivaient dans la paix de l'après-guerre froide. Les rues animées, les commerces florissants, une communauté soudée...
+                        </div>
                     </div>
-                </div>
-                <div class="hidden md:block w-1/2"></div>
-            </div>
-
-            <div class="relative flex flex-col md:flex-row items-center mb-16 md:mb-24">
-                <div class="absolute left-6 md:left-1/2 w-5 h-5 rounded-full bg-pink-500 shadow-[0_0_15px_#ff3366] transform -translate-x-1/2 border-4 border-[#0b0717]"></div>
-                <div class="hidden md:block w-1/2"></div>
-                <div class="w-full md:w-1/2 pl-16 md:pl-16 text-left">
-                    <div class="glass-card p-6 md:p-8 rounded-2xl border-l-4 border-pink-500 shadow-[0_4px_20px_rgba(255,51,102,0.1)]">
-                        <h3 class="text-2xl font-bold text-white mb-3">25 NOVEMBRE 1995</h3>
-                        <p class="text-gray-300 leading-relaxed text-sm md:text-base">
-                            Une mystérieuse bactérie rendit l'air irrespirable. La population de Blaine County fut déplacée de force vers Los Santos. L'hôpital était saturé, les soins étaient difficiles d'accès. L'entreprise pharmaceutique et technologique MoTek développa une solution et la mit à disposition de l'hôpital dès que possible, malgré les quantités insuffisantes, laissant de nombreux morts à déplorer.
-                        </p>
+                    <div class="card-expand-btn" onclick="toggleCard(this)">
+                        <span>Lire l'archive complète</span>
+                        <i class="fa-solid fa-chevron-down expand-icon"></i>
                     </div>
-                </div>
-            </div>
-
-            <div class="relative flex flex-col md:flex-row items-center mb-16 md:mb-24">
-                <div class="absolute left-6 md:left-1/2 w-5 h-5 rounded-full bg-purple-400 shadow-[0_0_15px_#7a28cb] transform -translate-x-1/2 border-4 border-[#0b0717]"></div>
-                <div class="w-full md:w-1/2 md:pr-16 pl-16 md:pl-0 text-left md:text-right">
-                    <div class="glass-card p-6 md:p-8 rounded-2xl border-l-4 md:border-l-0 md:border-r-4 border-purple-500">
-                        <h3 class="text-2xl font-bold text-white mb-3">26 NOVEMBRE 1995</h3>
-                        <p class="text-gray-300 leading-relaxed text-sm md:text-base mb-4">
-                            Le Gouverneur, dans un dernier acte de bonté, préféra laisser les médicaments à ses habitants et se sacrifia, mourant des suites de la bactérie le jour même. La responsabilité de Gouverneur fut confiée au Vice-Gouverneur Magnus V. Rowlins.
-                        </p>
-                        <p class="text-gray-300 leading-relaxed text-sm md:text-base mb-4">
-                            Dans le but de développer une protection efficace contre la maladie, le gouvernement et MoTek établirent une alliance pour élaborer une solution pérenne et guérir la population.
-                        </p>
-                        <p class="text-gray-300 leading-relaxed text-sm md:text-base">
-                            Quelques jours plus tard, le Gouverneur mit en place un décret qui condamna le Nord à jamais. Des mouvements de grève et de protestation virent le jour, mais malgré la force du peuple, ils aboutirent rarement de manière positive, laissant place à un climat de peur et d'incompréhension.
-                        </p>
-                    </div>
-                </div>
-                <div class="hidden md:block w-1/2"></div>
-            </div>
-
-            <div class="relative flex flex-col md:flex-row items-center mb-16 md:mb-24">
-                <div class="absolute left-6 md:left-1/2 w-5 h-5 rounded-full bg-pink-500 shadow-[0_0_15px_#ff3366] transform -translate-x-1/2 border-4 border-[#0b0717]"></div>
-                <div class="hidden md:block w-1/2"></div>
-                <div class="w-full md:w-1/2 pl-16 md:pl-16 text-left">
-                    <div class="glass-card p-6 md:p-8 rounded-2xl border-l-4 border-pink-500">
-                        <h3 class="text-2xl font-bold text-white mb-3">2 JANVIER 1997</h3>
-                        <p class="text-gray-300 leading-relaxed text-sm md:text-base">
-                            À l'occasion de l'achèvement de la muraille technologique destinée à contenir la maladie dans le comté de Los Santos, le gouvernement et MoTek scellèrent leur collaboration par une poignée de main symbolique.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="relative flex flex-col md:flex-row items-center mb-16 md:mb-24">
-                <div class="absolute left-6 md:left-1/2 w-5 h-5 rounded-full bg-purple-400 shadow-[0_0_15px_#7a28cb] transform -translate-x-1/2 border-4 border-[#0b0717]"></div>
-                <div class="w-full md:w-1/2 md:pr-16 pl-16 md:pl-0 text-left md:text-right">
-                    <div class="glass-card p-6 md:p-8 rounded-2xl border-l-4 md:border-l-0 md:border-r-4 border-purple-500">
-                        <h3 class="text-2xl font-bold text-white mb-3">7 AOÛT 1997</h3>
-                        <p class="text-gray-300 leading-relaxed text-sm md:text-base">
-                            Par décret, le Gouverneur reconnut officiellement l'existence des diverses classes sociales dans l'État de San Andreas et renforça les mesures de sécurité à l'échelle urbaine. Un an plus tard, un second décret concernant les classes instaura une carte réservée aux membres de l'Élite de Los Santos.
-                        </p>
-                    </div>
-                </div>
-                <div class="hidden md:block w-1/2"></div>
-            </div>
-
-            <div class="relative flex flex-col md:flex-row items-center mb-16 md:mb-24">
-                <div class="absolute left-6 md:left-1/2 w-5 h-5 rounded-full bg-pink-500 shadow-[0_0_15px_#ff3366] transform -translate-x-1/2 border-4 border-[#0b0717]"></div>
-                <div class="hidden md:block w-1/2"></div>
-                <div class="w-full md:w-1/2 pl-16 md:pl-16 text-left">
-                    <div class="glass-card p-6 md:p-8 rounded-2xl border-l-4 border-pink-500">
-                        <h3 class="text-2xl font-bold text-white mb-3">8 JUILLET 2000</h3>
-                        <p class="text-gray-300 leading-relaxed text-sm md:text-base">
-                            Porté par sa gestion jugée exemplaire de la catastrophe, il fut réélu à l'unanimité lors des élections. Dans les jours qui suivirent, il fit adopter un décret bannissant toute diffamation à l'égard du Gouvernement et de son monarque-gouverneur.
-                        </p>
+                    <div class="card-extra">
+                        <p>Le gouverneur de l'époque nourrissait une vision ambitieuse : faire oublier les cicatrices du passé pour bâtir une communauté soudée, un futur radieux pour chaque habitant de San Andreas.</p>
+                        <p>Les fêtes animaient les rues, les commerces prospéraient, et l'optimisme était palpable. Personne ne pouvait imaginer que l'île connaîtrait bientôt ses heures les plus sombres.</p>
                     </div>
                 </div>
             </div>
-
-            <div class="relative flex flex-col md:flex-row items-center mb-16 md:mb-24">
-                <div class="absolute left-6 md:left-1/2 w-5 h-5 rounded-full bg-purple-400 shadow-[0_0_15px_#7a28cb] transform -translate-x-1/2 border-4 border-[#0b0717]"></div>
-                <div class="w-full md:w-1/2 md:pr-16 pl-16 md:pl-0 text-left md:text-right">
-                    <div class="glass-card p-6 md:p-8 rounded-2xl border-l-4 md:border-l-0 md:border-r-4 border-purple-500">
-                        <h3 class="text-2xl font-bold text-white mb-3">2 JANVIER 2013</h3>
-                        <p class="text-gray-300 leading-relaxed text-sm md:text-base mb-4">
-                            Lors du gala du Jour de la Séparation, un groupe d'extrémistes anti-Rowlins tenta de frapper. Grâce à l'intervention du <strong>San Andreas State Police</strong>, l'attentat fut déjoué avant même de se concrétiser. En réaction, le Gouverneur ordonna la création d'une milice privée.
-                        </p>
-                    </div>
-                </div>
-                <div class="hidden md:block w-1/2"></div>
+            <div class="card-spacer">
+                <div class="timeline-dot purple"></div>
             </div>
-
-            <div class="relative flex flex-col md:flex-row items-center">
-                <div class="absolute left-6 md:left-1/2 w-6 h-6 rounded-full bg-yellow-400 shadow-[0_0_20px_#f9d423] transform -translate-x-1/2 border-4 border-[#0b0717] z-10 animate-pulse"></div>
-                <div class="hidden md:block w-1/2"></div>
-                <div class="w-full md:w-1/2 pl-16 md:pl-16 text-left">
-                    <div class="glass-card p-6 md:p-8 rounded-2xl border-l-4 border-yellow-400 shadow-[0_0_30px_rgba(249,212,35,0.15)] relative overflow-hidden">
-                        <div class="absolute top-0 right-0 w-32 h-32 bg-yellow-500/10 blur-2xl rounded-full"></div>
-                        <h3 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-yellow-600 mb-4">AUJOURD'HUI</h3>
-                        <p class="text-gray-300 leading-relaxed text-sm md:text-base mb-4 relative z-10">
-                            Magnus V. Rowlins siège toujours au sommet du pouvoir. Réélu sans faille à chaque mandat, il doit sa longévité à la figure de protecteur qu'il a su entretenir. Et tandis que les inégalités rongent toujours la société et que la peur plane sur San Andreas, beaucoup voient encore en lui le dernier rempart contre le chaos.
-                        </p>
-                        <p class="text-gray-300 leading-relaxed text-sm md:text-base relative z-10">
-                            D'ici quelques semaines, l'État s'apprête à vivre de nouvelles élections gouvernementales, prélude à une atmosphère de tension et d'incertitude. Le calendrier veut que ce moment coïncide avec le Jour de la Séparation. La célébration du grand exode vers le sud, souvenir gravé dans la mémoire du peuple et devenu l'un des piliers de l'âme de la ville.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
+            <div class="card-empty"></div>
         </div>
-    </main>
 
-    <footer class="relative z-10 border-t border-white/10 bg-[#05030a] py-8 text-center text-sm text-gray-500 mt-12">
-        <p>&copy; 2024 Inside Roleplay. Tous droits réservés.</p>
-        <div class="mt-4 flex justify-center gap-4">
-            <a href="#" class="hover:text-pink-400 transition"><i class="fa-brands fa-discord text-xl"></i></a>
-            <a href="#" class="hover:text-pink-400 transition"><i class="fa-brands fa-tiktok text-xl"></i></a>
-            <a href="#" class="hover:text-pink-400 transition"><i class="fa-brands fa-twitter text-xl"></i></a>
+        <div class="event-card right" id="event-1">
+            <div class="card-empty"></div>
+            <div class="card-spacer">
+                <div class="timeline-dot pink"></div>
+            </div>
+            <div class="card-content">
+                <div class="card-inner pink-card">
+                    <div class="card-accent pink"></div>
+                    <div class="card-body">
+                        <div class="tag-row">
+                            <span class="tag corp">MoTek</span>
+                            <span class="tag peup">Peuple</span>
+                        </div>
+                        <div class="card-date pink">
+                            <span class="date-dot" style="background:var(--pink)"></span>
+                            25 NOV. 1995
+                        </div>
+                        <div class="card-title">LA BACTÉRIE</div>
+                        <div class="card-preview">
+                            Une mystérieuse bactérie rendit l'air irrespirable. La population de Blaine County fut déplacée de force vers Los Santos. L'hôpital saturé, les soins inaccessibles...
+                        </div>
+                    </div>
+                    <div class="card-expand-btn" onclick="toggleCard(this)">
+                        <span>Lire l'archive complète</span>
+                        <i class="fa-solid fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="card-extra">
+                        <p>En quelques heures, le comté de Blaine County devint inhabitable. Les évacuations forcées vers Los Santos créèrent une pression insoutenable sur les infrastructures de la ville.</p>
+                        <p>L'entreprise pharmaceutique et technologique <strong>MoTek</strong> développa en urgence une solution et la mit à disposition de l'hôpital, mais les quantités étaient insuffisantes. Les morts se comptèrent par centaines, laissant la population dans un état de choc et de deuil.</p>
+                        <p>Texte classifié : <span class="redact" title="Cliquer pour révéler" onclick="this.classList.toggle('revealed')">L'origine exacte de la bactérie n'a jamais été confirmée par les autorités</span> <span class="redact-tip">[CLIQUER POUR RÉVÉLER]</span></p>
+                    </div>
+                </div>
+            </div>
         </div>
-    </footer>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const timelineEvents = document.querySelectorAll('main .max-w-5xl > div.relative.flex');
-            
-            timelineEvents.forEach((event, index) => {
-                event.classList.add('opacity-0', 'translate-y-12', 'transition-all', 'duration-[800ms]', 'ease-out');
-            });
+        <div class="event-card left" id="event-2">
+            <div class="card-content">
+                <div class="card-inner pink-card">
+                    <div class="card-accent pink"></div>
+                    <div class="card-body">
+                        <div class="tag-row">
+                            <span class="tag gov">Gouvernement</span>
+                        </div>
+                        <div class="card-date pink">
+                            <span class="date-dot" style="background:var(--pink)"></span>
+                            26 NOV. 1995
+                        </div>
+                        <div class="card-title">LA MONTÉE DE ROWLINS</div>
+                        <div class="card-preview">
+                            Le Gouverneur, acte final de bonté, laissa ses médicaments à sa population et succomba à la bactérie. Sa mort ouvrit la voie à un nouveau pouvoir...
+                        </div>
+                    </div>
+                    <div class="card-expand-btn" onclick="toggleCard(this)">
+                        <span>Lire l'archive complète</span>
+                        <i class="fa-solid fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="card-extra">
+                        <p>Dans un ultime acte de sacrifice, le Gouverneur céda ses médicaments à sa population et mourut le jour même des suites de la bactérie. Un geste héroïque qui fut gravé dans les mémoires collectives.</p>
+                        <p>La responsabilité du gouvernorat fut confiée au Vice-Gouverneur <strong>Magnus V. Rowlins</strong>, jusqu'alors dans l'ombre. En une seule nuit, San Andreas avait changé de visage. Pour toujours.</p>
+                        <p>Dans les jours qui suivirent, le gouvernement et MoTek établirent une alliance pour élaborer une solution pérenne contre la maladie.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-spacer">
+                <div class="timeline-dot pink"></div>
+            </div>
+            <div class="card-empty"></div>
+        </div>
 
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.15 
-            };
+        <div class="event-card right" id="event-3">
+            <div class="card-empty"></div>
+            <div class="card-spacer">
+                <div class="timeline-dot purple"></div>
+            </div>
+            <div class="card-content">
+                <div class="card-inner purple-card">
+                    <div class="card-accent"></div>
+                    <div class="card-body">
+                        <div class="tag-row">
+                            <span class="tag gov">Gouvernement</span>
+                            <span class="tag corp">MoTek</span>
+                            <span class="tag mil">Sécurité</span>
+                        </div>
+                        <div class="card-date purple">
+                            <span class="date-dot" style="background:var(--purple-light)"></span>
+                            2 JANV. 1997
+                        </div>
+                        <div class="card-title">LE MUR TECHNOLOGIQUE</div>
+                        <div class="card-preview">
+                            Achèvement de la muraille technologique destinée à contenir la maladie dans le comté de Los Santos. Alliance officielle scellée entre le Gouvernement et MoTek...
+                        </div>
+                    </div>
+                    <div class="card-expand-btn" onclick="toggleCard(this)">
+                        <span>Lire l'archive complète</span>
+                        <i class="fa-solid fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="card-extra">
+                        <p>À l'occasion de l'achèvement de la muraille technologique, le gouvernement et MoTek scellèrent leur collaboration par une poignée de main symbolique devant les caméras du monde entier.</p>
+                        <p>Ce partenariat public-privé suscita de vives critiques parmi la population, qui y voyait une privatisation rampante des fonctions régaliennes de l'État. Des mouvements de grève et de protestation virent le jour, mais aboutirent rarement de manière positive.</p>
+                        <p>Le Gouverneur instaura par décret la condamnation permanente du Nord, laissant place à un climat de peur et d'incompréhension dans l'opinion publique.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.remove('opacity-0', 'translate-y-12');
-                        entry.target.classList.add('opacity-100', 'translate-y-0');
-                        
-                        const dot = entry.target.querySelector('.rounded-full.absolute');
-                        if(dot) {
-                            dot.classList.add('animate-pulse');
-                            setTimeout(() => dot.classList.remove('animate-pulse'), 2000);
-                        }
+        <div class="event-card left" id="event-4">
+            <div class="card-content">
+                <div class="card-inner purple-card">
+                    <div class="card-accent"></div>
+                    <div class="card-body">
+                        <div class="tag-row">
+                            <span class="tag gov">Gouvernement</span>
+                            <span class="tag peup">Classes Sociales</span>
+                        </div>
+                        <div class="card-date purple">
+                            <span class="date-dot" style="background:var(--purple-light)"></span>
+                            7 AOÛT 1997
+                        </div>
+                        <div class="card-title">LA SÉPARATION DES CLASSES</div>
+                        <div class="card-preview">
+                            Par décret, le Gouverneur reconnut officiellement l'existence des diverses classes sociales et renforça les mesures de sécurité. L'Élite reçut sa carte exclusive...
+                        </div>
+                    </div>
+                    <div class="card-expand-btn" onclick="toggleCard(this)">
+                        <span>Lire l'archive complète</span>
+                        <i class="fa-solid fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="card-extra">
+                        <p>Le décret du 7 août institutionnalisa ce qui n'était jusqu'alors qu'une reality de fait : San Andreas était une société à deux vitesses. Les mesures de sécurité urbaine furent renforcées à l'échelle de tout l'État.</p>
+                        <p>Un an plus tard, un second décret instaura une <strong>carte réservée aux membres de l'Élite de Los Santos</strong> — un sésame permettant d'accéder à des services, des zones et des privilèges refusés au reste de la population.</p>
+                        <p>Cette politique d'apartheid social discret marqua le début d'une fracture durable au sein du peuple de San Andreas.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-spacer">
+                <div class="timeline-dot purple"></div>
+            </div>
+            <div class="card-empty"></div>
+        </div>
 
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
+        <div class="event-card right" id="event-5">
+            <div class="card-empty"></div>
+            <div class="card-spacer">
+                <div class="timeline-dot pink"></div>
+            </div>
+            <div class="card-content">
+                <div class="card-inner pink-card">
+                    <div class="card-accent pink"></div>
+                    <div class="card-body">
+                        <div class="tag-row">
+                            <span class="tag gov">Gouvernement</span>
+                        </div>
+                        <div class="card-date pink">
+                            <span class="date-dot" style="background:var(--pink)"></span>
+                            8 JUIL. 2000
+                        </div>
+                        <div class="card-title">L'EMPRISE DU POUVOIR</div>
+                        <div class="card-preview">
+                            Réélu à l'unanimité, porté par sa gestion «&nbsp;exemplaire&nbsp;» de la catastrophe. Dans les jours suivants, un décret bannit toute diffamation à l'égard du Gouvernement...
+                        </div>
+                    </div>
+                    <div class="card-expand-btn" onclick="toggleCard(this)">
+                        <span>Lire l'archive complète</span>
+                        <i class="fa-solid fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="card-extra">
+                        <p>Fort d'une popularité construite sur la peur et le souvenir du chaos de 1995, Magnus V. Rowlins fut réélu à l'unanimité. Ses opposants jugèrent les élections inéquitables ; leurs voix furent rapidement étouffées.</p>
+                        <p>Le décret anti-diffamation fut adopté quelques jours plus tard, bannissant officiellement toute parole ou écrit critiquant le Gouvernement ou son monarque-gouverneur. La presse libre cessa progressivement d'exister.</p>
+                        <p>San Andreas, autrefois île de liberté, s'enfonçait doucement dans une forme de <span class="redact" onclick="this.classList.toggle('revealed')">dictature douce que personne n'osait nommer</span>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            timelineEvents.forEach(event => observer.observe(event));
-        });
-    </script>
+        <div class="event-card left" id="event-6">
+            <div class="card-content">
+                <div class="card-inner pink-card">
+                    <div class="card-accent pink"></div>
+                    <div class="card-body">
+                        <div class="tag-row">
+                            <span class="tag peup">Anti-Rowlins</span>
+                            <span class="tag mil">S.A.S.P.</span>
+                        </div>
+                        <div class="card-date pink">
+                            <span class="date-dot" style="background:var(--pink)"></span>
+                            2 JANV. 2013
+                        </div>
+                        <div class="card-title">L'ATTENTAT DU GALA</div>
+                        <div class="card-preview">
+                            Au gala du Jour de la Séparation, un groupe d'extrémistes anti-Rowlins tenta de frapper. Le <strong>San Andreas State Police</strong> déjoua l'attentat de justesse...
+                        </div>
+                    </div>
+                    <div class="card-expand-btn" onclick="toggleCard(this)">
+                        <span>Lire l'archive complète</span>
+                        <i class="fa-solid fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="card-extra">
+                        <p>Lors du gala célébrant le Jour de la Séparation, moment symbolique fort de l'identité de San Andreas, un groupe d'extrémistes anti-Rowlins tenta de renverser le régime par la violence.</p>
+                        <p>Grâce à l'intervention décisive du <strong>San Andreas State Police</strong>, l'attentat fut déjoué avant même de se concrétiser. L'événement fut largement instrumentalisé par la propagande gouvernementale.</p>
+                        <p>En réaction, le Gouverneur ordonna la création d'une <strong>milice privée</strong> directement rattachée à son cabinet, opérant en dehors des structures légales habituelles. Une force de l'ombre, répondant à un seul homme.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-spacer">
+                <div class="timeline-dot pink"></div>
+            </div>
+            <div class="card-empty"></div>
+        </div>
+
+    </div>
+</section>
+
+<section id="finale">
+    <div class="finale-inner">
+        <div class="finale-glow"></div>
+        <div class="live-badge">
+            <div class="live-dot"></div>
+            SITUATION ACTUELLE
+        </div>
+        <div class="finale-title">AUJOURD'<span>HUI</span></div>
+
+        <div class="rowlins-profile">
+            <div class="profile-avatar">MR</div>
+            <div class="profile-info">
+                <div class="profile-name">Magnus V. Rowlins</div>
+                <div class="profile-role">GOUVERNEUR DE SAN ANDREAS &nbsp;·&nbsp; EN EXERCICE</div>
+                <div class="profile-threat">
+                    <div class="threat-bar">
+                        <div class="threat-pip filled"></div>
+                        <div class="threat-pip filled"></div>
+                        <div class="threat-pip filled"></div>
+                        <div class="threat-pip filled"></div>
+                        <div class="threat-pip"></div>
+                    </div>
+                    <span class="threat-label">NIVEAU DE CONTRÔLE : CRITIQUE</span>
+                </div>
+            </div>
+        </div>
+
+        <p class="finale-text">
+            Magnus V. Rowlins siège toujours au sommet du pouvoir. Réélu sans faille à chaque mandat, il doit sa longévité à la figure de protecteur qu'il a su entretenir. Et tandis que les inégalités rongent toujours la société et que la peur plane sur San Andreas, beaucoup voient encore en lui le dernier rempart contre le chaos.
+        </p>
+        <p class="finale-text">
+            D'ici quelques semaines, l'État s'apprête à vivre de nouvelles <strong style="color:white">élections gouvernementales</strong> — prélude à une atmosphère de tension et d'incertitude. Le calendrier veut que ce moment coïncide avec le Jour de la Séparation, célébration du grand exode vers le sud, souvenir gravé dans la mémoire du peuple.
+        </p>
+
+        <div class="tension-bar" id="tension-bar">
+            <span class="tension-label">TENSION SOCIALE</span>
+            <div class="tension-track">
+                <div class="tension-fill" id="tension-fill"></div>
+            </div>
+            <span class="tension-pct">78%</span>
+        </div>
+
+        <div class="cta-area">
+            <a href="#" class="cta-btn cta-primary">
+                <i class="fa-solid fa-rocket"></i> Rejoindre le Serveur
+            </a>
+            <a href="index.html" class="cta-btn cta-secondary">
+                <i class="fa-solid fa-arrow-left"></i> Retour à l'accueil
+            </a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <p>&copy; 2026 Inside Roleplay. Tous droits réservés.</p>
+        <div class="footer-links">
+            <a href="#"><i class="fa-brands fa-discord"></i></a>
+            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+        </div>
+    </div>
+</footer>
+
+<script>
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let W = canvas.width = window.innerWidth;
+let H = canvas.height = window.innerHeight;
+
+const particles = [];
+const colors = ['rgba(122,40,203,', 'rgba(255,51,102,', 'rgba(249,212,35,'];
+
+for (let i = 0; i < 80; i++) {
+    particles.push({
+        x: Math.random() * W, y: Math.random() * H,
+        r: Math.random() * 1.5 + 0.3,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3 - 0.1,
+        c: colors[Math.floor(Math.random() * colors.length)],
+        a: Math.random() * 0.5 + 0.1
+    });
+}
+
+function drawParticles() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.c + p.a + ')';
+        ctx.fill();
+        p.x += p.vx; p.y += p.vy;
+        if (p.y < -5) { p.y = H + 5; p.x = Math.random() * W; }
+        if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+    });
+    requestAnimationFrame(drawParticles);
+}
+drawParticles();
+window.addEventListener('resize', () => {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+});
+
+window.addEventListener('scroll', () => {
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = (window.scrollY / total) * 100;
+    document.getElementById('progress-bar').style.width = pct + '%';
+});
+
+const cards = document.querySelectorAll('.event-card');
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.15 });
+cards.forEach(c => observer.observe(c));
+
+const tensionObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            document.getElementById('tension-fill').classList.add('animate');
+        }
+    });
+}, { threshold: 0.5 });
+tensionObs.observe(document.getElementById('tension-bar'));
+
+function toggleCard(btn) {
+    const inner = btn.closest('.card-inner');
+    const extra = inner.querySelector('.card-extra');
+    const isOpen = extra.classList.contains('open');
+    inner.classList.toggle('expanded', !isOpen);
+    extra.classList.toggle('open', !isOpen);
+    const span = btn.querySelector('span');
+    span.textContent = isOpen ? 'Lire l\'archive complète' : 'Réduire';
+}
+
+function scrollToEvent(idx) {
+    const el = document.getElementById('event-' + idx);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+const chapBtns = document.querySelectorAll('.chap-btn');
+const allEvents = [...cards, document.getElementById('finale')];
+
+const chapObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            const id = e.target.id;
+            const idx = id === 'finale' ? 6 : parseInt(id.replace('event-',''));
+            chapBtns.forEach((b, i) => b.classList.toggle('active', i === Math.min(idx, 6)));
+        }
+    });
+}, { threshold: 0.5 });
+allEvents.forEach(e => { if(e) chapObs.observe(e); });
+</script>
 </body>
 </html>
