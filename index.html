@@ -4,14 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inside Roleplay | Serveur GTA RP</title>
-    
-    
     <link rel="icon" type="image/png" href="logo.png">
-    
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
     <style>
@@ -32,7 +27,7 @@
         .cosmic-bg {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
-            background: 
+            background:
                 radial-gradient(circle at 50% 30%, rgba(122, 40, 203, 0.2) 0%, transparent 50%),
                 radial-gradient(circle at 80% 80%, rgba(255, 51, 102, 0.15) 0%, transparent 40%);
             z-index: -2;
@@ -52,7 +47,7 @@
         }
 
         @keyframes pulse-glow {
-            0% { filter: drop-shadow(0 0 20px rgba(255, 51, 102, 0.5)); transform: scale(1); }
+            0%   { filter: drop-shadow(0 0 20px rgba(255, 51, 102, 0.5)); transform: scale(1); }
             100% { filter: drop-shadow(0 0 40px rgba(249, 212, 35, 0.6)); transform: scale(1.02); }
         }
 
@@ -95,6 +90,15 @@
             box-shadow: 0 0 25px rgba(122, 40, 203, 0.5);
         }
 
+        .border-glow-red {
+            border: 2px solid rgba(220, 38, 38, 0.4);
+            box-shadow: 0 0 15px rgba(220, 38, 38, 0.2);
+        }
+        .border-glow-red:hover {
+            border-color: rgba(220, 38, 38, 0.8);
+            box-shadow: 0 0 28px rgba(220, 38, 38, 0.55);
+        }
+
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--color-bg); }
         ::-webkit-scrollbar-thumb { background: var(--color-primary); border-radius: 4px; }
@@ -105,6 +109,7 @@
     <div class="cosmic-bg"></div>
     <div class="stars"></div>
 
+    <!-- NAV -->
     <nav class="fixed w-full z-50 glass-card border-b border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
@@ -113,8 +118,9 @@
                     <span class="font-bold text-xl tracking-wider">Inside Roleplay</span>
                 </div>
                 <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-300">
-                    <a href="index.html" class="hover:text-white transition-colors">Accueil</a>
+                    <a href="index.html" class="hover:text-white transition-colors text-white">Accueil</a>
                     <a href="Lore.html" class="hover:text-white transition-colors">Lore</a>
+                    <a href="Reglementill.html" class="hover:text-pink-400 transition-colors">Règlement Illégal</a>
                     <a href="#features" class="hover:text-white transition-colors">Fonctionnalités</a>
                     <a href="#" class="hover:text-white transition-colors">Boutique</a>
                 </div>
@@ -127,14 +133,12 @@
         </div>
     </nav>
 
+    <!-- HERO -->
     <main class="flex-grow pt-24 pb-12 px-4 relative z-10 flex flex-col items-center justify-center text-center">
-        
-        
+
         <div class="mt-10 mb-6 relative">
             <div class="absolute inset-0 blur-3xl opacity-50 bg-gradient-to-r from-pink-500 to-yellow-500 rounded-full"></div>
-            
             <img src="logo.png" alt="Logo Inside Roleplay" class="logo-container relative z-10 w-48 h-48 md:w-64 md:h-64 object-contain select-none" onerror="this.src='https://via.placeholder.com/256/ff3366/ffffff?text=INSIDE'">
-            
             <i class="fa-solid fa-sparkles absolute top-0 -right-4 text-yellow-300 text-xl animate-pulse"></i>
             <i class="fa-solid fa-star absolute bottom-4 -left-8 text-pink-400 text-sm animate-bounce"></i>
         </div>
@@ -145,13 +149,15 @@
         <p class="text-lg md:text-xl text-gray-300 mb-12 max-w-2xl mx-auto uppercase tracking-widest text-sm">
             L'expérience GTA RP
         </p>
-        
+
         <h2 class="text-xl md:text-2xl font-semibold mb-10">
             Une Ville, des Milliers d'Histoires, une Étoile à Suivre.
         </h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto w-full">
-            
+        <!-- CARDS — 2x2 grid on desktop -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto w-full">
+
+            <!-- Rejoindre -->
             <a href="#" class="glass-card border-glow-pink rounded-xl p-8 flex flex-col items-center justify-center group cursor-pointer">
                 <div class="w-16 h-16 rounded-full bg-pink-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-rocket text-3xl text-pink-400"></i>
@@ -160,7 +166,7 @@
                 <p class="text-xs text-gray-400 mt-2">Connecte-toi via FiveM</p>
             </a>
 
-            <!-- Bouton central redirigeant vers le Lore -->
+            <!-- Lore -->
             <a href="Lore.html" class="glass-card border-glow-gold rounded-xl p-8 flex flex-col items-center justify-center group cursor-pointer">
                 <div class="w-16 h-16 rounded-full bg-yellow-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-book-open text-3xl text-yellow-400"></i>
@@ -169,6 +175,7 @@
                 <p class="text-xs text-gray-400 mt-2">Découvre les Archives de San Andreas</p>
             </a>
 
+            <!-- Scripts -->
             <a href="#" class="glass-card border-glow-purple rounded-xl p-8 flex flex-col items-center justify-center group cursor-pointer">
                 <div class="w-16 h-16 rounded-full bg-purple-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-microchip text-3xl text-purple-400"></i>
@@ -177,12 +184,22 @@
                 <p class="text-xs text-gray-400 mt-2">Découvre nos exclusivités</p>
             </a>
 
+            <!-- Règlement Illégal — nouvelle carte -->
+            <a href="Reglementill.html" class="glass-card border-glow-red rounded-xl p-8 flex flex-col items-center justify-center group cursor-pointer">
+                <div class="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-skull text-3xl text-red-400"></i>
+                </div>
+                <h3 class="font-bold text-lg tracking-wider uppercase">Règlement Illégal</h3>
+                <p class="text-xs text-gray-400 mt-2">Lois de la rue & code criminel</p>
+            </a>
+
         </div>
     </main>
 
+    <!-- FEATURES -->
     <section id="features" class="relative z-10 py-16 px-4 border-t border-white/5 bg-black/40 backdrop-blur-sm">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
-            
+
             <div class="flex items-center gap-4">
                 <div class="bg-white/10 p-4 rounded-lg"><i class="fa-solid fa-car text-xl text-pink-400"></i></div>
                 <div>
@@ -218,6 +235,7 @@
         </div>
     </section>
 
+    <!-- FOOTER -->
     <footer class="relative z-10 border-t border-white/10 bg-[#05030a] py-8 text-center text-sm text-gray-500">
         <p>&copy; 2026 Inside Roleplay. Tous droits réservés.</p>
         <div class="mt-4 flex justify-center gap-4">
