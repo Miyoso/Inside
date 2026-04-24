@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inside Roleplay | Petites Frappes & Habitants</title>
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@300;400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0717;--ac:#0e9fb8;--ac2:#22d3ee;--card:rgba(255,255,255,0.025)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:#e8e0f0;overflow-x:hidden}
+.cosmic-bg{position:fixed;top:0;left:0;width:100vw;height:100vh;background:radial-gradient(circle at 25% 30%,rgba(14,159,184,.1) 0%,transparent 50%),radial-gradient(circle at 80% 70%,rgba(122,40,203,.1) 0%,transparent 45%);z-index:-2}
+.stars{background:transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;opacity:.35}
+#pb{position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--ac),var(--ac2));z-index:1000;box-shadow:0 0 8px var(--ac)}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--ac);border-radius:3px}
+nav{position:fixed;width:100%;z-index:100;top:2px;background:rgba(11,7,23,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(14,159,184,.12)}
+.ni{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;height:62px}
+.nl a{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:500;letter-spacing:1.5px;text-decoration:none;color:rgba(255,255,255,.4);transition:color .2s;text-transform:uppercase;margin-left:2rem}
+.nl a:hover{color:#fff}.nl a.active{color:var(--ac2);border-bottom:1.5px solid var(--ac2);padding-bottom:2px}
+.nlogo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
+.nlogo img{width:30px;height:30px;object-fit:contain}
+.nlogo span{font-family:'Bebas Neue',cursive;font-size:1.35rem;letter-spacing:2px}
+.nbtn{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:#fff;padding:.4rem 1rem;border-radius:6px;font-size:.75rem;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:6px;transition:all .2s}
+.nbtn:hover{background:rgba(255,255,255,.14)}
+.hero{padding:120px 1.5rem 50px;text-align:center;position:relative;z-index:1}
+.badge{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(14,159,184,.5);background:rgba(14,159,184,.1);padding:5px 18px;border-radius:2px;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:3px;color:#22d3ee;text-transform:uppercase;margin-bottom:1.2rem;animation:up .8s ease both}
+.badge::before{content:'■';font-size:.4rem;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero h1{font-family:'Bebas Neue',cursive;font-size:clamp(2.5rem,8vw,5.5rem);line-height:.9;letter-spacing:3px;animation:up 1s cubic-bezier(.16,1,.3,1) .15s both}
+.hero h1 span{background:linear-gradient(135deg,#22d3ee,var(--ac));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:4px;color:rgba(255,255,255,.28);text-transform:uppercase;margin-top:.9rem;animation:up .8s ease .45s both}
+.hero-desc{max-width:600px;margin:1.8rem auto 0;background:rgba(14,159,184,.07);border-left:3px solid rgba(14,159,184,.5);padding:.9rem 1.3rem;border-radius:0 8px 8px 0;font-size:.88rem;font-style:italic;color:rgba(255,255,255,.5);animation:up .8s ease .6s both}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+#cnav{position:sticky;top:64px;z-index:90;background:rgba(11,7,23,.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.04);padding:0 1.5rem;overflow-x:auto;white-space:nowrap}
+#cnav::-webkit-scrollbar{height:0}
+.cni{max-width:1200px;margin:0 auto;display:flex}
+.cb{display:inline-flex;align-items:center;gap:7px;padding:.8rem 1.1rem;font-size:.68rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.32);border-bottom:2px solid transparent;cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;transition:all .2s;font-family:'IBM Plex Mono',monospace}
+.cb:hover{color:#fff}.cb.active{color:var(--ac2);border-bottom-color:var(--ac2)}
+.wrap{max-width:880px;margin:0 auto;padding:2.5rem 1.5rem 6rem;position:relative;z-index:1}
+.sa{scroll-margin-top:130px}
+.sh{display:flex;align-items:center;gap:12px;margin-bottom:1.3rem;padding-bottom:.9rem;border-bottom:1px solid rgba(14,159,184,.2)}
+.sn{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#000;width:34px;height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.95rem;flex-shrink:0;font-family:'Bebas Neue',cursive}
+.sh h3{font-size:1.1rem;font-weight:600;color:#fff}
+.card{background:var(--card);backdrop-filter:blur(12px);border:1px solid rgba(14,159,184,.1);border-radius:14px;padding:1.8rem;margin-bottom:1.3rem;transition:border-color .3s,box-shadow .3s}
+.card:hover{border-color:rgba(14,159,184,.3);box-shadow:0 0 24px rgba(14,159,184,.07)}
+.ri{display:flex;align-items:flex-start;gap:11px;padding:.7rem 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.ri:last-child{border-bottom:none;padding-bottom:0}.ri:first-child{padding-top:0}
+.ric{flex-shrink:0;margin-top:3px;color:var(--ac2);font-size:.8rem;width:14px;text-align:center}
+.rt{font-size:.87rem;line-height:1.65;color:rgba(232,224,240,.78)}
+.rt strong{color:#fff;font-weight:600}.rt em{color:rgba(255,255,255,.32);font-size:.8rem}
+.warn{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.22);border-radius:10px;padding:.9rem 1.1rem;margin-top:.9rem;font-size:.82rem;color:rgba(255,255,255,.55);display:flex;gap:9px;align-items:flex-start}
+.warn i{color:#f87171;flex-shrink:0;margin-top:2px}
+.info-box{background:rgba(14,159,184,.08);border:1px solid rgba(14,159,184,.25);border-radius:10px;padding:.9rem 1.1rem;font-size:.82rem;color:rgba(255,255,255,.55);display:flex;gap:9px;align-items:flex-start}
+.info-box i{color:#22d3ee;flex-shrink:0;margin-top:2px}
+.stat-row{display:flex;gap:1rem;margin-bottom:1.3rem;flex-wrap:wrap}
+.stat{flex:1;min-width:120px;background:rgba(14,159,184,.08);border:1px solid rgba(14,159,184,.2);border-radius:10px;padding:1rem;text-align:center}
+.stat-val{font-family:'Bebas Neue',cursive;font-size:2.5rem;color:var(--ac2);line-height:1}
+.stat-label{font-size:.68rem;color:rgba(255,255,255,.35);font-family:'IBM Plex Mono',monospace;letter-spacing:1.5px;text-transform:uppercase;margin-top:.3rem}
+.apply{background:rgba(14,159,184,.07);border:1px solid rgba(14,159,184,.22);border-radius:14px;padding:2rem;text-align:center;margin-top:2.5rem}
+.apply h3{font-size:1rem;font-weight:600;color:#fff;margin-bottom:.75rem}
+.apply p{font-size:.85rem;color:rgba(232,224,240,.55);line-height:1.7;max-width:500px;margin:0 auto}
+.ctas{display:flex;gap:.8rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:.65rem 1.4rem;border-radius:7px;font-size:.78rem;font-weight:700;text-decoration:none;letter-spacing:.5px;transition:all .2s;text-transform:uppercase}
+.btn-ac{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#000}
+.btn-ac:hover{opacity:.85;transform:translateY(-2px)}
+.btn-ghost{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.65)}
+.btn-ghost:hover{background:rgba(255,255,255,.12);color:#fff}
+footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.06);background:rgba(5,3,10,.8);padding:1.8rem;text-align:center}
+footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
+.fl{display:flex;justify-content:center;gap:1.1rem;margin-top:.9rem}
+.fl a{color:rgba(255,255,255,.22);transition:color .2s;font-size:1.05rem}.fl a:hover{color:var(--ac2)}
+</style>
+</head>
+<body>
+<div class="cosmic-bg"></div><div class="stars"></div><div id="pb"></div>
+<nav>
+  <div class="ni">
+    <a href="index.html" class="nlogo"><img src="logo.png" alt="" onerror="this.src='https://via.placeholder.com/30/0e9fb8/000?text=I'"><span>Inside Roleplay</span></a>
+    <div class="nl">
+      <a href="index.html">Accueil</a><a href="Lore.html">Lore</a>
+      <a href="Reglementill.html">Règl. Illégal</a><a href="justice.html">Justice</a>
+      <a href="gangorga.html">Gangs & Orga</a>
+      <a href="petitesfrappes.html" class="active">PF & Habitants</a>
+      <a href="entreprise.html">Entreprise</a>
+    </div>
+    <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener" class="nbtn"><i class="fa-brands fa-discord" style="color:#5865F2"></i> Discord</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="badge">🧨 Règlement Intérieur · InsideRP</div>
+  <h1>PETITES FRAPPES<br><span>& HABITANTS</span></h1>
+  <p class="hero-sub">Débuter dans la rue · InsideRP · 2026</p>
+  <p class="hero-desc">Votre discrétion est votre meilleure arme. Développez votre réseau et construisez votre réputation avant de vouloir frapper trop haut.</p>
+</div>
+
+<div id="cnav"><div class="cni">
+  <button class="cb active" onclick="jumpTo('s1')"><i class="fa-solid fa-id-badge fa-xs"></i> Accès & Statut</button>
+  <button class="cb" onclick="jumpTo('s2')"><i class="fa-solid fa-users fa-xs"></i> Effectifs</button>
+  <button class="cb" onclick="jumpTo('s3')"><i class="fa-solid fa-car fa-xs"></i> Déplacements</button>
+  <button class="cb" onclick="jumpTo('s4')"><i class="fa-solid fa-box fa-xs"></i> Activités</button>
+</div></div>
+
+<div class="wrap">
+
+  <div id="s1" class="sa"><div class="card">
+    <div class="sh"><div class="sn">1</div><h3>Identité & Accès au Statut</h3></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-bolt"></i></div><div class="rt"><strong>Petite Frappe :</strong> Groupe illégal restreint pouvant se former <strong>sans dossier de candidature</strong>. Accès simplifié pour débuter.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-house-chimney-user"></i></div><div class="rt"><strong>Habitant :</strong> Personne résidant dans le quartier d'un gang. Le statut est validé uniquement par le <strong>Gang local</strong> — il ne s'obtient pas seul.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-arrow-trend-up"></i></div><div class="rt"><strong>Évolution :</strong> Ce statut est une <em>phase de test</em>. Un comportement irréprochable vis-à-vis du règlement est attendu pour prétendre à un projet officiel.</div></div>
+  </div></div>
+
+  <div id="s2" class="sa">
+    <div class="stat-row">
+      <div class="stat"><div class="stat-val">8</div><div class="stat-label">Membres PF max</div></div>
+      <div class="stat"><div class="stat-val">4</div><div class="stat-label">Habitants max/quartier</div></div>
+    </div>
+    <div class="card">
+    <div class="sh"><div class="sn">2</div><h3>Vie de Groupe & Effectifs</h3></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-users"></i></div><div class="rt"><strong>Limite Petite Frappe :</strong> <strong>8 membres</strong> maximum.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-house-user"></i></div><div class="rt"><strong>Limite Habitants :</strong> <strong>4 personnes</strong> maximum par quartier.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Gestion :</strong> Interdiction des slots AFK. Tout licenciement (kick) doit être justifié par une scène RP cohérente.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-skull-crossbones"></i></div><div class="rt"><strong>Mort RP :</strong> Les leads de petites frappes, bien que non-officiels, restent soumis à validation du <strong>Pôle Illégal</strong> pour une Mort RP.</div></div>
+  </div></div>
+
+  <div id="s3" class="sa">
+    <div class="stat-row">
+      <div class="stat"><div class="stat-val">3</div><div class="stat-label">Véhicules max (convoi)</div></div>
+      <div class="stat"><div class="stat-val">3</div><div class="stat-label">Personnes min/véhicule armé</div></div>
+    </div>
+    <div class="card">
+    <div class="sh"><div class="sn">3</div><h3>Déplacements & Convois</h3></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-car-side"></i></div><div class="rt"><strong>Capacité convoi :</strong> Limité à <strong>3 véhicules maximum</strong> pour tout déplacement de groupe.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-users"></i></div><div class="rt"><strong>Occupation :</strong> Obligation d'être au minimum <strong>3 personnes par véhicule</strong> pour tout déplacement armé.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-motorcycle"></i></div><div class="rt"><strong>Motos :</strong> Interdiction totale de braquer ou vendre de la drogue à moto. <em>Récupération d'un complice autorisée uniquement après un délai raisonnable post-braquage.</em></div></div>
+  </div></div>
+
+  <div id="s4" class="sa"><div class="card">
+    <div class="sh"><div class="sn">4</div><h3>Activités Illégales & Commerce</h3></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-landmark"></i></div><div class="rt"><strong>Braquages :</strong> Limité à <strong>un seul braquage de Fleeca</strong> par semaine pour l'ensemble du groupe.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-map-location-dot"></i></div><div class="rt"><strong>Territoires :</strong> Les petites frappes ne possèdent <strong>pas de territoire propre</strong>. Toute attaque sur une zone officielle doit être validée par le <strong>Pôle Illégal</strong>.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-handshake-slash"></i></div><div class="rt"><strong>Alliances :</strong> Aucune alliance de combat n'est autorisée. Vos actions doivent être menées de manière <strong>autonome</strong>.</div></div>
+    <div class="info-box"><i class="fa-solid fa-lightbulb"></i><div>Ne cherchez pas à égaler la puissance de feu des Gangs ou Orgas. Privilégiez des scènes de "petits délits" et développez votre réseau avant de vouloir frapper trop haut.</div></div>
+  </div></div>
+
+  <div class="apply">
+    <h3>⚠️ Surveillance Active du Pôle Illégal</h3>
+    <p>Le Pôle Illégal surveille activement les groupes non-officiels. <strong>Tout abus entraînera une dissolution immédiate sans recours.</strong></p>
+    <div class="ctas">
+      <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener" class="btn btn-ac"><i class="fa-brands fa-discord"></i> Rejoindre le Discord</a>
+      <a href="index.html" class="btn btn-ghost"><i class="fa-solid fa-arrow-left"></i> Retour Accueil</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>Le Pôle Illégal se réserve le droit d'ajuster ce règlement pour maintenir l'équilibre du serveur.</p>
+  <p>&copy; 2026 Inside Roleplay. Tous droits réservés.</p>
+  <div class="fl">
+    <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener"><i class="fa-brands fa-discord"></i></a>
+    <a href="https://www.tiktok.com/@insiderpfr" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok"></i></a>
+    <a href="https://x.com/insiderpfr" target="_blank" rel="noopener"><i class="fa-brands fa-x-twitter"></i></a>
+    <a href="https://www.youtube.com/@inside-roleplay" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i></a>
+  </div>
+</footer>
+<script>
+window.addEventListener('scroll',()=>{const t=document.documentElement.scrollHeight-window.innerHeight;document.getElementById('pb').style.width=(window.scrollY/t*100)+'%'});
+function jumpTo(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'})}
+const secs=['s1','s2','s3','s4'],cbs=document.querySelectorAll('.cb');
+const ob=new IntersectionObserver(e=>{e.forEach(ev=>{if(ev.isIntersecting){const i=secs.indexOf(ev.target.id);if(i!==-1)cbs.forEach((b,j)=>b.classList.toggle('active',i===j))}})},{threshold:.4});
+secs.forEach(id=>{const el=document.getElementById(id);if(el)ob.observe(el)});
+</script>
+</body>
+</html>

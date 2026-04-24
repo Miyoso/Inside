@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inside Roleplay | Entreprise & Économie</title>
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@300;400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0717;--ac:#16a34a;--ac2:#4ade80;--card:rgba(255,255,255,0.025)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:#e8e0f0;overflow-x:hidden}
+.cosmic-bg{position:fixed;top:0;left:0;width:100vw;height:100vh;background:radial-gradient(circle at 30% 25%,rgba(22,163,74,.09) 0%,transparent 50%),radial-gradient(circle at 75% 70%,rgba(122,40,203,.1) 0%,transparent 45%);z-index:-2}
+.stars{background:transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;opacity:.35}
+#pb{position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--ac),var(--ac2));z-index:1000;box-shadow:0 0 8px var(--ac)}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--ac);border-radius:3px}
+nav{position:fixed;width:100%;z-index:100;top:2px;background:rgba(11,7,23,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(22,163,74,.12)}
+.ni{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;height:62px}
+.nl a{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:500;letter-spacing:1.5px;text-decoration:none;color:rgba(255,255,255,.4);transition:color .2s;text-transform:uppercase;margin-left:2rem}
+.nl a:hover{color:#fff}.nl a.active{color:var(--ac2);border-bottom:1.5px solid var(--ac2);padding-bottom:2px}
+.nlogo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
+.nlogo img{width:30px;height:30px;object-fit:contain}
+.nlogo span{font-family:'Bebas Neue',cursive;font-size:1.35rem;letter-spacing:2px}
+.nbtn{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:#fff;padding:.4rem 1rem;border-radius:6px;font-size:.75rem;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:6px;transition:all .2s}
+.nbtn:hover{background:rgba(255,255,255,.14)}
+.hero{padding:120px 1.5rem 50px;text-align:center;position:relative;z-index:1}
+.badge{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(22,163,74,.5);background:rgba(22,163,74,.1);padding:5px 18px;border-radius:2px;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:3px;color:#4ade80;text-transform:uppercase;margin-bottom:1.2rem;animation:up .8s ease both}
+.badge::before{content:'■';font-size:.4rem;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero h1{font-family:'Bebas Neue',cursive;font-size:clamp(2.5rem,8vw,5.5rem);line-height:.9;letter-spacing:3px;animation:up 1s cubic-bezier(.16,1,.3,1) .15s both}
+.hero h1 span{background:linear-gradient(135deg,#4ade80,#22d3ee);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:4px;color:rgba(255,255,255,.28);text-transform:uppercase;margin-top:.9rem;animation:up .8s ease .45s both}
+.hero-desc{max-width:600px;margin:1.8rem auto 0;background:rgba(22,163,74,.07);border-left:3px solid rgba(22,163,74,.5);padding:.9rem 1.3rem;border-radius:0 8px 8px 0;font-size:.88rem;font-style:italic;color:rgba(255,255,255,.5);animation:up .8s ease .6s both}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+#cnav{position:sticky;top:64px;z-index:90;background:rgba(11,7,23,.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.04);padding:0 1.5rem;overflow-x:auto;white-space:nowrap}
+#cnav::-webkit-scrollbar{height:0}
+.cni{max-width:1200px;margin:0 auto;display:flex}
+.cb{display:inline-flex;align-items:center;gap:7px;padding:.8rem 1.1rem;font-size:.68rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.32);border-bottom:2px solid transparent;cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;transition:all .2s;font-family:'IBM Plex Mono',monospace}
+.cb:hover{color:#fff}.cb.active{color:var(--ac2);border-bottom-color:var(--ac2)}
+.wrap{max-width:880px;margin:0 auto;padding:2.5rem 1.5rem 6rem;position:relative;z-index:1}
+.sa{scroll-margin-top:130px}
+.sh{display:flex;align-items:center;gap:12px;margin-bottom:1.3rem;padding-bottom:.9rem;border-bottom:1px solid rgba(22,163,74,.2)}
+.sn{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#000;width:34px;height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.95rem;flex-shrink:0;font-family:'Bebas Neue',cursive}
+.sh h3{font-size:1.1rem;font-weight:600;color:#fff}
+.card{background:var(--card);backdrop-filter:blur(12px);border:1px solid rgba(22,163,74,.1);border-radius:14px;padding:1.8rem;margin-bottom:1.3rem;transition:border-color .3s,box-shadow .3s}
+.card:hover{border-color:rgba(22,163,74,.28);box-shadow:0 0 24px rgba(22,163,74,.06)}
+.ri{display:flex;align-items:flex-start;gap:11px;padding:.7rem 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.ri:last-child{border-bottom:none;padding-bottom:0}.ri:first-child{padding-top:0}
+.ric{flex-shrink:0;margin-top:3px;color:var(--ac2);font-size:.8rem;width:14px;text-align:center}
+.rt{font-size:.87rem;line-height:1.65;color:rgba(232,224,240,.78)}
+.rt strong{color:#fff;font-weight:600}.rt em{color:rgba(255,255,255,.32);font-size:.8rem}
+.warn{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.22);border-radius:10px;padding:.9rem 1.1rem;margin-top:.9rem;font-size:.82rem;color:rgba(255,255,255,.55);display:flex;gap:9px;align-items:flex-start}
+.warn i{color:#f87171;flex-shrink:0;margin-top:2px}
+.info-box{background:rgba(22,163,74,.08);border:1px solid rgba(22,163,74,.25);border-radius:10px;padding:.9rem 1.1rem;margin-top:.9rem;font-size:.82rem;color:rgba(255,255,255,.55);display:flex;gap:9px;align-items:flex-start}
+.info-box i{color:#4ade80;flex-shrink:0;margin-top:2px}
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;margin-top:.8rem}
+.tbl th{font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);font-family:'IBM Plex Mono',monospace;padding:.6rem .8rem;border-bottom:1px solid rgba(255,255,255,.08);text-align:left}
+.tbl td{padding:.6rem .8rem;font-size:.82rem;border-bottom:1px solid rgba(255,255,255,.04);color:rgba(232,224,240,.72)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl td:first-child{font-weight:600;color:rgba(255,255,255,.85)}
+.tbl td strong{color:#fff}
+/* HIERARCHY */
+.hier{display:flex;flex-direction:column;gap:.4rem;margin-top:.5rem}
+.hier-item{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:.6rem 1rem}
+.hier-num{width:22px;height:22px;background:linear-gradient(135deg,var(--ac),var(--ac2));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:800;color:#000;flex-shrink:0}
+.hier-item span{font-size:.83rem;color:rgba(232,224,240,.78)}
+.hier-item span strong{color:#fff}
+/* SANCTION STEPS */
+.steps{display:flex;flex-direction:column;gap:.5rem;margin-top:.5rem}
+.step{display:flex;gap:12px;align-items:flex-start;padding:.7rem .9rem;border-radius:8px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05)}
+.step-n{font-family:'Bebas Neue',cursive;font-size:1.2rem;color:var(--ac2);width:20px;flex-shrink:0;line-height:1;margin-top:2px}
+.step-text strong{display:block;font-size:.83rem;color:#fff;margin-bottom:1px}
+.step-text span{font-size:.77rem;color:rgba(255,255,255,.35)}
+.apply{background:rgba(22,163,74,.07);border:1px solid rgba(22,163,74,.22);border-radius:14px;padding:2rem;text-align:center;margin-top:2.5rem}
+.apply h3{font-size:1rem;font-weight:600;color:#fff;margin-bottom:.75rem}
+.apply p{font-size:.85rem;color:rgba(232,224,240,.55);line-height:1.7;max-width:500px;margin:0 auto}
+.ctas{display:flex;gap:.8rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:.65rem 1.4rem;border-radius:7px;font-size:.78rem;font-weight:700;text-decoration:none;letter-spacing:.5px;transition:all .2s;text-transform:uppercase}
+.btn-ac{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#000}
+.btn-ac:hover{opacity:.85;transform:translateY(-2px)}
+.btn-ghost{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.65)}
+.btn-ghost:hover{background:rgba(255,255,255,.12);color:#fff}
+footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.06);background:rgba(5,3,10,.8);padding:1.8rem;text-align:center}
+footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
+.fl{display:flex;justify-content:center;gap:1.1rem;margin-top:.9rem}
+.fl a{color:rgba(255,255,255,.22);transition:color .2s;font-size:1.05rem}.fl a:hover{color:var(--ac2)}
+</style>
+</head>
+<body>
+<div class="cosmic-bg"></div><div class="stars"></div><div id="pb"></div>
+<nav>
+  <div class="ni">
+    <a href="index.html" class="nlogo"><img src="logo.png" alt="" onerror="this.src='https://via.placeholder.com/30/16a34a/fff?text=I'"><span>Inside Roleplay</span></a>
+    <div class="nl">
+      <a href="index.html">Accueil</a><a href="Lore.html">Lore</a>
+      <a href="Reglementill.html">Règl. Illégal</a><a href="justice.html">Justice</a>
+      <a href="gangorga.html">Gangs & Orga</a>
+      <a href="petitesfrappes.html">PF & Habitants</a>
+      <a href="entreprise.html" class="active">Entreprise</a>
+    </div>
+    <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener" class="nbtn"><i class="fa-brands fa-discord" style="color:#5865F2"></i> Discord</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="badge">🏢 Guide Officiel · InsideRP</div>
+  <h1>ENTREPRISE &<br><span>ÉCONOMIE</span></h1>
+  <p class="hero-sub">Commerce · Droit du Travail · Fiscalité · 2026</p>
+  <p class="hero-desc">Guide de référence pour la gestion, l'exploitation et les règles économiques des entreprises sur le serveur InsideRP.</p>
+</div>
+
+<div id="cnav"><div class="cni">
+  <button class="cb active" onclick="jumpTo('s1')"><i class="fa-solid fa-file-contract fa-xs"></i> Droit Travail</button>
+  <button class="cb" onclick="jumpTo('s2')"><i class="fa-solid fa-coins fa-xs"></i> Rémunération</button>
+  <button class="cb" onclick="jumpTo('s3')"><i class="fa-solid fa-chart-bar fa-xs"></i> Secteurs</button>
+  <button class="cb" onclick="jumpTo('s4')"><i class="fa-solid fa-building fa-xs"></i> Création</button>
+  <button class="cb" onclick="jumpTo('s5')"><i class="fa-solid fa-scale-balanced fa-xs"></i> Sanctions</button>
+  <button class="cb" onclick="jumpTo('s6')"><i class="fa-solid fa-landmark fa-xs"></i> IRS</button>
+</div></div>
+
+<div class="wrap">
+
+  <div id="s1" class="sa"><div class="card">
+    <div class="sh"><div class="sn">I</div><h3>Droit du Travail</h3></div>
+    <p style="font-size:.82rem;color:rgba(255,255,255,.35);font-family:'IBM Plex Mono',monospace;margin-bottom:1.2rem;letter-spacing:.5px">Tous les employés doivent être engagés via un contrat réalisé par un <strong style="color:rgba(255,255,255,.6)">avocat</strong>.</p>
+    <div class="hier" style="margin-bottom:1.2rem">
+      <p style="font-size:.68rem;color:rgba(255,255,255,.28);font-family:'IBM Plex Mono',monospace;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:.4rem">Hiérarchie (max 3 dirigeants)</p>
+      <div class="hier-item"><div class="hier-num">1</div><span><strong>Patron</strong> — 1 poste maximum</span></div>
+      <div class="hier-item"><div class="hier-num">2</div><span><strong>Co-patron</strong> — 1 poste maximum</span></div>
+      <div class="hier-item"><div class="hier-num">3</div><span><strong>DRH</strong> — 1 poste maximum</span></div>
+      <div class="hier-item"><div class="hier-num">4</div><span><strong>Employés</strong> — Effectif variable selon secteur</span></div>
+    </div>
+    <table class="tbl">
+      <thead><tr><th>Type de Contrat</th><th>Durée d'essai</th><th>Rupture (licenciement)</th><th>Rupture (démission)</th></tr></thead>
+      <tbody>
+        <tr><td>CDD &lt; 7 jours</td><td>1 journée</td><td>Préavis 3 jours</td><td>Préavis 24h min</td></tr>
+        <tr><td>CDD &gt; 7 jours</td><td>1 semaine</td><td>Préavis 7 jours</td><td>Préavis 3 jours</td></tr>
+        <tr><td>CDI</td><td>1 semaine</td><td>Faute grave = sans préavis</td><td>—</td></tr>
+      </tbody>
+    </table>
+    <div class="info-box" style="margin-top:1rem"><i class="fa-solid fa-circle-info"></i><div>Un employé absent plus d'une semaine sans justification peut être licencié pour abandon de poste. Durant la période d'essai, la rupture est simplifiée et immédiate.</div></div>
+  </div></div>
+
+  <div id="s2" class="sa"><div class="card">
+    <div class="sh"><div class="sn">II</div><h3>Rémunération & Fiscalité</h3></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-clock"></i></div><div class="rt"><strong>Salaires :</strong> Versés automatiquement toutes les <strong>15 minutes</strong>. Le complément (primes/heures sup) est payé le dimanche ou lundi suivant.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-receipt"></i></div><div class="rt"><strong>Facturation :</strong> Obligation d'utiliser le <strong>système F1</strong> pour assurer le paiement des taxes. Les virements par <em>RIB</em> sont réservés aux transactions B2B (entre entreprises).</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-building-columns"></i></div><div class="rt"><strong>IRS (Internal Revenue Service) :</strong> Organisme chargé de la perception des impôts, des audits comptables et de la lutte contre la fraude et le blanchiment.</div></div>
+  </div></div>
+
+  <div id="s3" class="sa"><div class="card">
+    <div class="sh"><div class="sn">III</div><h3>Spécificités par Secteur</h3></div>
+    <table class="tbl" style="margin-bottom:1.2rem">
+      <thead><tr><th>Type d'entreprise</th><th>Limite Employés</th><th>Total (Direction)</th></tr></thead>
+      <tbody>
+        <tr><td>Restaurants</td><td>15</td><td>18</td></tr>
+        <tr><td>Bars / Night-Clubs</td><td>20</td><td>23</td></tr>
+        <tr><td>LTD (Supérettes)</td><td>10</td><td>13</td></tr>
+        <tr><td>Garages</td><td>15</td><td>18</td></tr>
+      </tbody>
+    </table>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-utensils"></i></div><div class="rt"><strong>Restauration & Bars :</strong> Maximum <strong>15 articles</strong> au menu.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-key"></i></div><div class="rt"><strong>Immobilier (Dynasty 8) :</strong> Uniquement de la location (vente réservée aux MLO). Entrées obligatoirement au rez-de-chaussée.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-car"></i></div><div class="rt"><strong>Concessionnaire :</strong> Tarification par catégorie (Compact, Sport, Super, etc.).</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-camera"></i></div><div class="rt"><strong>Médias :</strong> Prestations variées (articles, clips, publicités). Validation Staff requise pour les gros projets.</div></div>
+  </div></div>
+
+  <div id="s4" class="sa"><div class="card">
+    <div class="sh"><div class="sn">IV</div><h3>Création & Gestion d'Entreprise</h3></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-folder-open"></i></div><div class="rt"><strong>Dossier de candidature :</strong> Identité visuelle et activité, grille tarifaire concurrentielle, demande de flotte de véhicules (cohérence RP obligatoire). Format : <em>GDoc ou Canva</em>.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-people-arrows"></i></div><div class="rt"><strong>Partenariats :</strong> Rédigés par avocat. <strong>Rabais max : 20%.</strong></div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-calendar-star"></i></div><div class="rt"><strong>Événements :</strong> Lors de soirées spéciales, les prix doivent être réduits d'environ <strong>20%</strong>.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-bullhorn"></i></div><div class="rt"><strong>Publicité :</strong> Utilisation du <em>/advert</em> avec un délai de <strong>5 minutes</strong> entre chaque annonce.</div></div>
+  </div></div>
+
+  <div id="s5" class="sa"><div class="card">
+    <div class="sh"><div class="sn">V</div><h3>Règlement Intérieur & Sanctions</h3></div>
+    <p style="font-size:.82rem;color:rgba(255,255,255,.38);font-family:'IBM Plex Mono',monospace;margin-bottom:1.2rem;letter-spacing:.5px">Chaque patron doit rédiger un règlement intérieur. En cas de manquement :</p>
+    <div class="steps">
+      <div class="step"><div class="step-n">1</div><div class="step-text"><strong>Avertissement verbal</strong><span>Rappel à l'ordre simple</span></div></div>
+      <div class="step"><div class="step-n">2</div><div class="step-text"><strong>Avertissement écrit</strong><span>Trace permanente au dossier</span></div></div>
+      <div class="step"><div class="step-n">3</div><div class="step-text"><strong>Blâme</strong><span>Dernier avertissement avant mise à pied</span></div></div>
+      <div class="step"><div class="step-n">4</div><div class="step-text"><strong>Mise à pied temporaire</strong><span>Suspension sans solde</span></div></div>
+      <div class="step"><div class="step-n">5</div><div class="step-text"><strong>Licenciement</strong><span>Rupture définitive du contrat</span></div></div>
+    </div>
+    <div class="warn" style="margin-top:1rem"><i class="fa-solid fa-triangle-exclamation"></i><div><strong>Pressions criminelles :</strong> Les entreprises peuvent être soumises à des demandes de "protection" par des groupes illégaux. Le non-paiement peut entraîner des sabotages ou des menaces RP.</div></div>
+  </div></div>
+
+  <div id="s6" class="sa"><div class="card">
+    <div class="sh"><div class="sn">VI</div><h3>L'IRS : Missions & Sanctions</h3></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-magnifying-glass-chart"></i></div><div class="rt">L'IRS assure la <strong>transparence financière</strong> sur le serveur. En cas de fraude ou de non-respect fiscal :</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-gavel"></i></div><div class="rt"><strong>Amendes</strong> proportionnelles au préjudice causé.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-building-lock"></i></div><div class="rt"><strong>Saisies d'actifs</strong> ou de l'entreprise elle-même.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-power-off"></i></div><div class="rt"><strong>Mise à l'arrêt temporaire</strong> de l'activité (Licence d'Exploitation).</div></div>
+    <div class="info-box"><i class="fa-solid fa-circle-info"></i><div>Ce guide est évolutif et peut être mis à jour selon l'économie globale du serveur.</div></div>
+  </div></div>
+
+  <div class="apply">
+    <h3>🏢 Ouvrir votre Entreprise</h3>
+    <p>Prêt à lancer votre activité ? Déposez votre dossier sur le Discord et contactez le Staff pour validation.</p>
+    <div class="ctas">
+      <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener" class="btn btn-ac"><i class="fa-brands fa-discord"></i> Déposer mon dossier</a>
+      <a href="index.html" class="btn btn-ghost"><i class="fa-solid fa-arrow-left"></i> Retour Accueil</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>Ce guide est évolutif et peut être mis à jour selon l'économie globale du serveur.</p>
+  <p>&copy; 2026 Inside Roleplay. Tous droits réservés.</p>
+  <div class="fl">
+    <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener"><i class="fa-brands fa-discord"></i></a>
+    <a href="https://www.tiktok.com/@insiderpfr" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok"></i></a>
+    <a href="https://x.com/insiderpfr" target="_blank" rel="noopener"><i class="fa-brands fa-x-twitter"></i></a>
+    <a href="https://www.youtube.com/@inside-roleplay" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i></a>
+  </div>
+</footer>
+<script>
+window.addEventListener('scroll',()=>{const t=document.documentElement.scrollHeight-window.innerHeight;document.getElementById('pb').style.width=(window.scrollY/t*100)+'%'});
+function jumpTo(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'})}
+const secs=['s1','s2','s3','s4','s5','s6'],cbs=document.querySelectorAll('.cb');
+const ob=new IntersectionObserver(e=>{e.forEach(ev=>{if(ev.isIntersecting){const i=secs.indexOf(ev.target.id);if(i!==-1)cbs.forEach((b,j)=>b.classList.toggle('active',i===j))}})},{threshold:.4});
+secs.forEach(id=>{const el=document.getElementById(id);if(el)ob.observe(el)});
+</script>
+</body>
+</html>

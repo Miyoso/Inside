@@ -1,708 +1,213 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inside Roleplay | Règlement Illégal</title>
-    <link rel="icon" type="image/png" href="logo.png">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --color-bg:      #0b0717;
-            --color-card:    rgba(255,255,255,0.03);
-            --color-primary: #ff3366;
-            --color-red:     #dc2626;
-            --color-gold:    #f9d423;
-            --color-purple:  #7a28cb;
-            --color-border:  rgba(255,255,255,0.07);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--color-bg);
-            color: #e8e0f0;
-            overflow-x: hidden;
-        }
-
-        /* ── Background ── */
-        .cosmic-bg {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background:
-                radial-gradient(circle at 20% 20%, rgba(220,38,38,0.12) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(122,40,203,0.14) 0%, transparent 45%),
-                radial-gradient(circle at 50% 50%, rgba(255,51,102,0.06) 0%, transparent 60%);
-            z-index: -2;
-        }
-        .stars {
-            background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat top center;
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; opacity: 0.35;
-        }
-
-        /* ── Scrollbar ── */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--color-bg); }
-        ::-webkit-scrollbar-thumb { background: linear-gradient(var(--color-red), var(--color-primary)); border-radius: 3px; }
-
-        /* ── Progress bar ── */
-        #progress-bar {
-            position: fixed; top: 0; left: 0; height: 3px; width: 0%;
-            background: linear-gradient(90deg, var(--color-red), var(--color-primary), var(--color-gold));
-            z-index: 1000; transition: width 0.1s linear;
-            box-shadow: 0 0 10px var(--color-primary);
-        }
-
-        /* ── Nav ── */
-        nav {
-            position: fixed; width: 100%; z-index: 100; top: 3px;
-            background: rgba(11,7,23,0.88);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(220,38,38,0.15);
-        }
-        .nav-inner {
-            max-width: 1200px; margin: 0 auto;
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 1.5rem; height: 64px;
-        }
-        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: white; }
-        .nav-logo img { width: 32px; height: 32px; object-fit: contain; }
-        .nav-logo span { font-family: 'Bebas Neue', cursive; font-size: 1.4rem; letter-spacing: 2px; }
-        .nav-links { display: flex; gap: 2rem; }
-        .nav-links a {
-            font-size: 0.8rem; font-weight: 600; letter-spacing: 1px;
-            text-decoration: none; color: rgba(255,255,255,0.45);
-            transition: color 0.2s; text-transform: uppercase;
-        }
-        .nav-links a:hover { color: white; }
-        .nav-links a.active { color: #f87171; border-bottom: 2px solid #f87171; padding-bottom: 2px; }
-        .nav-btn {
-            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
-            color: white; padding: 0.4rem 1rem; border-radius: 6px;
-            font-size: 0.8rem; font-weight: 600; cursor: pointer;
-            text-decoration: none; display: flex; align-items: center; gap: 6px;
-            transition: all 0.2s;
-        }
-        .nav-btn:hover { background: rgba(255,255,255,0.15); }
-
-        /* ── Hero ── */
-        .page-hero {
-            position: relative; padding-top: 120px; padding-bottom: 60px;
-            text-align: center; z-index: 1;
-        }
-        .classified-badge {
-            display: inline-flex; align-items: center; gap: 8px;
-            border: 1px solid rgba(220,38,38,0.5);
-            background: rgba(220,38,38,0.08);
-            padding: 6px 20px; border-radius: 2px;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.65rem; letter-spacing: 3px; color: #f87171;
-            text-transform: uppercase; margin-bottom: 1.5rem;
-            animation: appear 0.8s ease both;
-        }
-        .classified-badge::before { content: '■'; font-size: 0.45rem; animation: blink 1s infinite; }
-        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-
-        .page-hero h1 {
-            font-family: 'Bebas Neue', cursive;
-            font-size: clamp(3.5rem, 10vw, 7rem);
-            line-height: 0.9; letter-spacing: 3px;
-            animation: appear 1s cubic-bezier(0.16,1,0.3,1) 0.2s both;
-        }
-        .page-hero h1 .accent {
-            background: linear-gradient(135deg, #f87171, var(--color-primary));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-        }
-        .hero-sub {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.7rem; letter-spacing: 4px; color: rgba(255,255,255,0.3);
-            text-transform: uppercase; margin-top: 1rem;
-            animation: appear 0.8s ease 0.5s both;
-        }
-        .hero-quote {
-            max-width: 640px; margin: 2rem auto 0;
-            background: rgba(220,38,38,0.07);
-            border-left: 3px solid rgba(220,38,38,0.6);
-            padding: 1rem 1.5rem; border-radius: 0 8px 8px 0;
-            font-size: 0.9rem; font-style: italic; color: rgba(255,255,255,0.55);
-            animation: appear 0.8s ease 0.7s both;
-        }
-        @keyframes appear { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-
-        /* ── Sticky chapter nav ── */
-        #chapter-nav {
-            position: sticky; top: 67px; z-index: 90;
-            background: rgba(11,7,23,0.93); backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255,255,255,0.04);
-            padding: 0 1.5rem; overflow-x: auto; white-space: nowrap;
-        }
-        #chapter-nav::-webkit-scrollbar { height: 0; }
-        .chapter-nav-inner { max-width: 1200px; margin: 0 auto; display: flex; }
-        .chap-btn {
-            display: inline-flex; align-items: center; gap: 7px;
-            padding: 0.85rem 1.2rem; font-size: 0.72rem; font-weight: 600;
-            letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.35);
-            border-bottom: 2px solid transparent; cursor: pointer;
-            background: none; border-top: none; border-left: none; border-right: none;
-            transition: all 0.2s; font-family: 'IBM Plex Mono', monospace;
-        }
-        .chap-btn:hover { color: white; }
-        .chap-btn.active { color: #f87171; border-bottom-color: #f87171; }
-        .chap-btn i { width: 14px; height: 14px; }
-
-        /* ── Main content ── */
-        .content-wrap {
-            max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 6rem;
-            position: relative; z-index: 1;
-        }
-
-        /* ── Section header ── */
-        .section-anchor { scroll-margin-top: 130px; }
-
-        .section-title {
-            display: flex; align-items: center; gap: 14px;
-            margin-bottom: 1.5rem; padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(220,38,38,0.2);
-        }
-        .section-num {
-            background: linear-gradient(135deg, var(--color-red), var(--color-primary));
-            color: white; width: 36px; height: 36px; border-radius: 8px;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 800; font-size: 1rem; flex-shrink: 0;
-        }
-        .section-title h3 {
-            font-size: 1.2rem; font-weight: 700; color: white; letter-spacing: 0.5px;
-        }
-
-        /* ── Glass card ── */
-        .glass-section {
-            background: rgba(255,255,255,0.025);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(220,38,38,0.12);
-            border-radius: 16px; padding: 2rem 2rem;
-            margin-bottom: 1.5rem;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-        .glass-section:hover {
-            border-color: rgba(220,38,38,0.3);
-            box-shadow: 0 0 30px rgba(220,38,38,0.08);
-        }
-
-        /* ── Rule items ── */
-        .rule-item {
-            display: flex; align-items: flex-start; gap: 12px;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.04);
-        }
-        .rule-item:last-child { border-bottom: none; padding-bottom: 0; }
-        .rule-item:first-child { padding-top: 0; }
-        .rule-icon {
-            flex-shrink: 0; margin-top: 2px;
-            color: #f87171; width: 18px; height: 18px;
-        }
-        .rule-icon.muted { color: rgba(255,255,255,0.2); }
-        .rule-text { font-size: 0.88rem; line-height: 1.65; color: rgba(232,224,240,0.8); }
-        .rule-text strong { color: white; font-weight: 600; }
-        .rule-text em { color: rgba(255,255,255,0.35); font-size: 0.82rem; }
-        .rule-text ul { list-style: disc; padding-left: 1.2rem; margin-top: 0.5rem; color: rgba(255,255,255,0.45); }
-        .rule-text ul li { margin-bottom: 0.2rem; font-size: 0.82rem; }
-
-        /* ── Divider ── */
-        .divider {
-            display: flex; align-items: center; justify-content: center;
-            gap: 1rem; margin: 3rem 0; opacity: 0.4;
-        }
-        .divider-line { height: 1px; flex: 1; background: linear-gradient(to right, transparent, var(--color-red), transparent); }
-        .divider i { color: var(--color-red); width: 20px; height: 20px; }
-
-        /* ── Sub-section (Orga / Gangs grids) ── */
-        .sub-title {
-            font-family: 'Bebas Neue', cursive;
-            font-size: 2rem; letter-spacing: 3px; color: white; text-align: center;
-            margin-bottom: 1.5rem;
-        }
-        .sub-title span { color: #f87171; }
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-        @media(max-width:640px){ .grid-2 { grid-template-columns: 1fr; } }
-
-        .mini-card {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.07);
-            border-radius: 12px; padding: 1.25rem 1.5rem;
-            transition: border-color 0.2s;
-        }
-        .mini-card:hover { border-color: rgba(255,255,255,0.18); }
-        .mini-card h4 {
-            font-size: 0.85rem; font-weight: 700; color: #f87171;
-            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.75rem;
-        }
-        .mini-card ul { list-style: none; }
-        .mini-card ul li {
-            font-size: 0.8rem; color: rgba(232,224,240,0.7);
-            padding: 0.3rem 0; border-bottom: 1px solid rgba(255,255,255,0.04);
-        }
-        .mini-card ul li:last-child { border-bottom: none; }
-        .mini-card ul li strong { color: rgba(255,255,255,0.9); }
-
-        /* ── CTA finale ── */
-        .finale-box {
-            background: rgba(220,38,38,0.07);
-            border: 1px solid rgba(220,38,38,0.25);
-            border-radius: 16px; padding: 2.5rem; text-align: center;
-            margin-top: 3rem; position: relative; overflow: hidden;
-        }
-        .finale-box::before {
-            content: ''; position: absolute; top: -40px; right: -40px;
-            width: 180px; height: 180px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(220,38,38,0.15), transparent 70%);
-        }
-        .finale-box h3 { font-size: 1.1rem; font-weight: 700; color: white; margin-bottom: 1rem; }
-        .finale-box p { font-size: 0.88rem; color: rgba(232,224,240,0.65); line-height: 1.7; max-width: 600px; margin: 0 auto; }
-        .finale-box p strong { color: white; }
-
-        .cta-row { display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap; }
-        .cta-btn {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 0.7rem 1.6rem; border-radius: 8px; font-size: 0.82rem;
-            font-weight: 700; text-decoration: none; letter-spacing: 0.5px;
-            transition: all 0.2s; text-transform: uppercase;
-        }
-        .cta-primary {
-            background: linear-gradient(135deg, var(--color-red), var(--color-primary));
-            color: white;
-        }
-        .cta-primary:hover { opacity: 0.85; transform: translateY(-2px); }
-        .cta-secondary {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.12);
-            color: rgba(255,255,255,0.7);
-        }
-        .cta-secondary:hover { background: rgba(255,255,255,0.12); color: white; }
-
-        /* ── Footer ── */
-        footer {
-            position: relative; z-index: 1;
-            border-top: 1px solid rgba(255,255,255,0.06);
-            background: rgba(5,3,10,0.8); padding: 2rem;
-            text-align: center;
-        }
-        footer p { font-size: 0.75rem; color: rgba(255,255,255,0.25); line-height: 1.8; }
-        .footer-links { display: flex; justify-content: center; gap: 1.2rem; margin-top: 1rem; }
-        .footer-links a { color: rgba(255,255,255,0.25); transition: color 0.2s; font-size: 1.1rem; }
-        .footer-links a:hover { color: var(--color-primary); }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inside Roleplay | Règlement Illégal</title>
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@300;400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0717;--ac:#dc2626;--ac2:#ff3366;--card:rgba(255,255,255,0.025)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:#e8e0f0;overflow-x:hidden}
+.cosmic-bg{position:fixed;top:0;left:0;width:100vw;height:100vh;background:radial-gradient(circle at 20% 25%,rgba(220,38,38,.1) 0%,transparent 50%),radial-gradient(circle at 80% 75%,rgba(122,40,203,.12) 0%,transparent 45%);z-index:-2}
+.stars{background:transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;opacity:.35}
+#pb{position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--ac),var(--ac2));z-index:1000;box-shadow:0 0 8px var(--ac)}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--ac);border-radius:3px}
+nav{position:fixed;width:100%;z-index:100;top:2px;background:rgba(11,7,23,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(220,38,38,.12)}
+.ni{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;height:62px}
+.nl a{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:500;letter-spacing:1.5px;text-decoration:none;color:rgba(255,255,255,.4);transition:color .2s;text-transform:uppercase;margin-left:2rem}
+.nl a:hover{color:#fff}.nl a.active{color:var(--ac);border-bottom:1.5px solid var(--ac);padding-bottom:2px}
+.nlogo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
+.nlogo img{width:30px;height:30px;object-fit:contain}
+.nlogo span{font-family:'Bebas Neue',cursive;font-size:1.35rem;letter-spacing:2px}
+.nbtn{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:#fff;padding:.4rem 1rem;border-radius:6px;font-size:.75rem;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:6px;transition:all .2s}
+.nbtn:hover{background:rgba(255,255,255,.14)}
+.hero{padding:120px 1.5rem 50px;text-align:center;position:relative;z-index:1}
+.badge{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(220,38,38,.45);background:rgba(220,38,38,.08);padding:5px 18px;border-radius:2px;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:3px;color:#f87171;text-transform:uppercase;margin-bottom:1.2rem;animation:up .8s ease both}
+.badge::before{content:'■';font-size:.4rem;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero h1{font-family:'Bebas Neue',cursive;font-size:clamp(3rem,9vw,6.5rem);line-height:.9;letter-spacing:3px;animation:up 1s cubic-bezier(.16,1,.3,1) .15s both}
+.hero h1 span{background:linear-gradient(135deg,#f87171,var(--ac2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:4px;color:rgba(255,255,255,.28);text-transform:uppercase;margin-top:.9rem;animation:up .8s ease .45s both}
+.hero-desc{max-width:600px;margin:1.8rem auto 0;background:rgba(220,38,38,.06);border-left:3px solid rgba(220,38,38,.5);padding:.9rem 1.3rem;border-radius:0 8px 8px 0;font-size:.88rem;font-style:italic;color:rgba(255,255,255,.5);animation:up .8s ease .6s both}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+#cnav{position:sticky;top:64px;z-index:90;background:rgba(11,7,23,.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.04);padding:0 1.5rem;overflow-x:auto;white-space:nowrap}
+#cnav::-webkit-scrollbar{height:0}
+.cni{max-width:1200px;margin:0 auto;display:flex}
+.cb{display:inline-flex;align-items:center;gap:7px;padding:.8rem 1.1rem;font-size:.68rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.32);border-bottom:2px solid transparent;cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;transition:all .2s;font-family:'IBM Plex Mono',monospace}
+.cb:hover{color:#fff}.cb.active{color:var(--ac);border-bottom-color:var(--ac)}
+.wrap{max-width:880px;margin:0 auto;padding:2.5rem 1.5rem 6rem;position:relative;z-index:1}
+.sa{scroll-margin-top:130px}
+.sh{display:flex;align-items:center;gap:12px;margin-bottom:1.3rem;padding-bottom:.9rem;border-bottom:1px solid rgba(220,38,38,.18)}
+.sn{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;width:34px;height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.95rem;flex-shrink:0;font-family:'Bebas Neue',cursive;letter-spacing:1px}
+.sh h3{font-size:1.1rem;font-weight:600;color:#fff}
+.card{background:var(--card);backdrop-filter:blur(12px);border:1px solid rgba(220,38,38,.1);border-radius:14px;padding:1.8rem;margin-bottom:1.3rem;transition:border-color .3s,box-shadow .3s}
+.card:hover{border-color:rgba(220,38,38,.28);box-shadow:0 0 24px rgba(220,38,38,.06)}
+.ri{display:flex;align-items:flex-start;gap:11px;padding:.7rem 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.ri:last-child{border-bottom:none;padding-bottom:0}.ri:first-child{padding-top:0}
+.ric{flex-shrink:0;margin-top:3px;color:var(--ac);font-size:.8rem;width:14px;text-align:center}
+.rt{font-size:.87rem;line-height:1.65;color:rgba(232,224,240,.78)}
+.rt strong{color:#fff;font-weight:600}.rt em{color:rgba(255,255,255,.32);font-size:.8rem}
+.warn{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.25);border-radius:10px;padding:.9rem 1.1rem;margin-top:.9rem;font-size:.82rem;color:rgba(255,255,255,.55);display:flex;gap:9px;align-items:flex-start}
+.warn i{color:#f87171;flex-shrink:0;margin-top:2px}
+.info-box{background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.2);border-radius:10px;padding:.9rem 1.1rem;margin-top:.9rem;font-size:.82rem;color:rgba(255,255,255,.55);display:flex;gap:9px;align-items:flex-start}
+.info-box i{color:#60a5fa;flex-shrink:0;margin-top:2px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:600px){.g2{grid-template-columns:1fr}}
+.mc{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:1.1rem 1.3rem}
+.mc h4{font-size:.8rem;font-weight:700;color:#f87171;text-transform:uppercase;letter-spacing:1px;margin-bottom:.7rem;display:flex;align-items:center;gap:7px}
+.mc ul{list-style:none}
+.mc ul li{font-size:.8rem;color:rgba(232,224,240,.65);padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;gap:7px;align-items:flex-start}
+.mc ul li:last-child{border-bottom:none}
+.mc ul li::before{content:'›';color:rgba(220,38,38,.6);flex-shrink:0}
+.mc ul li strong{color:rgba(255,255,255,.88)}
+.apply{background:rgba(220,38,38,.07);border:1px solid rgba(220,38,38,.22);border-radius:14px;padding:2rem;text-align:center;margin-top:2.5rem}
+.apply h3{font-size:1rem;font-weight:600;color:#fff;margin-bottom:.75rem}
+.apply p{font-size:.85rem;color:rgba(232,224,240,.55);line-height:1.7;max-width:500px;margin:0 auto}
+.ctas{display:flex;gap:.8rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:.65rem 1.4rem;border-radius:7px;font-size:.78rem;font-weight:700;text-decoration:none;letter-spacing:.5px;transition:all .2s;text-transform:uppercase}
+.btn-ac{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff}
+.btn-ac:hover{opacity:.85;transform:translateY(-2px)}
+.btn-ghost{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.65)}
+.btn-ghost:hover{background:rgba(255,255,255,.12);color:#fff}
+footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.06);background:rgba(5,3,10,.8);padding:1.8rem;text-align:center}
+footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
+.fl{display:flex;justify-content:center;gap:1.1rem;margin-top:.9rem}
+.fl a{color:rgba(255,255,255,.22);transition:color .2s;font-size:1.05rem}.fl a:hover{color:var(--ac)}
+</style>
 </head>
 <body>
-
-<div class="cosmic-bg"></div>
-<div class="stars"></div>
-<div id="progress-bar"></div>
-
-<!-- NAV -->
+<div class="cosmic-bg"></div><div class="stars"></div><div id="pb"></div>
 <nav>
-    <div class="nav-inner">
-        <a href="index.html" class="nav-logo">
-            <img src="logo.png" alt="Logo" onerror="this.src='https://via.placeholder.com/32/ff3366/ffffff?text=I'">
-            <span>Inside Roleplay</span>
-        </a>
-        <div class="nav-links">
-            <a href="index.html">Accueil</a>
-            <a href="Lore.html">Lore</a>
-            <a href="Reglementill.html" class="active">Règlement Illégal</a>
-            <a href="#">Boutique</a>
-        </div>
-        <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener" class="nav-btn">
-            <i class="fa-brands fa-discord" style="color:#5865F2"></i> Se connecter
-        </a>
+  <div class="ni">
+    <a href="index.html" class="nlogo"><img src="logo.png" alt="" onerror="this.src='https://via.placeholder.com/30/dc2626/fff?text=I'"><span>Inside Roleplay</span></a>
+    <div class="nl">
+      <a href="index.html">Accueil</a><a href="Lore.html">Lore</a>
+      <a href="Reglementill.html" class="active">Règl. Illégal</a>
+      <a href="justice.html">Justice</a><a href="gangorga.html">Gangs & Orga</a>
+      <a href="petitesfrappes.html">PF & Habitants</a><a href="entreprise.html">Entreprise</a>
     </div>
+    <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener" class="nbtn"><i class="fa-brands fa-discord" style="color:#5865F2"></i> Discord</a>
+  </div>
 </nav>
 
-<!-- HERO -->
-<div class="page-hero">
-    <div class="classified-badge">Code Criminel · San Andreas</div>
-    <h1>RÈGLEMENT<br><span class="accent">ILLÉGAL</span></h1>
-    <p class="hero-sub">Inside Roleplay &nbsp;·&nbsp; Vie Souterraine &nbsp;·&nbsp; 2026</p>
-    <p class="hero-quote">
-        "Ce règlement encadre l'ensemble des activités criminelles. La cohérence et le fair-play sont les piliers de la vie souterraine d'InsideRP."
-    </p>
+<div class="hero">
+  <div class="badge">Code Criminel · San Andreas</div>
+  <h1>RÈGLEMENT<br><span>ILLÉGAL</span></h1>
+  <p class="hero-sub">Vie Souterraine · InsideRP · 2026</p>
+  <p class="hero-desc">"Ce règlement encadre l'ensemble des activités criminelles. La cohérence et le fair-play sont les piliers de la vie souterraine d'InsideRP."</p>
 </div>
 
-<!-- CHAPTER NAV -->
-<div id="chapter-nav">
-    <div class="chapter-nav-inner">
-        <button class="chap-btn active" onclick="jumpTo('sec1')">
-            <i data-lucide="shield-alert"></i> Principes
-        </button>
-        <button class="chap-btn" onclick="jumpTo('sec2')">
-            <i data-lucide="package"></i> Économie
-        </button>
-        <button class="chap-btn" onclick="jumpTo('sec3')">
-            <i data-lucide="landmark"></i> Braquages
-        </button>
-        <button class="chap-btn" onclick="jumpTo('sec4')">
-            <i data-lucide="user-x"></i> PDO
-        </button>
-        <button class="chap-btn" onclick="jumpTo('sec5')">
-            <i data-lucide="siren"></i> Services Publics
-        </button>
-        <button class="chap-btn" onclick="jumpTo('sec6')">
-            <i data-lucide="target"></i> Divers
-        </button>
-        <button class="chap-btn" onclick="jumpTo('orga')">
-            <i data-lucide="briefcase"></i> Orga
-        </button>
-        <button class="chap-btn" onclick="jumpTo('gangs')">
-            <i data-lucide="users"></i> Gangs
-        </button>
+<div id="cnav"><div class="cni">
+  <button class="cb active" onclick="jumpTo('s1')"><i class="fa-solid fa-shield fa-xs"></i> Principes</button>
+  <button class="cb" onclick="jumpTo('s2')"><i class="fa-solid fa-leaf fa-xs"></i> Économie</button>
+  <button class="cb" onclick="jumpTo('s3')"><i class="fa-solid fa-money-bill fa-xs"></i> Braquages</button>
+  <button class="cb" onclick="jumpTo('s4')"><i class="fa-solid fa-user-lock fa-xs"></i> PDO</button>
+  <button class="cb" onclick="jumpTo('s5')"><i class="fa-solid fa-shield-halved fa-xs"></i> Services Publics</button>
+  <button class="cb" onclick="jumpTo('s6')"><i class="fa-solid fa-crosshairs fa-xs"></i> Combat</button>
+  <button class="cb" onclick="jumpTo('s7')"><i class="fa-solid fa-video fa-xs"></i> Preuves</button>
+</div></div>
+
+<div class="wrap">
+  <div id="s1" class="sa"><div class="card">
+    <div class="sh"><div class="sn">1</div><h3>Principes Fondamentaux & Fair-Play</h3></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-handshake"></i></div><div class="rt"><strong>Fair-Play :</strong> Équilibrez vos victoires et vos défaites pour favoriser le RP de chacun.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-eye"></i></div><div class="rt"><strong>Fear RP :</strong> Obligatoire. Si braqué en premier, vous devez coopérer. Le fear quartier/villa s'applique — ne pénétrez jamais seul dans le QG adverse.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-heart-pulse"></i></div><div class="rt"><strong>Pain RP :</strong> Les blessures doivent être jouées rigoureusement. <em>Exemple : crash en course-poursuite = subir les conséquences physiques proportionnelles.</em></div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-home"></i></div><div class="rt"><strong>Retour quartier :</strong> Interdiction de se réfugier dans son QG pendant ou après une poursuite. Camper un QG adverse est interdit.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-right-left"></i></div><div class="rt"><strong>Transfert d'items :</strong> Tout transfert entre personnages (P1/P2) ou via ami pour contourner le système est sanctionné.</div></div>
+    <div class="warn"><i class="fa-solid fa-triangle-exclamation"></i><div><strong>Interdictions techniques :</strong> Packs GF, Strafe, CVC, Pit de véhicules, No recoil, Speed boost, Speed reload ou tout avantage logiciel sont strictement interdits.</div></div>
+  </div></div>
+
+  <div id="s2" class="sa"><div class="card">
+    <div class="sh"><div class="sn">2</div><h3>Économie & Drogues</h3></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-truck"></i></div><div class="rt"><strong>Logistique :</strong> Récolte, production et transfert doivent s'effectuer impérativement en <strong>véhicules utilitaires</strong>.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Vente Nomade :</strong> Motos, vélos ou quads pour la vente de drogue sont <strong>strictement interdits</strong>.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-users"></i></div><div class="rt"><strong>Occupation de Secteur :</strong> Vente en groupe limitée à <strong>5 personnes maximum</strong> sur un même secteur simultanément.</div></div>
+  </div></div>
+
+  <div id="s3" class="sa"><div class="card">
+    <div class="sh"><div class="sn">3</div><h3>Braquages & Racket</h3></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-wallet"></i></div><div class="rt"><strong>Racket :</strong> Prélèvement maximal de <strong>50% de l'argent liquide</strong> possédé par la victime.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-landmark"></i></div><div class="rt"><strong>Accès Bancaire :</strong> Interdiction absolue de forcer un retrait au distributeur (ATM).</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-tractor"></i></div><div class="rt"><strong>Zones de Farm :</strong> Pillage (loot) proscrit sur les points de farm (Go Fast, entreprises…). Coups de pression RP autorisés, pas le loot.</div></div>
+    <div class="warn"><i class="fa-solid fa-triangle-exclamation"></i><div><strong>Arnaques scriptées :</strong> Fausses ventes d'armes/drogues via menu sont interdites. Les prêts non rendus ne sont pas considérés comme arnaques scriptées par le Staff.</div></div>
+  </div></div>
+
+  <div id="s4" class="sa"><div class="card">
+    <div class="sh"><div class="sn">4</div><h3>Prises d'Otages (PDO)</h3></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-shield-halved"></i></div><div class="rt"><strong>Conditions :</strong> Uniquement en cas de conflit RP majeur ou braquage de banque.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-comments"></i></div><div class="rt"><strong>Négociations :</strong> "Rush otage" et "faux otages" formellement interdits. Absence du groupe adverse = mort RP possible (optionnel).</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-gem"></i></div><div class="rt"><strong>Loot :</strong> Vol de bijoux/lunettes autorisé. <strong>Vol d'armes interdit</strong>, sauf accord Staff ou mise en caution.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-mobile"></i></div><div class="rt"><strong>Téléphones :</strong> Doivent être rendus en fin de scène. Interdiction de supprimer des contacts (sauf ceux vous concernant).</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-crosshairs"></i></div><div class="rt"><strong>Engagement armé :</strong> Interdiction de tirer si le groupe adverse détient un otage — risque de mort RP pour l'otage.</div></div>
+  </div></div>
+
+  <div id="s5" class="sa"><div class="card">
+    <div class="sh"><div class="sn">5</div><h3>Interactions Services Publics</h3></div>
+    <div class="g2">
+      <div class="mc">
+        <h4><i class="fa-solid fa-shield"></i> LSPD</h4>
+        <ul>
+          <li><strong>Fear Police :</strong> crainte constante obligatoire.</li>
+          <li>Copbaiting (provocation inutile) interdit.</li>
+          <li>Sabotage des pneus de patrouille interdit.</li>
+          <li>Fuite par l'eau interdite.</li>
+        </ul>
+      </div>
+      <div class="mc">
+        <h4><i class="fa-solid fa-truck-medical"></i> EMS</h4>
+        <ul>
+          <li>Braquer ou piéger un EMS (faux appels) interdit.</li>
+          <li>Honnêteté sur ses blessures obligatoire.</li>
+          <li>Discussions illégales proscrites à l'hôpital.</li>
+          <li>Manquement = ATA lourde ou mort RP.</li>
+        </ul>
+      </div>
     </div>
+  </div></div>
+
+  <div id="s6" class="sa"><div class="card">
+    <div class="sh"><div class="sn">6</div><h3>Règles de Combat & Sécurité</h3></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-circle-dot"></i></div><div class="rt"><strong>Tirs sur pneus :</strong> Interdits avant <strong>25 minutes de poursuite</strong>, sauf "No Fear" abusif avéré.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-circle-dot"></i></div><div class="rt"><strong>Plans mules / récup :</strong> Autorisés après <strong>15 min de CP contre la police</strong>, pour grosses scènes/livraisons. Véhicules autorisés : <em>Mule, Speedo, Pounder</em>.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-circle-dot"></i></div><div class="rt"><strong>Safe Zones :</strong> Vol, braquage et pillage strictement interdits dans les zones safe et véhicules de services publics.</div></div>
+  </div></div>
+
+  <div id="s7" class="sa"><div class="card">
+    <div class="sh"><div class="sn">7</div><h3>Preuves & Support</h3></div>
+    <div class="info-box"><i class="fa-solid fa-circle-info"></i><div><strong>Conseil Modération :</strong> Enregistrez ou "clippez" vos scènes litigieuses. Le Staff sanctionne les abus constatés par preuve vidéo. Amusez-vous et privilégiez toujours la scène RP au "Win RP".</div></div>
+  </div></div>
+
+  <div class="apply">
+    <h3>💡 Conseils pour les Chefs de Groupe</h3>
+    <p>Un groupe respecté n'est pas celui qui tire le plus, mais celui qui propose les scènes les plus immersives. <strong>Privilégiez le jeu plutôt que le shoot et l'égo !</strong></p>
+    <div class="ctas">
+      <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener" class="btn btn-ac"><i class="fa-brands fa-discord"></i> Rejoindre le Discord</a>
+      <a href="index.html" class="btn btn-ghost"><i class="fa-solid fa-arrow-left"></i> Retour Accueil</a>
+    </div>
+  </div>
 </div>
 
-<!-- MAIN CONTENT -->
-<div class="content-wrap">
-
-    <!-- SECTION 1 -->
-    <div id="sec1" class="section-anchor">
-        <div class="glass-section">
-            <div class="section-title">
-                <div class="section-num">1</div>
-                <h3>Principes Fondamentaux & Comportement</h3>
-            </div>
-
-            <div class="rule-item">
-                <i data-lucide="check-circle-2" class="rule-icon"></i>
-                <div class="rule-text"><strong>Fair-Play :</strong> Le respect des autres joueurs est primordial. Gagner est satisfaisant, mais savoir perdre est essentiel pour créer des scènes mémorables. Équilibrez vos victoires et vos défaites.</div>
-            </div>
-            <div class="rule-item">
-                <i data-lucide="activity" class="rule-icon"></i>
-                <div class="rule-text"><strong>Gestion des Blessures (Pain RP) :</strong> Ne cachez jamais vos blessures, le Pain RP doit être joué rigoureusement. Acceptez la défaite et les conséquences physiques de vos actions. <em>Exemple : lors d'une course poursuite où votre véhicule fait un accident, vous devez subir les conséquences physiques proportionnelles à l'accident.</em></div>
-            </div>
-            <div class="rule-item">
-                <i data-lucide="home" class="rule-icon"></i>
-                <div class="rule-text"><strong>Retour quartier :</strong> Il est strictement interdit de se réfugier dans votre QG/Zone de groupe pendant ou immédiatement après une course-poursuite (police ou groupe rival). Il est interdit de camper autour d'un QG.</div>
-            </div>
-            <div class="rule-item">
-                <i data-lucide="handshake" class="rule-icon"></i>
-                <div class="rule-text"><strong>Alliances :</strong> Autorisées uniquement pour le commerce et l'échange d'informations. S'allier militairement pour combattre un ennemi commun est interdit.</div>
-            </div>
-            <div class="rule-item">
-                <i data-lucide="shirt" class="rule-icon"></i>
-                <div class="rule-text"><strong>Cohérence Visuelle :</strong> Votre tenue doit être en accord avec votre personnage. Le port de gilets pare-balles factices est interdit.</div>
-            </div>
-            <div class="rule-item">
-                <i data-lucide="ban" class="rule-icon"></i>
-                <div class="rule-text">
-                    <strong>Interdits formels :</strong>
-                    <ul>
-                        <li>Les packs GF</li>
-                        <li>Le pit de véhicules (neutraliser un véhicule en tapant dedans)</li>
-                        <li>Le strafe</li>
-                        <li>Les CVC</li>
-                        <li>Les avantages de jeu / Cheats (no recoil, speed boost, speed reload…)</li>
-                        <li>Le transfert d'items P1/P2 ou P1/Perso ami</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="rule-item">
-                <i data-lucide="eye" class="rule-icon"></i>
-                <div class="rule-text"><strong>Fear :</strong> Le fear est primordial dans un plateau de jeu sain. Si vous êtes braqué en premier, peu importe l'arme, vous devrez jouer votre fear sous peine de mort RP. Le fear quartier/villa est également obligatoire. N'allez pas dans le QG des autres crews.</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- SECTION 2 -->
-    <div id="sec2" class="section-anchor">
-        <div class="glass-section">
-            <div class="section-title">
-                <div class="section-num">2</div>
-                <h3>Économie Souterraine & Drogues</h3>
-            </div>
-
-            <div class="rule-item">
-                <i data-lucide="package" class="rule-icon"></i>
-                <div class="rule-text"><strong>Logistique :</strong> Toutes les activités liées à la drogue (récolte, production, transfert) doivent impérativement s'effectuer avec des véhicules appropriés (utilitaires).</div>
-            </div>
-            <div class="rule-item">
-                <i data-lucide="bike" class="rule-icon"></i>
-                <div class="rule-text"><strong>Vente Nomade :</strong> La vente de drogue en utilisant une moto, un vélo ou un quad est strictement interdite.</div>
-            </div>
-            <div class="rule-item">
-                <i data-lucide="users" class="rule-icon"></i>
-                <div class="rule-text"><strong>Occupation de Secteur :</strong> La vente en groupe est limitée à <strong>5 personnes maximum</strong> sur un même terrain ou secteur.</div>
-            </div>
-            <div class="rule-item">
-                <i data-lucide="info" class="rule-icon muted"></i>
-                <div class="rule-text"><em>[Production / Vente : Détails à définir selon l'évolution du script]</em></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- SECTION 3 -->
-    <div id="sec3" class="section-anchor">
-        <div class="glass-section">
-            <div class="section-title">
-                <div class="section-num">3</div>
-                <h3>Braquages & Interactions Crapuleuses</h3>
-            </div>
-
-            <div class="rule-item">
-                <i data-lucide="wallet" class="rule-icon"></i>
-                <div class="rule-text"><strong>Racket :</strong> Soyez raisonnables dans vos revendications. Le prélèvement maximal autorisé est de <strong>50% de l'argent liquide</strong> possédé par la victime.</div>
-            </div>
-            <div class="rule-item">
-                <i data-lucide="landmark" class="rule-icon"></i>
-                <div class="rule-text"><strong>Accès Bancaire :</strong> Il est strictement interdit de forcer un joueur à effectuer un retrait d'argent sur son compte bancaire.</div>
-            </div>
-            <div class="rule-item">
-                <i data-lucide="tractor" class="rule-icon"></i>
-                <div class="rule-text"><strong>Zones de Farm :</strong> Le vol et le braquage sont interdits sur les points de farm (go fast, entreprises, etc.). Les coups de pression sont autorisés, mais pas le loot (pillage).</div>
-            </div>
-            <div class="rule-item">
-                <i data-lucide="alert-triangle" class="rule-icon"></i>
-                <div class="rule-text"><strong>Arnaques :</strong> Les arnaques scriptées (fausses ventes d'armes, drogues, immobilier) sont interdites. Si vous prêtez un bien et qu'il n'est pas rendu, le staff ne considèrera pas cela comme une arnaque scriptée — soyez prudents en RP.</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- SECTION 4 -->
-    <div id="sec4" class="section-anchor">
-        <div class="glass-section">
-            <div class="section-title">
-                <div class="section-num">4</div>
-                <h3>Prises D'Otages (PDO)</h3>
-            </div>
-
-            <div class="rule-item">
-                <i data-lucide="shield-alert" class="rule-icon"></i>
-                <div class="rule-text"><strong>Conditions :</strong> Uniquement autorisées en cas de conflit RP majeur ou lors d'une scène de braquage.</div>
-            </div>
-            <div class="rule-item">
-                <i data-lucide="message-circle" class="rule-icon"></i>
-                <div class="rule-text"><strong>Négociations :</strong> Le "Rush otage" (précipiter la scène sans RP) et les "faux otages" sont strictement interdits. Si le groupe ne se présente pas à la négociation, l'otage pourra être soumis à une mort RP (optionnel).</div>
-            </div>
-            <div class="rule-item">
-                <i data-lucide="gem" class="rule-icon"></i>
-                <div class="rule-text"><strong>Loot & Rançon :</strong> Soyez respectueux (vol de bijoux/lunettes autorisé). Le vol d'armes est interdit, sauf accord Staff ou mise en caution si le groupe ne peut payer la rançon immédiatement.</div>
-            </div>
-            <div class="rule-item">
-                <i data-lucide="smartphone" class="rule-icon"></i>
-                <div class="rule-text"><strong>Téléphones :</strong> Vous pouvez subtiliser un téléphone pour la scène, mais il doit être rendu à la fin. Interdiction de supprimer les contacts (sauf ceux vous concernant directement).</div>
-            </div>
-            <div class="rule-item">
-                <i data-lucide="crosshair" class="rule-icon"></i>
-                <div class="rule-text"><strong>Engagement armé :</strong> Interdiction stricte de tirer si le groupe adverse détient un otage — risque de Mort RP pour l'otage.</div>
-            </div>
-            <div class="rule-item">
-                <i data-lucide="info" class="rule-icon muted"></i>
-                <div class="rule-text"><em>[Montants rançons : À définir]</em></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- SECTION 5 -->
-    <div id="sec5" class="section-anchor">
-        <div class="glass-section">
-            <div class="section-title">
-                <div class="section-num">5</div>
-                <h3>Services Publics (LSPD / EMS)</h3>
-            </div>
-
-            <div class="rule-item">
-                <i data-lucide="siren" class="rule-icon"></i>
-                <div class="rule-text"><strong>Fear Police :</strong> Le sentiment de peur envers les forces de l'ordre doit être maintenu en toutes circonstances.</div>
-            </div>
-            <div class="rule-item">
-                <i data-lucide="shield-off" class="rule-icon"></i>
-                <div class="rule-text"><strong>Interdictions spécifiques :</strong> Le "Copbaiting" (provoquer la police sans raison), le sabotage des pneus des véhicules de patrouille et la fuite par l'eau sont interdits.</div>
-            </div>
-            <div class="rule-item">
-                <i data-lucide="heart-pulse" class="rule-icon"></i>
-                <div class="rule-text"><strong>EMS :</strong> Il est strictement interdit de braquer ou de piéger (faux appels) un EMS en service. Il est également interdit de mentir à un EMS ou de minimiser les blessures durant la scène, sous peine d'une ATA lourde voire d'une mort RP.</div>
-            </div>
-            <div class="rule-item">
-                <i data-lucide="building-2" class="rule-icon"></i>
-                <div class="rule-text"><strong>Hôpital & Mass RP :</strong> Respectez le calme des lieux. Toute discussion relative aux armes ou au milieu illégal y est proscrite.</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- SECTION 6 -->
-    <div id="sec6" class="section-anchor">
-        <div class="glass-section">
-            <div class="section-title">
-                <div class="section-num">6</div>
-                <h3>Divers & Sécurité</h3>
-            </div>
-
-            <div class="rule-item">
-                <i data-lucide="target" class="rule-icon"></i>
-                <div class="rule-text"><strong>Tirs sur pneus :</strong> Interdits, sauf en cas de "no fear" abusif et avéré de la part du conducteur adverse et après 25 minutes de course-poursuite.</div>
-            </div>
-            <div class="rule-item">
-                <i data-lucide="shield-check" class="rule-icon"></i>
-                <div class="rule-text"><strong>Sanctuaire Safe Zone :</strong> Le vol, le braquage et le pillage sont strictement interdits dans les zones safe ainsi que dans les véhicules de services publics.</div>
-            </div>
-            <div class="rule-item">
-                <i data-lucide="info" class="rule-icon muted"></i>
-                <div class="rule-text"><em>[Liste des armes autorisées/interdites : À définir]</em></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- DIVIDER ORGA -->
-    <div class="divider">
-        <div class="divider-line"></div>
-        <i data-lucide="briefcase"></i>
-        <div class="divider-line"></div>
-    </div>
-
-    <!-- RÈGLEMENT ORGA -->
-    <div id="orga" class="section-anchor">
-        <p class="sub-title">Règlement Intérieur <span>Des Orga</span></p>
-        <div class="grid-2">
-            <div class="mini-card">
-                <h4>1. Identité & Cohérence</h4>
-                <ul>
-                    <li><strong>Identité :</strong> Noms et prénoms cohérents avec l'histoire.</li>
-                    <li><strong>Apparence :</strong> Port des couleurs obligatoire. Tenues et langage adaptés.</li>
-                    <li><strong>Véhicules :</strong> Couleurs du groupe. Supersportives interdites. Imports sur validation. Diversité requise.</li>
-                </ul>
-            </div>
-            <div class="mini-card">
-                <h4>2. Vie de Groupe & Effectifs</h4>
-                <ul>
-                    <li><strong>Limite :</strong> 18 personnes maximum.</li>
-                    <li><strong>Suivi :</strong> Liste des membres à jour via Discord.</li>
-                    <li><strong>Évolution :</strong> Basée sur l'activité et le sérieux RP.</li>
-                </ul>
-            </div>
-            <div class="mini-card">
-                <h4>3. Conflits & Guerres</h4>
-                <ul>
-                    <li><strong>Fear Orga :</strong> Respect mutuel. Conséquences graves si non-respect.</li>
-                    <li><strong>Motivations :</strong> Raisons RP solides et documentées exigées.</li>
-                    <li><strong>Fair-Play :</strong> "Offre fair-play" obligatoire pour stopper un conflit si domination.</li>
-                </ul>
-            </div>
-            <div class="mini-card">
-                <h4>4. Activités & Commerce</h4>
-                <ul>
-                    <li><strong>Stupéfiants :</strong> Transactions interdites aux abords du QG.</li>
-                    <li><strong>Matériel :</strong> Interdit de s'allier pour attaquer une livraison/labo.</li>
-                    <li><strong>Alliances :</strong> S'allier pour attaquer une tierce orga est interdit.</li>
-                    <li><strong>Armes :</strong> Vente aux civils formellement interdite.</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <!-- DIVIDER GANGS -->
-    <div class="divider">
-        <div class="divider-line"></div>
-        <i data-lucide="skull"></i>
-        <div class="divider-line"></div>
-    </div>
-
-    <!-- RÈGLEMENT GANGS -->
-    <div id="gangs" class="section-anchor">
-        <p class="sub-title">Règlement Intérieur <span>Des Gangs</span></p>
-        <div class="grid-2">
-            <div class="mini-card">
-                <h4>1. Identité & Cohérence</h4>
-                <ul>
-                    <li><strong>Identité :</strong> Noms et prénoms cohérents.</li>
-                    <li><strong>Apparence :</strong> Port des couleurs, tenues et argot adaptés.</li>
-                    <li><strong>Véhicules :</strong> Couleurs du gang. Supersportives interdites. Privilégier SUV, Muscle cars, Lowriders.</li>
-                </ul>
-            </div>
-            <div class="mini-card">
-                <h4>2. Vie de Groupe & Effectifs</h4>
-                <ul>
-                    <li><strong>Limite :</strong> 15 personnes maximum + 4 habitants max.</li>
-                    <li><strong>Suivi :</strong> Liste des membres à jour via Discord.</li>
-                    <li><strong>Évolution :</strong> Basée sur l'activité et le sérieux.</li>
-                </ul>
-            </div>
-            <div class="mini-card">
-                <h4>3. Conflits & Guerres</h4>
-                <ul>
-                    <li><strong>Fear Gang :</strong> Respect entre gangs naturel.</li>
-                    <li><strong>Motivations :</strong> Raisons RP solides exigées.</li>
-                    <li><strong>Fair-Play :</strong> "Offre fair-play" obligatoire si ascendant pris.</li>
-                </ul>
-            </div>
-            <div class="mini-card">
-                <h4>4. Activités & Commerce</h4>
-                <ul>
-                    <li><strong>Stupéfiants :</strong> Transactions interdites aux abords du QG.</li>
-                    <li><strong>Matériel :</strong> Interdit de s'allier pour attaquer livraison/labo.</li>
-                    <li><strong>Alliances :</strong> Interdiction de s'allier pour attaquer un 3ème gang.</li>
-                    <li><strong>Armes :</strong> Vente aux civils formellement interdite.</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <!-- FINALE BOX -->
-    <div class="finale-box">
-        <h3>💡 Conseils pour les Chefs de Groupe</h3>
-        <p>
-            Gardez à l'esprit que vous représentez l'image de votre groupe. Un groupe illégal respecté n'est pas forcément celui qui tire le plus, mais celui qui propose les scènes les plus immersives et cohérentes.
-            <strong>Privilégiez le jeu et les scènes plutôt que le shoot et l'égo !</strong>
-        </p>
-        <div class="cta-row">
-            <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener" class="cta-btn cta-primary">
-                <i class="fa-brands fa-discord"></i> Rejoindre le Discord
-            </a>
-            <a href="index.html" class="cta-btn cta-secondary">
-                <i class="fa-solid fa-arrow-left"></i> Retour à l'accueil
-            </a>
-        </div>
-    </div>
-
-</div><!-- /content-wrap -->
-
-<!-- FOOTER -->
 <footer>
-    <p>L'administration d'InsideRP se réserve le droit d'ajuster ce règlement pour maintenir l'équilibre du serveur.</p>
-    <p>&copy; 2026 Inside Roleplay. Tous droits réservés.</p>
-    <div class="footer-links">
-        <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener"><i class="fa-brands fa-discord"></i></a>
-        <a href="https://www.tiktok.com/@insiderpfr" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok"></i></a>
-        <a href="https://x.com/insiderpfr" target="_blank" rel="noopener"><i class="fa-brands fa-x-twitter"></i></a>
-        <a href="https://www.youtube.com/@inside-roleplay" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i></a>
-    </div>
+  <p>Dernière mise à jour : Mars 2026 · Privilégiez toujours la scène RP au "Win RP".</p>
+  <p>&copy; 2026 Inside Roleplay. Tous droits réservés.</p>
+  <div class="fl">
+    <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener"><i class="fa-brands fa-discord"></i></a>
+    <a href="https://www.tiktok.com/@insiderpfr" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok"></i></a>
+    <a href="https://x.com/insiderpfr" target="_blank" rel="noopener"><i class="fa-brands fa-x-twitter"></i></a>
+    <a href="https://www.youtube.com/@inside-roleplay" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i></a>
+  </div>
 </footer>
-
 <script>
-    lucide.createIcons();
-
-    // Progress bar
-    window.addEventListener('scroll', () => {
-        const total = document.documentElement.scrollHeight - window.innerHeight;
-        document.getElementById('progress-bar').style.width = (window.scrollY / total * 100) + '%';
-    });
-
-    // Jump to section
-    function jumpTo(id) {
-        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    // Highlight active chapter
-    const sections = ['sec1','sec2','sec3','sec4','sec5','sec6','orga','gangs'];
-    const chapBtns = document.querySelectorAll('.chap-btn');
-    const obs = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-            if (e.isIntersecting) {
-                const idx = sections.indexOf(e.target.id);
-                if (idx !== -1) chapBtns.forEach((b, i) => b.classList.toggle('active', i === idx));
-            }
-        });
-    }, { threshold: 0.4 });
-    sections.forEach(id => { const el = document.getElementById(id); if(el) obs.observe(el); });
+window.addEventListener('scroll',()=>{const t=document.documentElement.scrollHeight-window.innerHeight;document.getElementById('pb').style.width=(window.scrollY/t*100)+'%'});
+function jumpTo(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'})}
+const secs=['s1','s2','s3','s4','s5','s6','s7'],cbs=document.querySelectorAll('.cb');
+new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const i=secs.indexOf(e.target.id);if(i!==-1)cbs.forEach((b,j)=>b.classList.toggle('active',i===j))}})},{threshold:.4}).observe||secs.forEach(id=>{const el=document.getElementById(id);if(el)new IntersectionObserver(e=>{if(e[0].isIntersecting){const i=secs.indexOf(id);cbs.forEach((b,j)=>b.classList.toggle('active',i===j))}},{threshold:.4}).observe(el)});
+const ob=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const i=secs.indexOf(e.target.id);if(i!==-1)cbs.forEach((b,j)=>b.classList.toggle('active',i===j))}})},{threshold:.4});
+secs.forEach(id=>{const el=document.getElementById(id);if(el)ob.observe(el)});
 </script>
 </body>
 </html>

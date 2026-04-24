@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inside Roleplay | Guide de la Justice</title>
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@300;400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+    --bg:#0b0717; --ac:#f97316; --ac2:#f9d423;
+    --card:rgba(255,255,255,0.025); --border:rgba(255,255,255,0.06);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:#e8e0f0;overflow-x:hidden}
+.cosmic-bg{position:fixed;top:0;left:0;width:100vw;height:100vh;
+    background:radial-gradient(circle at 30% 20%,rgba(249,115,22,.1) 0%,transparent 50%),
+               radial-gradient(circle at 75% 75%,rgba(122,40,203,.12) 0%,transparent 45%);z-index:-2}
+.stars{background:transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+    position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;opacity:.35}
+#pb{position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--ac),var(--ac2));z-index:1000;box-shadow:0 0 8px var(--ac)}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--ac);border-radius:3px}
+
+/* NAV */
+nav{position:fixed;width:100%;z-index:100;top:2px;background:rgba(11,7,23,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(249,115,22,.12)}
+.ni{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;height:62px}
+.nl a{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:500;letter-spacing:1.5px;text-decoration:none;color:rgba(255,255,255,.4);transition:color .2s;text-transform:uppercase;margin-left:2rem}
+.nl a:hover{color:#fff}.nl a.active{color:var(--ac);border-bottom:1.5px solid var(--ac);padding-bottom:2px}
+.nlogo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
+.nlogo img{width:30px;height:30px;object-fit:contain}
+.nlogo span{font-family:'Bebas Neue',cursive;font-size:1.35rem;letter-spacing:2px}
+.nbtn{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:#fff;padding:.4rem 1rem;border-radius:6px;font-size:.75rem;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:6px;transition:all .2s}
+.nbtn:hover{background:rgba(255,255,255,.14)}
+
+/* HERO */
+.hero{padding:120px 1.5rem 50px;text-align:center;position:relative;z-index:1}
+.badge{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(249,115,22,.45);background:rgba(249,115,22,.08);padding:5px 18px;border-radius:2px;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:3px;color:#fb923c;text-transform:uppercase;margin-bottom:1.2rem;animation:up .8s ease both}
+.badge::before{content:'■';font-size:.4rem;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero h1{font-family:'Bebas Neue',cursive;font-size:clamp(3rem,9vw,6.5rem);line-height:.9;letter-spacing:3px;animation:up 1s cubic-bezier(.16,1,.3,1) .15s both}
+.hero h1 span{background:linear-gradient(135deg,#fb923c,#f9d423);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:4px;color:rgba(255,255,255,.28);text-transform:uppercase;margin-top:.9rem;animation:up .8s ease .45s both}
+.hero-desc{max-width:600px;margin:1.8rem auto 0;background:rgba(249,115,22,.06);border-left:3px solid rgba(249,115,22,.5);padding:.9rem 1.3rem;border-radius:0 8px 8px 0;font-size:.88rem;font-style:italic;color:rgba(255,255,255,.5);animation:up .8s ease .6s both}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* CHAPTER NAV */
+#cnav{position:sticky;top:64px;z-index:90;background:rgba(11,7,23,.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.04);padding:0 1.5rem;overflow-x:auto;white-space:nowrap}
+#cnav::-webkit-scrollbar{height:0}
+.cni{max-width:1100px;margin:0 auto;display:flex}
+.cb{display:inline-flex;align-items:center;gap:7px;padding:.8rem 1.1rem;font-size:.68rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.32);border-bottom:2px solid transparent;cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;transition:all .2s;font-family:'IBM Plex Mono',monospace}
+.cb:hover{color:#fff}.cb.active{color:var(--ac);border-bottom-color:var(--ac)}
+
+/* CONTENT */
+.wrap{max-width:880px;margin:0 auto;padding:2.5rem 1.5rem 6rem;position:relative;z-index:1}
+.sa{scroll-margin-top:130px}
+
+/* SECTION HEADER */
+.sh{display:flex;align-items:center;gap:12px;margin-bottom:1.3rem;padding-bottom:.9rem;border-bottom:1px solid rgba(249,115,22,.18)}
+.sn{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#000;width:34px;height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.95rem;flex-shrink:0;font-family:'Bebas Neue',cursive;letter-spacing:1px}
+.sh h3{font-size:1.1rem;font-weight:600;color:#fff;letter-spacing:.3px}
+
+/* CARD */
+.card{background:var(--card);backdrop-filter:blur(12px);border:1px solid rgba(249,115,22,.1);border-radius:14px;padding:1.8rem;margin-bottom:1.3rem;transition:border-color .3s,box-shadow .3s}
+.card:hover{border-color:rgba(249,115,22,.28);box-shadow:0 0 24px rgba(249,115,22,.06)}
+
+/* RULE */
+.ri{display:flex;align-items:flex-start;gap:11px;padding:.7rem 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.ri:last-child{border-bottom:none;padding-bottom:0}.ri:first-child{padding-top:0}
+.ric{flex-shrink:0;margin-top:3px;color:var(--ac);font-size:.8rem;width:14px;text-align:center}
+.ric.dim{color:rgba(255,255,255,.18)}
+.rt{font-size:.87rem;line-height:1.65;color:rgba(232,224,240,.78)}
+.rt strong{color:#fff;font-weight:600}.rt em{color:rgba(255,255,255,.32);font-size:.8rem}
+
+/* PILL LIST */
+.pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.75rem}
+.pill{display:inline-flex;align-items:center;gap:6px;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.25);color:#fb923c;padding:.3rem .75rem;border-radius:20px;font-size:.73rem;font-weight:600;letter-spacing:.5px}
+
+/* SANCTION TABLE */
+.stbl{width:100%;border-collapse:collapse;margin-top:.8rem}
+.stbl th{font-size:.68rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);font-family:'IBM Plex Mono',monospace;padding:.6rem .8rem;border-bottom:1px solid rgba(255,255,255,.08);text-align:left}
+.stbl td{padding:.65rem .8rem;font-size:.83rem;border-bottom:1px solid rgba(255,255,255,.04);color:rgba(232,224,240,.75)}
+.stbl tr:last-child td{border-bottom:none}
+.stbl td:first-child{font-weight:600}
+.dot-g::before{content:'● ';color:#22c55e}.dot-o::before{content:'● ';color:#f97316}.dot-r::before{content:'● ';color:#ef4444}
+
+/* LINK CARD */
+.lcard{display:flex;align-items:center;gap:14px;background:rgba(249,115,22,.06);border:1px solid rgba(249,115,22,.2);border-radius:10px;padding:1rem 1.2rem;text-decoration:none;transition:all .2s;margin-bottom:.7rem}
+.lcard:hover{background:rgba(249,115,22,.12);border-color:rgba(249,115,22,.45);transform:translateX(4px)}
+.lcard-icon{width:36px;height:36px;background:rgba(249,115,22,.12);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--ac);font-size:.85rem;flex-shrink:0}
+.lcard-text strong{display:block;font-size:.85rem;color:#fff;margin-bottom:2px}
+.lcard-text span{font-size:.73rem;color:rgba(255,255,255,.38);font-family:'IBM Plex Mono',monospace}
+
+/* APPLY BOX */
+.apply{background:rgba(249,115,22,.07);border:1px solid rgba(249,115,22,.22);border-radius:14px;padding:2rem;text-align:center;margin-top:2.5rem}
+.apply h3{font-size:1rem;font-weight:600;color:#fff;margin-bottom:.75rem}
+.apply p{font-size:.85rem;color:rgba(232,224,240,.55);line-height:1.7;max-width:500px;margin:0 auto}
+.ctas{display:flex;gap:.8rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:.65rem 1.4rem;border-radius:7px;font-size:.78rem;font-weight:700;text-decoration:none;letter-spacing:.5px;transition:all .2s;text-transform:uppercase}
+.btn-ac{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#000}
+.btn-ac:hover{opacity:.85;transform:translateY(-2px)}
+.btn-ghost{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.65)}
+.btn-ghost:hover{background:rgba(255,255,255,.12);color:#fff}
+
+/* DIVIDER */
+.div{display:flex;align-items:center;gap:.9rem;margin:2.5rem 0;opacity:.35}
+.div-l{height:1px;flex:1;background:linear-gradient(to right,transparent,var(--ac),transparent)}
+
+/* FOOTER */
+footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.06);background:rgba(5,3,10,.8);padding:1.8rem;text-align:center}
+footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
+.fl{display:flex;justify-content:center;gap:1.1rem;margin-top:.9rem}
+.fl a{color:rgba(255,255,255,.22);transition:color .2s;font-size:1.05rem}.fl a:hover{color:var(--ac)}
+</style>
+</head>
+<body>
+<div class="cosmic-bg"></div>
+<div class="stars"></div>
+<div id="pb"></div>
+
+<nav>
+  <div class="ni">
+    <a href="index.html" class="nlogo">
+      <img src="logo.png" alt="Logo" onerror="this.src='https://via.placeholder.com/30/f97316/000?text=I'">
+      <span>Inside Roleplay</span>
+    </a>
+    <div class="nl">
+      <a href="index.html">Accueil</a>
+      <a href="Lore.html">Lore</a>
+      <a href="Reglementill.html">Règl. Illégal</a>
+      <a href="justice.html" class="active">Justice</a>
+      <a href="gangorga.html">Gangs & Orga</a>
+      <a href="petitesfrappes.html">PF & Habitants</a>
+      <a href="entreprise.html">Entreprise</a>
+    </div>
+    <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener" class="nbtn">
+      <i class="fa-brands fa-discord" style="color:#5865F2"></i> Discord
+    </a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="badge">⚖️ Wiki InsideRP · 2026</div>
+  <h1>GUIDE DE<br><span>LA JUSTICE</span></h1>
+  <p class="hero-sub">Droits · Procédures · Sanctions</p>
+  <p class="hero-desc">Ce guide présente les bases du fonctionnement de la justice au sein d'InsideRP. Il permet à chaque citoyen de comprendre ses droits, ses devoirs et le cadre légal appliqué en ville.</p>
+</div>
+
+<div id="cnav">
+  <div class="cni">
+    <button class="cb active" onclick="jumpTo('s1')"><i class="fa-solid fa-scale-balanced fa-xs"></i> Principes</button>
+    <button class="cb" onclick="jumpTo('s2')"><i class="fa-solid fa-shield-halved fa-xs"></i> Forces de l'ordre</button>
+    <button class="cb" onclick="jumpTo('s3')"><i class="fa-solid fa-gavel fa-xs"></i> Procédure</button>
+    <button class="cb" onclick="jumpTo('s4')"><i class="fa-solid fa-triangle-exclamation fa-xs"></i> Sanctions</button>
+    <button class="cb" onclick="jumpTo('s5')"><i class="fa-solid fa-link fa-xs"></i> Ressources</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- S1 -->
+  <div id="s1" class="sa">
+    <div class="card">
+      <div class="sh"><div class="sn">1</div><h3>Principes Fondamentaux</h3></div>
+      <p style="font-size:.82rem;color:rgba(255,255,255,.38);font-family:'IBM Plex Mono',monospace;margin-bottom:1.2rem;letter-spacing:.5px">La justice repose sur des principes essentiels garantissant l'équité, la protection des droits et le respect de chaque individu.</p>
+      <div class="ri"><div class="ric"><i class="fa-solid fa-circle-dot"></i></div><div class="rt"><strong>Présomption d'innocence</strong> — Toute personne est considérée innocente tant qu'elle n'a pas été jugée.</div></div>
+      <div class="ri"><div class="ric"><i class="fa-solid fa-circle-dot"></i></div><div class="rt"><strong>Droit au silence</strong> — Aucun citoyen n'est obligé de répondre aux questions des autorités.</div></div>
+      <div class="ri"><div class="ric"><i class="fa-solid fa-circle-dot"></i></div><div class="rt"><strong>Droit à un avocat</strong> — Chaque individu peut demander un avocat à tout moment de la procédure.</div></div>
+      <div class="ri"><div class="ric"><i class="fa-solid fa-circle-dot"></i></div><div class="rt"><strong>Respect des procédures</strong> — Toute arrestation ou enquête doit suivre un cadre légal strict. <em>⚠️ Toute violation peut entraîner l'annulation de la procédure.</em></div></div>
+      <div style="margin-top:1.2rem">
+        <p style="font-size:.72rem;color:rgba(255,255,255,.3);font-family:'IBM Plex Mono',monospace;letter-spacing:1px;margin-bottom:.6rem">S'APPLIQUE À</p>
+        <div class="pills">
+          <span class="pill"><i class="fa-solid fa-user fa-xs"></i> Tous les citoyens</span>
+          <span class="pill"><i class="fa-solid fa-shield fa-xs"></i> Forces de l'ordre</span>
+          <span class="pill"><i class="fa-solid fa-briefcase fa-xs"></i> Professionnels du droit</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S2 -->
+  <div id="s2" class="sa">
+    <div class="card">
+      <div class="sh"><div class="sn">2</div><h3>Règles des Forces de l'Ordre</h3></div>
+      <p style="font-size:.82rem;color:rgba(255,255,255,.38);font-family:'IBM Plex Mono',monospace;margin-bottom:1.2rem;letter-spacing:.5px">Les forces de l'ordre sont tenues de respecter un cadre strict lors de leurs interventions.</p>
+      <div class="ri"><div class="ric"><i class="fa-solid fa-check"></i></div><div class="rt"><strong>Lecture obligatoire des droits</strong> lors de toute interpellation.</div></div>
+      <div class="ri"><div class="ric"><i class="fa-solid fa-check"></i></div><div class="rt"><strong>Interdiction d'abus de pouvoir</strong> sous toutes ses formes.</div></div>
+      <div class="ri"><div class="ric"><i class="fa-solid fa-check"></i></div><div class="rt"><strong>Fouilles et perquisitions encadrées</strong> — elles doivent être justifiées et documentées.</div></div>
+      <div class="ri"><div class="ric"><i class="fa-solid fa-check"></i></div><div class="rt"><strong>Respect des temps de détention</strong> — aucune garde à vue ne peut dépasser les délais réglementaires.</div></div>
+      <div class="ri"><div class="ric dim"><i class="fa-solid fa-circle-exclamation"></i></div><div class="rt"><em>⚠️ Une procédure non conforme peut invalider l'ensemble des charges retenues.</em></div></div>
+    </div>
+  </div>
+
+  <!-- S3 -->
+  <div id="s3" class="sa">
+    <div class="card">
+      <div class="sh"><div class="sn">3</div><h3>Fonctionnement de la Justice</h3></div>
+      <p style="font-size:.82rem;color:rgba(255,255,255,.38);font-family:'IBM Plex Mono',monospace;margin-bottom:1.3rem;letter-spacing:.5px">Toute affaire judiciaire suit un processus défini. Chaque étape doit être respectée pour garantir une procédure valide.</p>
+      <div style="display:flex;flex-direction:column;gap:.5rem">
+        <!-- Timeline -->
+        <div style="display:flex;gap:1rem;align-items:flex-start">
+          <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0">
+            <div style="width:28px;height:28px;background:linear-gradient(135deg,var(--ac),var(--ac2));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;color:#000">1</div>
+            <div style="width:1px;flex:1;background:rgba(249,115,22,.2);min-height:24px;margin:.3rem 0"></div>
+          </div>
+          <div style="padding:.2rem 0"><strong style="font-size:.87rem">Interpellation / Arrestation</strong><p style="font-size:.78rem;color:rgba(255,255,255,.4);margin-top:2px">Intervention des forces de l'ordre sur le terrain.</p></div>
+        </div>
+        <div style="display:flex;gap:1rem;align-items:flex-start">
+          <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0">
+            <div style="width:28px;height:28px;background:rgba(249,115,22,.15);border:1.5px solid rgba(249,115,22,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;color:var(--ac)">2</div>
+            <div style="width:1px;flex:1;background:rgba(249,115,22,.2);min-height:24px;margin:.3rem 0"></div>
+          </div>
+          <div style="padding:.2rem 0"><strong style="font-size:.87rem">Garde à vue</strong><p style="font-size:.78rem;color:rgba(255,255,255,.4);margin-top:2px">Temps de détention provisoire encadré légalement.</p></div>
+        </div>
+        <div style="display:flex;gap:1rem;align-items:flex-start">
+          <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0">
+            <div style="width:28px;height:28px;background:rgba(249,115,22,.15);border:1.5px solid rgba(249,115,22,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;color:var(--ac)">3</div>
+            <div style="width:1px;flex:1;background:rgba(249,115,22,.2);min-height:24px;margin:.3rem 0"></div>
+          </div>
+          <div style="padding:.2rem 0"><strong style="font-size:.87rem">Enquête</strong><p style="font-size:.78rem;color:rgba(255,255,255,.4);margin-top:2px">Collecte des preuves, auditions, analyses.</p></div>
+        </div>
+        <div style="display:flex;gap:1rem;align-items:flex-start">
+          <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0">
+            <div style="width:28px;height:28px;background:rgba(249,115,22,.15);border:1.5px solid rgba(249,115,22,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;color:var(--ac)">4</div>
+            <div style="width:1px;flex:1;background:rgba(249,115,22,.2);min-height:24px;margin:.3rem 0"></div>
+          </div>
+          <div style="padding:.2rem 0"><strong style="font-size:.87rem">Procès <em style="font-size:.75rem;color:rgba(255,255,255,.3)">(si nécessaire)</em></strong><p style="font-size:.78rem;color:rgba(255,255,255,.4);margin-top:2px">Audience devant le tribunal d'InsideRP.</p></div>
+        </div>
+        <div style="display:flex;gap:1rem;align-items:flex-start">
+          <div style="flex-shrink:0">
+            <div style="width:28px;height:28px;background:rgba(249,115,22,.15);border:1.5px solid rgba(249,115,22,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;color:var(--ac)">5</div>
+          </div>
+          <div style="padding:.2rem 0"><strong style="font-size:.87rem">Jugement</strong><p style="font-size:.78rem;color:rgba(255,255,255,.4);margin-top:2px">Verdict et application des sanctions.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S4 -->
+  <div id="s4" class="sa">
+    <div class="card">
+      <div class="sh"><div class="sn">4</div><h3>Sanctions & Classification des Infractions</h3></div>
+      <p style="font-size:.82rem;color:rgba(255,255,255,.38);font-family:'IBM Plex Mono',monospace;margin-bottom:1.2rem;letter-spacing:.5px">Les infractions sont classées selon leur gravité. Les peines de prison sont exprimées en minutes (temps réel) et sont cumulables, sauf mention contraire.</p>
+      <table class="stbl">
+        <thead><tr><th>Catégorie</th><th>Type</th><th>Sanctions applicables</th></tr></thead>
+        <tbody>
+          <tr><td class="dot-g">Contravention</td><td>Infractions mineures</td><td>Amendes</td></tr>
+          <tr><td class="dot-o">Délit</td><td>Infractions intermédiaires</td><td>Amende + emprisonnement</td></tr>
+          <tr><td class="dot-r">Crime</td><td>Infractions graves</td><td>Peines lourdes (max cumulées)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- S5 -->
+  <div id="s5" class="sa">
+    <div class="card">
+      <div class="sh"><div class="sn">5</div><h3>Ressources Officielles</h3></div>
+      <a href="https://docs.google.com/spreadsheets/d/1-90mHAAdtO3gHqzNt2hRKxOFQesZRG3oX3TLH80o2ds/edit?usp=sharing" target="_blank" rel="noopener" class="lcard">
+        <div class="lcard-icon"><i class="fa-solid fa-book-open"></i></div>
+        <div class="lcard-text"><strong>Guide de la Justice complet</strong><span>Tous les codes juridiques en détail →</span></div>
+      </a>
+      <a href="https://docs.google.com/spreadsheets/d/1-1VDCAQPTKWMiIYlcFTyI-jI_xBYayeezbeRqLCsW2Q/edit?gid=0#gid=0" target="_blank" rel="noopener" class="lcard">
+        <div class="lcard-icon"><i class="fa-solid fa-list-ul"></i></div>
+        <div class="lcard-text"><strong>Registre des infractions</strong><span>Liste exhaustive des infractions codifiées →</span></div>
+      </a>
+      <a href="https://docs.google.com/spreadsheets/d/1ZxvSoWyQeFiMR5Z8LoXh_qkBABWv2oPL9SS1gHfdQ0Q/edit?gid=0#gid=0" target="_blank" rel="noopener" class="lcard">
+        <div class="lcard-icon"><i class="fa-solid fa-file-contract"></i></div>
+        <div class="lcard-text"><strong>Guide des procédures</strong><span>Protocoles d'intervention step-by-step →</span></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="apply">
+    <h3>⚖️ Un doute sur vos droits ?</h3>
+    <p>Consultez les ressources officielles ou contactez l'équipe Staff sur Discord. <strong>Chaque procédure compte.</strong></p>
+    <div class="ctas">
+      <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener" class="btn btn-ac"><i class="fa-brands fa-discord"></i> Rejoindre le Discord</a>
+      <a href="index.html" class="btn btn-ghost"><i class="fa-solid fa-arrow-left"></i> Retour Accueil</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>Le présent document peut faire l'objet de modifications à tout moment · Guide de la Justice - InsideRP - Version 2026.03</p>
+  <p>&copy; 2026 Inside Roleplay. Tous droits réservés.</p>
+  <div class="fl">
+    <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener"><i class="fa-brands fa-discord"></i></a>
+    <a href="https://www.tiktok.com/@insiderpfr" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok"></i></a>
+    <a href="https://x.com/insiderpfr" target="_blank" rel="noopener"><i class="fa-brands fa-x-twitter"></i></a>
+    <a href="https://www.youtube.com/@inside-roleplay" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i></a>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{
+  const t=document.documentElement.scrollHeight-window.innerHeight;
+  document.getElementById('pb').style.width=(window.scrollY/t*100)+'%';
+});
+function jumpTo(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'})}
+const secs=['s1','s2','s3','s4','s5'];
+const cbs=document.querySelectorAll('.cb');
+const ob=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){const i=secs.indexOf(e.target.id);if(i!==-1)cbs.forEach((b,j)=>b.classList.toggle('active',i===j))}});
+},{threshold:.4});
+secs.forEach(id=>{const el=document.getElementById(id);if(el)ob.observe(el)});
+</script>
+</body>
+</html>
