@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inside Roleplay | Vidéos</title>
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@300;400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080612;
+  --bg2: #0d0a1a;
+  --pink: #ff3366;
+  --gold: #f9d423;
+  --purple: #7a28cb;
+  --purple-light: #a855f7;
+  --cyan: #00e5ff;
+  --text: #e8e0f0;
+  --muted: #6b6480;
+  --card: rgba(255,255,255,0.025);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+.cosmic-bg {
+  position: fixed; top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(122,40,203,.18) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(255,51,102,.12) 0%, transparent 45%);
+  z-index: 0; pointer-events: none;
+}
+
+.stars {
+  background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 0; opacity: .35; pointer-events: none;
+}
+
+#pb {
+  position: fixed; top: 0; left: 0; height: 2px; width: 0%;
+  background: linear-gradient(90deg, var(--purple), var(--pink), var(--gold));
+  z-index: 1000; box-shadow: 0 0 8px var(--pink);
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: linear-gradient(var(--purple), var(--pink)); border-radius: 3px; }
+
+/* NAV */
+nav {
+  position: fixed; width: 100%; z-index: 100; top: 2px;
+  background: rgba(8,6,18,.92); backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(122,40,203,.2);
+}
+.ni {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 1.5rem; height: 62px;
+}
+.nl a {
+  font-family: 'IBM Plex Mono', monospace; font-size: .72rem;
+  font-weight: 500; letter-spacing: 1.5px; text-decoration: none;
+  color: rgba(255,255,255,.4); transition: color .2s;
+  text-transform: uppercase; margin-left: 2rem;
+}
+.nl a:hover { color: #fff; }
+.nl a.active { color: var(--purple-light); border-bottom: 1.5px solid var(--purple-light); padding-bottom: 2px; }
+.nlogo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #fff; }
+.nlogo img { width: 30px; height: 30px; object-fit: contain; }
+.nlogo span { font-family: 'Bebas Neue', cursive; font-size: 1.35rem; letter-spacing: 2px; }
+.nbtn {
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1);
+  color: #fff; padding: .4rem 1rem; border-radius: 6px;
+  font-size: .75rem; font-weight: 600; text-decoration: none;
+  display: flex; align-items: center; gap: 6px; transition: all .2s;
+}
+.nbtn:hover { background: rgba(255,255,255,.14); }
+
+/* HERO */
+.hero {
+  position: relative; z-index: 1;
+  padding: 110px 1.5rem 40px; text-align: center;
+}
+.badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid rgba(122,40,203,.5); background: rgba(122,40,203,.1);
+  padding: 5px 18px; border-radius: 2px;
+  font-family: 'IBM Plex Mono', monospace; font-size: .62rem;
+  letter-spacing: 3px; color: var(--purple-light);
+  text-transform: uppercase; margin-bottom: 1.2rem;
+  animation: up .8s ease both;
+}
+.badge::before { content: '■'; font-size: .4rem; animation: blink 1s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+.hero h1 {
+  font-family: 'Bebas Neue', cursive;
+  font-size: clamp(3rem, 9vw, 6.5rem);
+  line-height: .9; letter-spacing: 3px;
+  animation: up 1s cubic-bezier(.16,1,.3,1) .15s both;
+}
+.hero h1 span {
+  background: linear-gradient(135deg, var(--purple-light), var(--pink));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-sub {
+  font-family: 'IBM Plex Mono', monospace; font-size: .65rem;
+  letter-spacing: 4px; color: rgba(255,255,255,.28);
+  text-transform: uppercase; margin-top: .9rem;
+  animation: up .8s ease .45s both;
+}
+@keyframes up { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+
+/* MAIN PLAYER */
+.player-section {
+  position: relative; z-index: 1;
+  max-width: 1100px; margin: 0 auto;
+  padding: 0 1.5rem 5rem;
+}
+
+.featured-wrap {
+  position: relative; border-radius: 16px; overflow: hidden;
+  border: 1px solid rgba(122,40,203,.3);
+  box-shadow: 0 0 60px rgba(122,40,203,.15), 0 0 120px rgba(255,51,102,.05);
+  background: #000;
+  animation: up .8s ease .6s both;
+}
+
+.featured-video {
+  width: 100%; display: block;
+  aspect-ratio: 16/9; object-fit: cover;
+  background: #000;
+}
+
+/* CRT scanline overlay on video */
+.featured-wrap::after {
+  content: '';
+  position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,.04) 2px,
+    rgba(0,0,0,.04) 4px
+  );
+  z-index: 2;
+}
+
+/* Top-left info badge on player */
+.player-badge {
+  position: absolute; top: 1rem; left: 1rem; z-index: 3;
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(8,6,18,.75); backdrop-filter: blur(8px);
+  border: 1px solid rgba(122,40,203,.4); border-radius: 6px;
+  padding: .4rem .9rem;
+  font-family: 'IBM Plex Mono', monospace; font-size: .62rem;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--purple-light);
+}
+.rec-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--pink); animation: blink .8s infinite;
+}
+
+/* Caption bar */
+.caption-bar {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 3;
+  padding: 2rem 1.5rem 1.2rem;
+  background: linear-gradient(to top, rgba(8,6,18,.95) 0%, transparent 100%);
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem;
+}
+.caption-title {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 2rem; letter-spacing: 2px; color: #fff;
+  line-height: 1;
+}
+.caption-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .65rem; letter-spacing: 2px;
+  color: rgba(255,255,255,.4); text-transform: uppercase;
+  margin-top: .3rem;
+}
+.caption-num {
+  font-family: 'Bebas Neue', cursive; font-size: 3.5rem; line-height: 1;
+  color: rgba(122,40,203,.25); letter-spacing: 2px; flex-shrink: 0;
+}
+
+/* THUMBNAIL GRID */
+.grid-label {
+  font-family: 'IBM Plex Mono', monospace; font-size: .65rem;
+  letter-spacing: 4px; color: var(--muted); text-transform: uppercase;
+  display: flex; align-items: center; gap: 12px;
+  margin: 2.5rem 0 1.2rem;
+}
+.grid-label::before { content:''; flex:1; height:1px; background:rgba(255,255,255,.06); }
+.grid-label::after { content:''; width:20px; height:1px; background:var(--purple); }
+
+.vid-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: .75rem;
+}
+
+.vid-thumb {
+  position: relative; border-radius: 10px; overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer; transition: all .3s ease;
+  background: #000; aspect-ratio: 16/9;
+}
+.vid-thumb video {
+  width: 100%; height: 100%; object-fit: cover;
+  display: block; pointer-events: none;
+}
+.vid-thumb .thumb-overlay {
+  position: absolute; inset: 0; z-index: 2;
+  background: rgba(8,6,18,.45);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  transition: background .3s;
+}
+.vid-thumb:hover .thumb-overlay { background: rgba(8,6,18,.2); }
+.vid-thumb.active {
+  border-color: var(--purple-light);
+  box-shadow: 0 0 20px rgba(168,85,247,.4);
+}
+.vid-thumb.active .thumb-overlay { background: rgba(8,6,18,.1); }
+
+.play-icon {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(122,40,203,.7); backdrop-filter: blur(4px);
+  border: 1.5px solid rgba(168,85,247,.6);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .75rem; color: #fff;
+  transition: transform .2s, background .2s;
+}
+.vid-thumb:hover .play-icon { transform: scale(1.2); background: rgba(122,40,203,.9); }
+.vid-thumb.active .play-icon {
+  background: var(--pink); border-color: var(--pink);
+  box-shadow: 0 0 15px rgba(255,51,102,.5);
+}
+.active .play-icon i { display: none; }
+.active .play-icon::after { content: '▶'; font-size: .65rem; margin-left: 2px; }
+
+.thumb-num {
+  font-family: 'Bebas Neue', cursive; font-size: 1rem;
+  color: rgba(255,255,255,.6); margin-top: .4rem; letter-spacing: 1px;
+}
+.vid-thumb.active .thumb-num { color: var(--pink); }
+
+/* BOTTOM CTA */
+.bottom-cta {
+  position: relative; z-index: 1;
+  max-width: 1100px; margin: 0 auto;
+  padding: 0 1.5rem 6rem;
+  display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: .65rem 1.4rem; border-radius: 7px; font-size: .78rem;
+  font-weight: 700; text-decoration: none; letter-spacing: .5px;
+  transition: all .2s; text-transform: uppercase;
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+.btn-ac {
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  color: #fff; border: none;
+  box-shadow: 0 4px 20px rgba(255,51,102,.25);
+}
+.btn-ac:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255,51,102,.45); }
+.btn-ghost {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12); color: rgba(255,255,255,.65);
+}
+.btn-ghost:hover { background: rgba(255,255,255,.12); color: #fff; }
+
+/* FOOTER */
+footer {
+  position: relative; z-index: 1;
+  border-top: 1px solid rgba(255,255,255,.05);
+  background: rgba(0,0,0,.4); padding: 1.8rem; text-align: center;
+}
+footer p { font-size: .72rem; color: var(--muted); line-height: 1.9; }
+.fl { display: flex; justify-content: center; gap: 1.1rem; margin-top: .9rem; }
+.fl a { color: var(--muted); transition: color .2s; font-size: 1.05rem; text-decoration: none; }
+.fl a:hover { color: var(--pink); }
+
+@media (max-width: 768px) {
+  .vid-grid { grid-template-columns: repeat(2, 1fr); }
+  .caption-num { display: none; }
+  .caption-title { font-size: 1.3rem; }
+  .nl { display: none; }
+}
+@media (max-width: 480px) {
+  .vid-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="cosmic-bg"></div>
+<div class="stars"></div>
+<div id="pb"></div>
+
+<nav>
+  <div class="ni">
+    <a href="index.html" class="nlogo">
+      <img src="logo.png" alt="Logo" onerror="this.src='https://via.placeholder.com/30/7a28cb/fff?text=I'">
+      <span>Inside Roleplay</span>
+    </a>
+    <div class="nl">
+      <a href="index.html">Accueil</a>
+      <a href="Lore.html">Lore</a>
+      <a href="videos.html" class="active">Vidéos</a>
+      <a href="https://insiderp.tebex.io/">Boutique</a>
+    </div>
+    <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener" class="nbtn">
+      <i class="fa-brands fa-discord" style="color:#5865F2"></i> Se connecter
+    </a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="badge"><span>Cinémathèque · San Andreas</span></div>
+  <h1>NOS <span>VIDÉOS</span></h1>
+  <p class="hero-sub">INSIDE ROLEPLAY &nbsp;·&nbsp; Vitrine Officielle</p>
+</div>
+
+<div class="player-section">
+
+  <!-- FEATURED PLAYER -->
+  <div class="featured-wrap" id="featured-wrap">
+    <div class="player-badge">
+      <div class="rec-dot"></div>
+      <span id="featured-label">SÉQUENCE 01</span>
+    </div>
+
+    <video
+      id="main-player"
+      class="featured-video"
+      src="VID1.mp4"
+      controls
+      preload="metadata"
+    ></video>
+
+    <div class="caption-bar">
+      <div>
+        <div class="caption-title" id="cap-title">San Andreas — L'Exode</div>
+        <div class="caption-sub" id="cap-sub">Séquence officielle · Inside Roleplay 2026</div>
+      </div>
+      <div class="caption-num" id="cap-num">01</div>
+    </div>
+  </div>
+
+  <!-- THUMBNAILS -->
+  <div class="grid-label">Toutes les séquences</div>
+
+  <div class="vid-grid" id="vid-grid">
+
+    <div class="vid-thumb active" onclick="selectVideo(0, this)">
+      <video src="VID1.mp4" muted preload="metadata"></video>
+      <div class="thumb-overlay">
+        <div class="play-icon"><i class="fa-solid fa-play" style="margin-left:2px"></i></div>
+        <div class="thumb-num">01</div>
+      </div>
+    </div>
+
+    <div class="vid-thumb" onclick="selectVideo(1, this)">
+      <video src="VID2.mp4" muted preload="metadata"></video>
+      <div class="thumb-overlay">
+        <div class="play-icon"><i class="fa-solid fa-play" style="margin-left:2px"></i></div>
+        <div class="thumb-num">02</div>
+      </div>
+    </div>
+
+    <div class="vid-thumb" onclick="selectVideo(2, this)">
+      <video src="VID3.mp4" muted preload="metadata"></video>
+      <div class="thumb-overlay">
+        <div class="play-icon"><i class="fa-solid fa-play" style="margin-left:2px"></i></div>
+        <div class="thumb-num">03</div>
+      </div>
+    </div>
+
+    <div class="vid-thumb" onclick="selectVideo(3, this)">
+      <video src="VID4.mp4" muted preload="metadata"></video>
+      <div class="thumb-overlay">
+        <div class="play-icon"><i class="fa-solid fa-play" style="margin-left:2px"></i></div>
+        <div class="thumb-num">04</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="bottom-cta">
+  <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener" class="btn btn-ac">
+    <i class="fa-solid fa-rocket"></i> Rejoindre le serveur
+  </a>
+  <a href="index.html" class="btn btn-ghost">
+    <i class="fa-solid fa-arrow-left"></i> Retour à l'accueil
+  </a>
+</div>
+
+<footer>
+  <p>&copy; 2026 Inside Roleplay. Tous droits réservés.</p>
+  <div class="fl">
+    <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener"><i class="fa-brands fa-discord"></i></a>
+    <a href="https://www.tiktok.com/@insiderpfr" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok"></i></a>
+    <a href="https://x.com/insiderpfr" target="_blank" rel="noopener"><i class="fa-brands fa-x-twitter"></i></a>
+    <a href="https://www.youtube.com/@inside-roleplay" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i></a>
+  </div>
+</footer>
+
+<script>
+// Progress bar
+window.addEventListener('scroll', () => {
+  const t = document.documentElement.scrollHeight - window.innerHeight;
+  document.getElementById('pb').style.width = (window.scrollY / t * 100) + '%';
+});
+
+// Seek thumbnails to 20% on load for a non-black preview
+document.querySelectorAll('.vid-thumb video').forEach(v => {
+  v.addEventListener('loadedmetadata', () => {
+    v.currentTime = v.duration * 0.2;
+  });
+});
+
+const videos = [
+  { src: 'VID1.mp4', label: 'SÉQUENCE 01', title: "San Andreas — L'Exode", sub: 'Séquence officielle · Inside Roleplay 2026', num: '01' },
+  { src: 'VID2.mp4', label: 'SÉQUENCE 02', title: 'San Andreas — La Rue',   sub: 'Séquence officielle · Inside Roleplay 2026', num: '02' },
+  { src: 'VID3.mp4', label: 'SÉQUENCE 03', title: 'San Andreas — Le Pouvoir', sub: 'Séquence officielle · Inside Roleplay 2026', num: '03' },
+  { src: 'VID4.mp4', label: 'SÉQUENCE 04', title: 'San Andreas — Les Ombres', sub: 'Séquence officielle · Inside Roleplay 2026', num: '04' },
+];
+
+const player = document.getElementById('main-player');
+
+function selectVideo(idx, el) {
+  // Update active thumb
+  document.querySelectorAll('.vid-thumb').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+
+  const v = videos[idx];
+  player.src = v.src;
+  player.load();
+  player.play();
+
+  document.getElementById('featured-label').textContent = v.label;
+  document.getElementById('cap-title').textContent = v.title;
+  document.getElementById('cap-sub').textContent = v.sub;
+  document.getElementById('cap-num').textContent = v.num;
+
+  // Smooth scroll to player
+  document.getElementById('featured-wrap').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+</script>
+</body>
+</html>
