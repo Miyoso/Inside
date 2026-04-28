@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CVR — EXP-22 // DOSSIER CLASSIFIÉ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;900&family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:         #06090f;
+  --panel:      rgba(255,255,255,0.028);
+  --border:     rgba(255,255,255,0.065);
+  --border-hi:  rgba(255,255,255,0.12);
+  --red:        #e8192c;
+  --red-glow:   rgba(232,25,44,0.18);
+  --red-dim:    rgba(232,25,44,0.07);
+  --blue:       #38bdf8;
+  --blue-dim:   rgba(56,189,248,0.07);
+  --grn:        #86efac;
+  --grn-dim:    rgba(134,239,172,0.07);
+  --sys:        #94a3b8;
+  --text:       #e2e8f0;
+  --muted:      #475569;
+  --muted2:     #64748b;
+  --sidebar:    300px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(--text); font-family: 'JetBrains Mono', monospace; }
+
+
+#bg-canvas { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+
+
+#grain {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.022;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px;
+  animation: grain-s 0.4s steps(1) infinite;
+}
+@keyframes grain-s {
+  0%   { background-position: 0 0; }
+  25%  { background-position: -30px 40px; }
+  50%  { background-position: 50px -20px; }
+  75%  { background-position: -60px 10px; }
+}
+
+#crash-ov { position: fixed; inset: 0; z-index: 9999; background: var(--red); opacity: 0; pointer-events: none; }
+
+#app { position: relative; z-index: 2; height: 100vh; display: flex; flex-direction: column; }
+
+.c-banner {
+  flex-shrink: 0;
+  background: var(--red);
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-align: center;
+  padding: 4px 0;
+  text-transform: uppercase;
+}
+
+.layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: var(--sidebar) 1fr;
+  grid-template-rows: 1fr auto;
+  overflow: hidden;
+}
+
+/* SIDEBAR */
+.sidebar {
+  grid-row: 1 / 3;
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sb-block { border-bottom: 1px solid var(--border); padding: 16px 18px; flex-shrink: 0; }
+.sb-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.58rem; font-weight: 600;
+  letter-spacing: 0.24em; color: var(--muted);
+  text-transform: uppercase; margin-bottom: 12px;
+}
+
+.crew-card {
+  display: flex; align-items: center; gap: 11px;
+  padding: 11px; border: 1px solid var(--border);
+  background: var(--panel); margin-bottom: 8px;
+  position: relative; overflow: hidden;
+}
+.crew-card::after { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 3px; }
+.crew-card.pilot::after { background: var(--grn); box-shadow: 0 0 10px var(--grn); }
+.crew-card.crew::after  { background: var(--blue); box-shadow: 0 0 10px var(--blue); }
+
+.cc-avatar {
+  width: 40px; height: 40px; flex-shrink: 0; border-radius: 2px;
+  display: flex; align-items: center; justify-content: center;
+}
+.crew-card.pilot .cc-avatar { background: var(--grn-dim); border: 1px solid rgba(134,239,172,0.14); }
+.crew-card.crew  .cc-avatar { background: var(--blue-dim); border: 1px solid rgba(56,189,248,0.14); }
+.cc-avatar svg { width: 24px; height: 24px; }
+.crew-card.pilot .cc-avatar svg { fill: var(--grn); opacity: 0.65; }
+.crew-card.crew  .cc-avatar svg { fill: var(--blue); opacity: 0.65; }
+
+.cc-info { flex: 1; min-width: 0; }
+.cc-role { font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2px; }
+.crew-card.pilot .cc-role { color: var(--grn); }
+.crew-card.crew  .cc-role { color: var(--blue); }
+.cc-name {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 0.92rem; letter-spacing: 0.02em; color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.cc-call { font-size: 0.6rem; color: var(--muted); margin-top: 1px; }
+
+.cc-status {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
+  font-size: 0.58rem; letter-spacing: 0.1em;
+  padding: 3px 7px; border: 1px solid;
+  text-transform: uppercase; transition: all 0.5s ease;
+}
+.cc-status.on  { border-color: var(--muted); color: var(--muted); }
+.cc-status.off { border-color: var(--red); color: var(--red); animation: blink-st 1.4s ease-in-out infinite; }
+@keyframes blink-st { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
+
+.meta-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.035);
+  font-size: 0.68rem;
+}
+.mk { color: var(--muted); font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.mv { color: var(--text); text-align: right; }
+.mv.r { color: var(--red); }
+.mv.a { color: #f59e0b; }
+
+.tl-track { flex: 1; position: relative; display: flex; flex-direction: column; justify-content: space-between; padding-left: 18px; min-height: 180px; }
+.tl-line { position: absolute; left: 6px; top: 6px; bottom: 6px; width: 2px; background: var(--border); }
+.tl-fill { position: absolute; left: 6px; top: 6px; width: 2px; height: 0%; background: linear-gradient(to bottom, var(--grn), var(--red)); transition: height 0.5s ease; }
+.tl-dot { position: relative; display: flex; align-items: center; gap: 8px; font-size: 0.6rem; color: var(--muted); }
+.tl-dot.active { color: var(--text); }
+.tl-dot.crash-d { color: var(--red) !important; }
+.tl-dot::before {
+  content: ''; position: absolute; left: -18px; top: 50%; transform: translateY(-50%);
+  width: 9px; height: 9px; border-radius: 50%; border: 2px solid var(--border); background: var(--bg); z-index: 1;
+}
+.tl-dot.active::before { border-color: var(--grn); background: var(--grn); box-shadow: 0 0 8px var(--grn); }
+.tl-dot.crash-d::before { border-color: var(--red); background: var(--red); box-shadow: 0 0 10px var(--red); }
+.tl-t { font-family: 'JetBrains Mono', monospace; letter-spacing: 0.04em; }
+
+/* TRANSCRIPT */
+.t-panel { display: flex; flex-direction: column; overflow: hidden; }
+.t-header { flex-shrink: 0; padding: 14px 26px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 16px; background: rgba(6,9,15,0.55); backdrop-filter: blur(10px); }
+.t-header h1 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.3rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.pills { display: flex; gap: 8px; margin-left: auto; }
+.pill { font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.62rem; letter-spacing: 0.12em; padding: 4px 10px; border: 1px solid var(--border); color: var(--muted2); text-transform: uppercase; }
+.pill.r { border-color: rgba(232,25,44,0.35); color: var(--red); background: var(--red-dim); }
+
+.idle { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; color: var(--muted); font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; }
+.idle-ring { width: 52px; height: 52px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; animation: idle-rot 4s linear infinite; }
+@keyframes idle-rot { to { transform: rotate(360deg); } }
+
+.msgs { flex: 1; overflow-y: auto; padding: 22px 26px; display: none; }
+.msg { display: grid; grid-template-columns: 84px 140px 1fr; gap: 0 10px; padding: 9px 10px 9px 0; border-bottom: 1px solid rgba(255,255,255,0.03); opacity: 0; transform: translateY(8px); transition: all 0.4s ease-out; }
+.msg.vis { opacity:1; transform:translateY(0); }
+.m-time { font-size: 0.65rem; color: var(--muted); padding-top: 3px; }
+.m-spk { display: flex; align-items: flex-start; gap: 6px; padding-top: 2px; }
+.m-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+.msg.pilot .m-dot { background: var(--grn); }
+.msg.crew  .m-dot { background: var(--blue); }
+.msg.system .m-dot { background: var(--sys); }
+.msg.fatal .m-dot { background: var(--red); }
+.m-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.78rem; text-transform: uppercase; }
+.msg.pilot .m-name { color: var(--grn); }
+.msg.crew .m-name { color: var(--blue); }
+.msg.system .m-name { color: var(--sys); }
+.msg.fatal .m-name { color: var(--red); }
+.m-txt { font-size: 0.82rem; line-height: 1.65; color: var(--text); font-weight: 300; }
+.msg.fatal .m-txt, .msg.last-words .m-txt { color: #fff; font-weight: 600; text-shadow: 0 0 15px var(--red); }
+
+.glitch-inline { color: #f59e0b; animation: glt 0.1s steps(1) infinite; }
+@keyframes glt { 0%,100% { opacity: 1; } 50% { opacity: 0.7; transform: translateX(1px); } }
+
+.footer { grid-column: 2; border-top: 1px solid var(--border); padding: 11px 26px; display: flex; align-items: center; gap: 14px; background: rgba(6,9,15,0.65); }
+#status { flex: 1; font-size: 0.68rem; color: var(--muted); text-transform: uppercase; }
+.sig { display: flex; gap: 2px; }
+.sig span { width: 3px; border-radius: 1px; background: var(--muted); }
+.sig span:nth-child(1) { height: 6px; } .sig span:nth-child(2) { height: 10px; } .sig span:nth-child(3) { height: 14px; } .sig span:nth-child(4) { height: 18px; }
+.sig.on span { background: var(--grn); box-shadow: 0 0 4px var(--grn); }
+.btn { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 9px 22px; border: 1px solid; background: transparent; cursor: pointer; }
+.btn-play { border-color: var(--grn); color: var(--grn); }
+.btn-rep { border-color: var(--border); color: var(--muted2); display: none; }
+
+@keyframes shake-kf { 0%,100% { transform:translate(0,0); } 10%,30%,50%,70%,90% { transform:translate(-4px, 2px); } 20%,40%,60%,80% { transform:translate(4px, -2px); } }
+.shaking { animation: shake-kf 0.7s ease; }
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div id="grain"></div>
+<div id="crash-ov"></div>
+
+<div id="app">
+  <div class="c-banner">⬛ SECRET — ACCÈS RESTREINT — BUREAU DES ACCIDENTS — RAPPORT EXP-22 ⬛</div>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sb-block">
+        <div class="sb-label">Équipage embarqué</div>
+        <div class="crew-card pilot">
+          <div class="cc-avatar"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></div>
+          <div class="cc-info">
+            <div class="cc-role">Commandant de bord</div>
+            <div class="cc-name">Jack "Miller" Hayes</div>
+            <div class="cc-call">NIMBUS 22 / ALPHA</div>
+          </div>
+          <div class="cc-status on" id="sp">EMBARQUÉ</div>
+        </div>
+        <div class="crew-card crew">
+          <div class="cc-avatar"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></div>
+          <div class="cc-info">
+            <div class="cc-role">Livreur de fret</div>
+            <div class="cc-name">D. "Ghost" LaRue</div>
+            <div class="cc-call">NIMBUS 22 / BRAVO</div>
+          </div>
+          <div class="cc-status on" id="sc">EMBARQUÉ</div>
+        </div>
+      </div>
+
+      <div class="sb-block">
+        <div class="sb-label">Données de vol</div>
+        <div class="meta-row"><span class="mk">Appareil</span><span class="mv">Buckingham Nimbus</span></div>
+        <div class="meta-row"><span class="mk">Zone de crash</span><span class="mv r">Secteur Cimetière</span></div>
+        <div class="meta-row"><span class="mk">Cause</span><span class="mv r">ÉM. « LE MUR »</span></div>
+        <div class="meta-row"><span class="mk">Classification</span><span class="mv a">SECRET</span></div>
+      </div>
+
+      <div class="tl-block" style="padding: 16px 18px; flex:1; display:flex; flex-direction:column;">
+        <div class="sb-label">Chronologie</div>
+        <div class="tl-track">
+          <div class="tl-line"></div>
+          <div class="tl-fill" id="tlf"></div>
+          <div class="tl-dot" id="tl0"><span class="tl-t">01:22:45</span><span>Approche</span></div>
+          <div class="tl-dot" id="tl1"><span class="tl-t">01:23:30</span><span>Statique</span></div>
+          <div class="tl-dot" id="tl2"><span class="tl-t">01:23:42</span><span>Perte GPS</span></div>
+          <div class="tl-dot" id="tl3"><span class="tl-t">01:23:54</span><span>Panne moteur</span></div>
+          <div class="tl-dot crash-d" id="tl4"><span class="tl-t">01:24:07</span><span>Impact</span></div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="t-panel">
+      <div class="t-header">
+        <h1>Transcription Audio - EXP-22</h1>
+        <div class="pills">
+          <span class="pill">NIMBUS-CVR</span>
+          <span class="pill r">⬛ Dossier Secret</span>
+        </div>
+      </div>
+      <div class="idle" id="idle">
+        <div class="idle-ring">⊙</div>
+        <span>Initialisation requise</span>
+      </div>
+      <div class="msgs" id="msgs"></div>
+    </main>
+
+    <div class="footer">
+      <div class="sig" id="sig"><span></span><span></span><span></span><span></span></div>
+      <div id="status">Prêt pour lecture</div>
+      <button class="btn btn-rep" id="repBtn">Rejouer</button>
+      <button class="btn btn-play" id="playBtn">Lancer la récupération</button>
+    </div>
+  </div>
+</div>
+
+<script>
+
+(function(){
+  const cv=document.getElementById('bg-canvas'); const cx=cv.getContext('2d');
+  let W,H; const rs=()=>{W=cv.width=innerWidth; H=cv.height=innerHeight;};
+  const dr=()=>{ cx.clearRect(0,0,W,H); cx.fillStyle='rgba(148,163,184,0.03)';
+    for(let i=0;i<H;i+=60){cx.fillRect(0,i,W,1);} for(let i=0;i<W;i+=60){cx.fillRect(i,0,1,H);}
+    requestAnimationFrame(dr); };
+  rs(); dr(); window.addEventListener('resize', rs);
+})();
+
+const LOG=[
+  {t:'01:22:45',p:0,   c:'pilot',  s:'PILOTE',   tx:'On approche de la limite des eaux territoriales. On va piquer un peu pour rester sous les radars.', tl:0},
+  {t:'01:23:02',p:15,  c:'crew',   s:'LIVREUR',  tx:'Reçu. La cargaison est stable à l\'arrière. On est dans les temps pour la livraison.'},
+  {t:'01:23:15',p:25,  c:'pilot',  s:'PILOTE',   tx:'Regarde le Mur là-bas. Il est immense ce soir. On va passer juste à côté.'},
+  {t:'01:23:30',p:35,  c:'system', s:'SYSTEM',   tx:'[SON DE GRÉSILLEMENT STATIQUE DISCRET]', tl:1},
+  {t:'01:23:32',p:40,  c:'crew',   s:'LIVREUR',  tx:'Hey, t\'as vu ça ? Les lumières du tableau de bord viennent de flasher.'},
+  {t:'01:23:35',p:45,  c:'pilot',  s:'PILOTE',   tx:'C\'est rien, probablement juste une chute de tension. Je compense.'},
+  {t:'01:23:42',p:55,  c:'system', s:'SYSTEM',   tx:'[ALERTE : PERTE DE SIGNAL GPS]', tl:2},
+  {t:'01:23:45',p:60,  c:'pilot',  s:'PILOTE',   tx:'Qu\'est-ce qui se passe ?! Le compas tourne dans tous les sens ! On dérive vers le Mur !'},
+  {t:'01:23:50',p:70,  c:'crew',   s:'LIVREUR',  tx:'On est trop près ! Le Mur... il y a des étincelles sur les ailes ! Miller, sors-nous de là !'},
+  {t:'01:23:54',p:75,  c:'system', s:'AVIONIQUE',tx:'<span class="glitch-inline">ERROR 404: ENGINE_CTRL_LINK_LOST</span>', tl:3},
+  {t:'01:23:57',p:80,  c:'pilot',  s:'PILOTE',   tx:'Les commandes répondent plus ! Tout est grillé ! On tombe, on tombe !'},
+  {t:'01:24:02',p:90,  c:'crew',   s:'LIVREUR',  tx:'Redresse ! Regarde devant, c\'est le cimetière ! On va s\'écraser sur les tombes !'},
+  {t:'01:24:05',p:95,  c:'pilot',  s:'PILOTE',   tx:'NIMBUS 22 AU SOL, ON N\'A PLUS RIEN ! C\'EST LE MUR... C\'EST LE MU—', lw:true},
+  {t:'01:24:07',p:100, c:'fatal',  s:'FATAL',    tx:'[BRUIT D\'IMPACT MASSIF - RUPTURE DE L\'ENREGISTREMENT]', crash:true, tl:4},
+  {t:'01:24:08',p:100, c:'system', s:'STATUS',   tx:'--- SIGNAL PERDU : FIN DE LA SÉQUENCE ---'}
+];
+
+const $msgs=document.getElementById('msgs'), $idle=document.getElementById('idle'), $play=document.getElementById('playBtn'), $rep=document.getElementById('repBtn'), $st=document.getElementById('status'), $cv=document.getElementById('crash-ov'), $app=document.getElementById('app'), $sig=document.getElementById('sig'), $tlf=document.getElementById('tlf'), $sp=document.getElementById('sp'), $sc=document.getElementById('sc');
+
+async function run(){
+  $play.disabled=true; $rep.style.display='none'; $msgs.innerHTML=''; $msgs.style.display='block'; $idle.style.display='none';
+  $st.textContent='Décodage flux Nimbus...'; $sig.className='sig on';
+  [0,1,2,3,4].forEach(i=>document.getElementById('tl'+i).classList.remove('active'));
+  $sp.className='cc-status on'; $sp.textContent='EMBARQUÉ'; $sc.className='cc-status on'; $sc.textContent='EMBARQUÉ';
+
+  for(let i=0; i<LOG.length; i++){
+    const e=LOG[i];
+    await new Promise(r=>setTimeout(r, e.crash?500:1200));
+
+    if(e.crash){
+      $app.classList.add('shaking'); $cv.style.opacity=0.5;
+      setTimeout(()=>{$app.classList.remove('shaking'); $cv.style.opacity=0;}, 700);
+      $sp.className='cc-status off'; $sp.textContent='PERDU'; $sc.className='cc-status off'; $sc.textContent='PERDU';
+    }
+
+    const div=document.createElement('div');
+    div.className='msg '+e.c+(e.lw?' last-words':'');
+    div.innerHTML=`<span class="m-time">${e.t}</span><span class="m-spk"><span class="m-dot"></span><span class="m-name">${e.s}</span></span><span class="m-txt">${e.tx}</span>`;
+    $msgs.appendChild(div);
+    setTimeout(()=>div.classList.add('vis'),50);
+    $msgs.scrollTop=$msgs.scrollHeight;
+    $tlf.style.height=e.p+'%';
+    if(e.tl!==undefined) document.getElementById('tl'+e.tl).classList.add('active');
+  }
+  $st.textContent='Fin de transmission - Données corrompues';
+  $rep.style.display='inline-block';
+}
+
+$play.addEventListener('click',run); $rep.addEventListener('click',run);
+</script>
+</body>
+</html>
