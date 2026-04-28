@@ -1,222 +1,672 @@
-
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LSPD — Rapport d'Incident #2026-04-2847</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Source+Code+Pro:wght@400;600&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Bebas+Neue&display=swap');
+  :root {
+    --ink:    #0e1520;
+    --gold:   #b89550;
+    --paper:  #f5f1ea;
+    --white:  #ffffff;
+    --ink-20: rgba(14,21,32,0.12);
+    --ink-40: rgba(14,21,32,0.35);
+    --ink-60: rgba(14,21,32,0.55);
+  }
 
-/* Reset pour occuper tout l'écran */
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    background: #080806;
-    overflow: hidden; /* Empêche le scroll si tu veux un effet terminal pur */
-}
+  * { margin:0; padding:0; box-sizing:border-box; }
 
-* { box-sizing: border-box; }
+  body {
+    background: #d6cfbf;
+    background-image: linear-gradient(135deg, #cec7b7 0%, #d8d1c1 50%, #cec7b7 100%);
+    font-family: 'Montserrat', sans-serif;
+    min-height: 100vh;
+    padding: 50px 20px;
+    display: flex;
+    justify-content: center;
+  }
 
-#app {
-    font-family: 'Share Tech Mono', monospace;
-    background: #080806;
-    /* On force l'app à prendre toute la largeur et hauteur du navigateur */
-    width: 100vw;
-    height: 100vh;
-    padding: 40px 20px;
+  .page {
+    width: 800px;
+    background: var(--paper);
     position: relative;
-    overflow-y: auto; /* Permet de scroller à l'intérieur si le contenu dépasse */
+    box-shadow:
+      0 2px 4px rgba(0,0,0,0.08),
+      0 12px 40px rgba(0,0,0,0.22),
+      0 40px 80px rgba(0,0,0,0.12);
+  }
+
+  .rule-top { height: 3px; background: var(--gold); }
+
+  /* Header */
+  .header {
+    padding: 36px 52px 28px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    border-bottom: 1px solid var(--ink-20);
+  }
+
+  .dept-eyebrow {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 5px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.0;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+
+  .header-sub {
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 2.5px;
+    color: var(--ink-60);
+    text-transform: uppercase;
+  }
+
+  .header-right { text-align: right; flex-shrink: 0; }
+
+  .report-num-label {
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--ink-40);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    font-family: 'Source Code Pro', monospace;
+  }
+
+  .report-num {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: 0.5px;
+  }
+
+  .report-date {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 11px;
+    color: var(--ink-60);
+    margin-top: 4px;
+    letter-spacing: 1px;
+  }
+
+  /* Ornament */
+  .ornament {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 52px;
+    border-bottom: 1px solid var(--ink-20);
+  }
+
+  .ornament-line { flex: 1; height: 1px; background: var(--ink-20); }
+  .ornament-center {
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* Meta */
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background: var(--ink);
+  }
+
+  .meta-cell {
+    padding: 16px 20px;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+  .meta-cell:last-child { border-right: none; }
+
+  .meta-cell-label {
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    font-family: 'Source Code Pro', monospace;
+  }
+
+  .meta-cell-value {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--paper);
+    letter-spacing: 0.3px;
+  }
+
+  .meta-cell-value.gold { color: var(--gold); }
+
+  /* Body */
+  .body { padding: 40px 52px 20px; }
+
+  .section { margin-bottom: 32px; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .section-num {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 2px;
+    flex-shrink: 0;
+  }
+
+  .section-rule { flex: 0 0 24px; height: 1px; background: var(--gold); }
+
+  .section-title {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  .section-rule-long { flex: 1; height: 1px; background: var(--ink-20); }
+
+  .content-block {
+    font-size: 13.5px;
+    line-height: 1.9;
+    color: var(--ink);
+    font-weight: 300;
+    padding-left: 32px;
+  }
+
+  .content-block strong { font-weight: 600; }
+
+  /* Suspect strip */
+  .suspect-strip {
+    margin-left: 32px;
+    display: flex;
+    align-items: stretch;
+    border: 1px solid var(--ink-20);
+    background: var(--white);
+  }
+
+  .suspect-flag { width: 4px; background: var(--gold); flex-shrink: 0; }
+
+  .suspect-body {
+    padding: 20px 24px;
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .suspect-field-label {
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: var(--ink-40);
+    text-transform: uppercase;
+    font-family: 'Source Code Pro', monospace;
+    margin-bottom: 4px;
+  }
+
+  .suspect-field-val {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+
+  .suspect-field-val.alias {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .pill {
+    display: inline-block;
+    padding: 3px 12px;
+    font-size: 9px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border: 1px solid var(--ink-40);
+    color: var(--ink-60);
+    font-family: 'Source Code Pro', monospace;
+  }
+
+  .pill.gold { border-color: var(--gold); color: var(--gold); }
+
+  /* Table */
+  .evidence-wrap { margin-left: 32px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+
+  thead tr { border-bottom: 2px solid var(--ink); }
+
+  thead th {
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--ink-60);
+    font-family: 'Source Code Pro', monospace;
+  }
+
+  thead th:first-child { padding-left: 0; width: 70px; }
+
+  tbody tr { border-bottom: 1px solid var(--ink-20); }
+  tbody tr:last-child { border-bottom: none; }
+
+  tbody td {
+    padding: 12px 14px;
+    color: var(--ink);
+    font-weight: 300;
+    line-height: 1.5;
+    vertical-align: top;
+  }
+
+  tbody td:first-child {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--gold);
+    padding-left: 0;
+    white-space: nowrap;
+  }
+
+  /* Conclusion */
+  .conclusion-block {
+    margin-left: 32px;
+    background: var(--ink);
+    padding: 28px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .conclusion-block::after {
+    content: 'LSPD';
+    position: absolute;
+    right: -10px;
+    bottom: -20px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 90px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.03);
+    letter-spacing: 4px;
+    pointer-events: none;
+  }
+
+  .conclusion-text {
+    font-size: 13.5px;
+    line-height: 1.9;
+    color: rgba(245,241,234,0.80);
+    font-weight: 300;
+    position: relative;
+  }
+
+  .conclusion-text strong { color: var(--gold); font-weight: 600; }
+
+  /* Actions */
+  .action-list { margin-left: 32px; list-style: none; }
+
+  .action-list li {
+    display: flex;
+    gap: 20px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--ink-20);
+    font-size: 13.5px;
+    line-height: 1.8;
+    color: var(--ink);
+    font-weight: 300;
+    align-items: flex-start;
+  }
+
+  .action-list li:last-child { border-bottom: none; }
+
+  .action-letter {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 1px;
+    padding-top: 4px;
+    flex-shrink: 0;
+    width: 18px;
+  }
+
+  /* Signatures */
+  .sig-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--ink-20);
+    margin-top: 16px;
+  }
+
+  .sig-box { padding: 28px 0; }
+  .sig-box:first-child { padding-right: 32px; border-right: 1px solid var(--ink-20); }
+  .sig-box:last-child { padding-left: 32px; }
+
+  .sig-label {
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: var(--ink-40);
+    text-transform: uppercase;
+    font-family: 'Source Code Pro', monospace;
+    margin-bottom: 28px;
+  }
+
+  .sig-line { border-bottom: 1px solid var(--ink); margin-bottom: 10px; }
+
+  .sig-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .sig-role { font-size: 10px; color: var(--ink-40); letter-spacing: 1.5px; margin-top: 2px; }
+
+  /* Footer */
+  .footer {
+    background: var(--ink);
+    padding: 16px 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-text {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 9px;
+    color: rgba(245,241,234,0.35);
+    letter-spacing: 1.5px;
+    line-height: 1.8;
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 4px;
+  }
+
+  .rule-bottom { height: 3px; background: var(--gold); }
+
+  /* Stamp */
+  .stamp {
+    position: absolute;
+    bottom: 170px;
+    right: 52px;
+    width: 110px;
+    height: 110px;
+    border: 2.5px solid rgba(14,21,32,0.22);
+    border-radius: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-/* Effet de scanlines sur tout l'écran */
-#app::before {
-    content: '';
-    position: fixed; /* Fixé pour couvrir tout l'écran même au scroll */
-    inset: 0;
-    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.15) 2px, rgba(0,0,0,0.15) 4px);
+    justify-content: center;
+    transform: rotate(-15deg);
+    gap: 2px;
     pointer-events: none;
-    z-index: 10;
-}
+  }
 
-.inner {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    max-width: 600px; /* On garde une largeur max pour la lisibilité du texte */
-    margin: auto;     /* Centre verticalement et horizontalement dans le flex de #app */
-}
+  .stamp span {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: rgba(14,21,32,0.25);
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 600;
+    line-height: 1.4;
+  }
 
-/* --- Le reste de ton CSS reste identique --- */
-.hdr { text-align: center; margin-bottom: 30px; }
-.hline { height: 1px; background: linear-gradient(90deg, transparent, #c8a84b, transparent); margin: 8px 0; }
-.htitle { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: #ffd700; letter-spacing: 8px; text-shadow: 0 0 16px rgba(255,215,0,0.35); }
-.hsub { font-size: 10px; color: #4a4020; letter-spacing: 5px; margin: 4px 0; }
-.skull { color: #c8a84b; opacity: .6; margin: 0 12px; font-size: 20px; }
-.boot-log { background: rgba(5,5,2,.9); border: 1px solid #1a1a08; padding: 12px 16px; border-radius: 2px; min-height: 90px; margin-bottom: 20px; }
-.boot-line { font-size: 11px; color: #4a6a28; line-height: 1.9; }
-.login-box { background: rgba(10,8,2,.95); border: 1px solid #2e2510; padding: 30px; border-radius: 2px; box-shadow: 0 0 40px rgba(0,0,0,0.5); }
-.box-title { text-align: center; font-size: 12px; color: #c8a84b; letter-spacing: 4px; margin-bottom: 20px; }
-.field { margin-bottom: 18px; }
-.lbl { font-size: 10px; color: #4a4020; letter-spacing: 3px; display: block; margin-bottom: 8px; }
-input[type=text], input[type=password] { width: 100%; background: rgba(0,0,0,.6); border: 1px solid #201808; color: #c8b870; font-family: 'Share Tech Mono', monospace; font-size: 14px; padding: 12px; border-radius: 2px; outline: none; }
-input:focus { border-color: #c8a84b!important; box-shadow: 0 0 15px rgba(200,168,75,.15); }
-.btn-main { width: 100%; background: transparent; border: 1px solid #c8a84b; color: #ffd700; font-family: 'Share Tech Mono', monospace; font-size: 13px; letter-spacing: 3px; padding: 14px; cursor: pointer; border-radius: 2px; transition: all 0.3s; }
-.btn-main:hover { background: rgba(200,168,75,0.1); filter: brightness(1.2); }
-.status-bar { display: flex; justify-content: space-between; align-items: center; padding: 10px 18px; background: rgba(8,6,0,.9); border: 1px solid #201808; margin-bottom: 20px; }
-.lives-wrap { display: flex; align-items: center; gap: 10px; font-size: 11px; color: #402010; letter-spacing: 2px; }
-.heart { font-size: 20px; color: #ff3030; }
-.dots { display: flex; gap: 8px; }
-.dot { width: 10px; height: 10px; border-radius: 50%; }
-.qbox { background: rgba(10,8,0,.95); border: 1px solid #2e2510; padding: 25px; border-radius: 2px; margin-bottom: 20px; }
-.qtext { font-size: 16px; color: #d4b060; line-height: 1.6; }
-.opts { display: flex; flex-direction: column; gap: 10px; }
-.opt-btn { background: transparent; border: 1px solid #2e2510; color: #b8a060; font-family: 'Share Tech Mono', monospace; font-size: 13px; padding: 15px 20px; cursor: pointer; transition: all .2s; }
-.footer { text-align: center; font-size: 9px; color: #2e2510; letter-spacing: 4px; margin-top: 40px; text-transform: uppercase; }
-
-/* Animations */
-@keyframes shake { 0%, 100% {transform: translateX(0)} 20% {transform: translateX(-10px)} 40% {transform: translateX(10px)} 60% {transform: translateX(-7px)} 80% {transform: translateX(7px)} }
-@keyframes flicker { 0%, 91%, 95%, 100% {opacity: 1} 92% {opacity: .3} 96% {opacity: .6} }
-.flicker { animation: flicker 3s infinite; }
+  .stamp .stamp-main {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(14,21,32,0.25);
+    text-align: center;
+    line-height: 1.2;
+  }
 </style>
-<div id="app">
-<div class="inner">
-  <div class="hdr">
-    <div class="hline"></div>
-    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin:6px 0">
-      <span class="skull">☠</span>
-      <span class="htitle">UNDERGROUND ACCESS</span>
-      <span class="skull">☠</span>
+</head>
+<body>
+<div class="page">
+
+  <div class="rule-top"></div>
+
+  <div class="header">
+    <div class="header-left">
+      <div class="dept-eyebrow">Los Santos Police Department</div>
+      <h1>Rapport<br>d'Incident</h1>
+      <div class="header-sub">Division des Enquêtes Criminelles</div>
     </div>
-    <div class="hsub">RÉSEAU ILLÉGAL — NIVEAU CRIMINEL</div>
-    <div class="hline"></div>
+    <div class="header-right">
+      <div class="report-num-label">Dossier N°</div>
+      <div class="report-num">#2026-04-2847</div>
+      <div class="report-date">28 / 04 / 2026</div>
+    </div>
   </div>
-  <div id="screen"></div>
-  <div class="footer">▪ CONNEXION CHIFFRÉE ▪ ANONYMAT GARANTI ▪ RÉSEAU FANTÔME ▪</div>
-</div>
-</div>
-<script>
-const CREDS=[{u:'Admin',p:'Admin'},{u:'Cartel',p:'Shadow'},{u:'Ghost',p:'Reaper'}];
-const QS=[
-  {q:"Un deal tourne mal. Ton associé est neutralisé. Tu fais quoi ?",opts:["Tu récupères la marchandise et tu disparais","Tu attends les secours sur place","Tu appelles les flics toi-même","Tu abandonnes tout et tu cours"],c:0},
-  {q:"Quelle est la règle d'or dans le milieu ?",opts:["Toujours faire confiance à ton équipe","Ne jamais parler aux inconnus","On ne laisse aucune trace, aucun témoin","L'argent avant tout"],c:2},
-  {q:"Une livraison est interceptée par une unité rivale. Tu as 3 hommes. Quelle stratégie ?",opts:["Négocier un partage","Contournement par le nord, récupération discrète","Attaque frontale immédiate","Appeler des renforts et attendre"],c:1},
-  {q:"Tu trouves une balance dans ton crew. Que fais-tu avant tout ?",opts:["Tu l'écartes discrètement et tu changes tous les protocoles","Tu confrontes immédiatement le suspect","Tu en parles au chef du cartel rival","Tu ignores, c'est peut-être faux"],c:0}
-];
-let phase='login',curQ=0,lives=3,selected=null;
 
-const screen=document.getElementById('screen');
-const LETTERS=['A','B','C','D'];
+  <div class="ornament">
+    <div class="ornament-line"></div>
+    <div class="ornament-center">Document Officiel — Usage Interne</div>
+    <div class="ornament-line"></div>
+  </div>
 
-function bootLines(){
-  const lines=["> Initialisation du réseau souterrain...","&gt; Chiffrement AES-256 activé","&gt; Connexion au serveur fantôme... [OK]","&gt; Protocole d'identification requis"];
-  const el=document.getElementById('boot-log');if(!el)return;
-  let i=0;
-  const t=setInterval(()=>{
-    if(i<lines.length){el.innerHTML+=`<div class="boot-line">${lines[i]}</div>`;i++;}
-    else clearInterval(t);
-  },380);
-}
-
-function renderLogin(){
-  screen.innerHTML=`
-  <div id="boot-log" class="boot-log"></div>
-  <div id="lbox" class="login-box">
-    <div class="box-title">◈ IDENTIFICATION REQUISE ◈</div>
-    <div class="field"><label class="lbl">IDENTIFIANT</label><input type="text" id="uid" placeholder="ex: Admin" autocomplete="off" spellcheck="false"/></div>
-    <div class="field"><label class="lbl">MOT DE PASSE</label><input type="password" id="pwd" placeholder="••••••••"/></div>
-    <div id="lerr"></div>
-    <button class="btn-main" onclick="doLogin()">▶ ACCÉDER AU RÉSEAU</button>
-  </div>`;
-  bootLines();
-  document.getElementById('uid').addEventListener('keydown',e=>e.key==='Enter'&&doLogin());
-  document.getElementById('pwd').addEventListener('keydown',e=>e.key==='Enter'&&doLogin());
-}
-
-function doLogin(){
-  const u=document.getElementById('uid').value.trim();
-  const p=document.getElementById('pwd').value.trim();
-  const ok=CREDS.find(c=>c.u===u&&c.p===p);
-  if(ok){phase='quiz';curQ=0;lives=3;renderQuiz();}
-  else{
-    const lb=document.getElementById('lbox');
-    document.getElementById('lerr').innerHTML='<div class="err-msg">ACCÈS REFUSÉ — Identifiants invalides</div>';
-    lb.style.animation='shake .5s';
-    setTimeout(()=>lb.style.animation='',550);
-  }
-}
-
-function renderQuiz(){
-  const q=QS[curQ];
-  const dotsHtml=QS.map((_,i)=>`<div class="dot" style="background:${i<curQ?'#c8a84b':i===curQ?'#ffd700':'#222'};box-shadow:${i===curQ?'0 0 7px #ffd700':'none'}"></div>`).join('');
-  const heartsHtml=Array.from({length:3}).map((_,i)=>`<span class="heart" style="opacity:${i<lives?1:.12};filter:${i<lives?'drop-shadow(0 0 5px #ff3030)':'none'}">♦</span>`).join('');
-  const optsHtml=q.opts.map((o,i)=>`<button class="opt-btn" id="opt${i}" onclick="pick(${i})"><span class="opt-letter">${LETTERS[i]}.</span> ${o}</button>`).join('');
-  screen.innerHTML=`
-  <div class="status-bar"><div class="lives-wrap">${heartsHtml}<span>${lives} VIE${lives>1?'S':''}</span></div><div class="dots">${dotsHtml}</div></div>
-  <div class="qbox"><div class="qnum">QUESTION ${curQ+1} / ${QS.length}</div><div class="qtext">${q.q}</div></div>
-  <div class="opts">${optsHtml}</div>
-  <div id="fb"></div>`;
-  selected=null;
-}
-
-function pick(i){
-  if(selected!==null)return;
-  selected=i;
-  const q=QS[curQ];
-  const correct=q.c===i;
-  for(let k=0;k<4;k++){
-    const b=document.getElementById('opt'+k);if(!b)continue;
-    b.style.cursor='default';
-    if(k===q.c){b.style.border='1px solid #c8a84b';b.style.color='#ffd700';b.style.background='rgba(200,168,75,.1)';b.style.boxShadow='0 0 12px rgba(200,168,75,.3)';}
-    else if(k===i&&!correct){b.style.border='1px solid #ff3a3a';b.style.color='#ff6060';b.style.background='rgba(255,58,58,.08)';}
-  }
-  const newLives=correct?lives:lives-1;
-  const fb=document.getElementById('fb');
-  if(fb){
-    const txt=correct?'✓ BONNE RÉPONSE — OPÉRATEUR CONFIRMÉ':`✗ ERREUR — ${newLives>0?`${newLives} VIE${newLives>1?'S':''} RESTANTE${newLives>1?'S':''}`:'ÉLIMINATION EN COURS...'}`;
-    fb.innerHTML=`<div class="feedback" style="background:${correct?'rgba(200,168,75,.1)':'rgba(255,58,58,.1)'};border:1px solid ${correct?'#c8a84b':'#ff3a3a'};color:${correct?'#ffd700':'#ff6060'}">${txt}</div>`;
-  }
-  setTimeout(()=>{
-    if(correct){
-      if(curQ+1>=QS.length){phase='success';renderSuccess();}
-      else{curQ++;renderQuiz();}
-    } else {
-      lives=newLives;
-      if(lives<=0){phase='fail';renderFail();}
-      else renderQuiz();
-    }
-  },1300);
-}
-
-function renderSuccess(){
-  screen.innerHTML=`
-  <div class="success-wrap">
-    <div class="big-title flicker" style="color:#ffd700;text-shadow:0 0 24px rgba(255,215,0,.45)">◈ ACCÈS ACCORDÉ ◈</div>
-    <div style="font-size:11px;color:#6a5820;letter-spacing:2px;margin-bottom:4px">Vous avez prouvé votre allégeance au réseau.</div>
-    <div class="photo-frame" id="pframe" style="opacity:0;transform:scale(.92)">
-      <div class="photo-inner">
-        <div class="photo-big-icon">◉</div>
-        <div class="photo-lbl">DOSSIER CLASSIFIÉ</div>
-        <div class="photo-sub">Remplacez cette zone par votre image</div>
-      </div>
-      <div class="corner-tl"></div><div class="corner-br"></div>
+  <div class="meta">
+    <div class="meta-cell">
+      <div class="meta-cell-label">Type d'incident</div>
+      <div class="meta-cell-value">Effraction suspectée</div>
     </div>
-    <div class="code-line">— PROTOCOLE DELTA-7 DÉVERROUILLÉ —</div>
-    <button class="btn-main" style="max-width:220px;margin:0 auto;display:block" onclick="doReset()">↩ DÉCONNEXION</button>
-  </div>`;
-  setTimeout(()=>{const f=document.getElementById('pframe');if(f){f.style.opacity='1';f.style.transform='scale(1)';}},700);
-}
+    <div class="meta-cell">
+      <div class="meta-cell-label">Lieu</div>
+      <div class="meta-cell-value">Le Pond Café</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-cell-label">Statut</div>
+      <div class="meta-cell-value gold">En cours</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-cell-label">Priorité</div>
+      <div class="meta-cell-value">Modérée</div>
+    </div>
+  </div>
 
-function renderFail(){
-  screen.innerHTML=`
-  <div class="fail-wrap">
-    <div class="fail-icon flicker">✗</div>
-    <div class="big-title" style="color:#ff4040;text-shadow:0 0 16px rgba(255,64,64,.35)">ACCÈS REFUSÉ</div>
-    <div class="fail-sub">Vous n'avez pas les qualifications requises.<br>Cette tentative a été enregistrée.</div>
-    <button class="btn-main" style="max-width:220px;margin:0 auto;display:block;border-color:#ff3a3a;color:#ff6060" onclick="doReset()">↩ RECOMMENCER</button>
-  </div>`;
-}
+  <div class="body">
 
-function doReset(){phase='login';curQ=0;lives=3;selected=null;renderLogin();}
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">01</div>
+        <div class="section-rule"></div>
+        <div class="section-title">Déclaration initiale</div>
+        <div class="section-rule-long"></div>
+      </div>
+      <div class="content-block">
+        Un appel téléphonique a été reçu signalant une <strong>anomalie au sein du Pond Café</strong>. Le déclarant indique que les portes de l'établissement étaient ouvertes alors que le café ferme toujours ses portes, et que plusieurs accès habituellement condamnés se trouvaient eux aussi ouverts.<br><br>
+        L'appelant s'est présenté sous le nom de <strong>« Batman »</strong>, portant un <strong>skateboard dans le dos</strong>. Aucune identité civile n'a pu être recueillie.
+      </div>
+    </div>
 
-renderLogin();
-</script>
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">02</div>
+        <div class="section-rule"></div>
+        <div class="section-title">Suspect / Déclarant</div>
+        <div class="section-rule-long"></div>
+      </div>
+      <div class="suspect-strip">
+        <div class="suspect-flag"></div>
+        <div class="suspect-body">
+          <div>
+            <div class="suspect-field-label">Alias</div>
+            <div class="suspect-field-val alias">"Batman"</div>
+          </div>
+          <div>
+            <div class="suspect-field-label">Identité civile</div>
+            <div class="suspect-field-val">Non communiquée</div>
+            <div style="margin-top:8px;"><span class="pill gold">Non identifié</span></div>
+          </div>
+          <div>
+            <div class="suspect-field-label">Équipement observé</div>
+            <div class="suspect-field-val">Skateboard — porté dans le dos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">03</div>
+        <div class="section-rule"></div>
+        <div class="section-title">Relevé des preuves</div>
+        <div class="section-rule-long"></div>
+      </div>
+      <div class="evidence-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Réf.</th>
+              <th>Nature</th>
+              <th>Emplacement</th>
+              <th>Résultat</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>EV-001</td>
+              <td>Empreintes digitales sur poignées de portes</td>
+              <td>Entrées principale et secondaires</td>
+              <td><span class="pill">Identifié — Propriétaires</span></td>
+            </tr>
+            <tr>
+              <td>EV-002</td>
+              <td>Portes ouvertes hors horaires</td>
+              <td>Ensemble de l'établissement</td>
+              <td><span class="pill gold">Inexpliqué</span></td>
+            </tr>
+            <tr>
+              <td>EV-003</td>
+              <td>Accès condamnés ouverts</td>
+              <td>Zones internes / secondaires</td>
+              <td><span class="pill gold">En analyse</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">04</div>
+        <div class="section-rule"></div>
+        <div class="section-title">Résultats de l'analyse</div>
+        <div class="section-rule-long"></div>
+      </div>
+      <div class="content-block">
+        L'analyse des empreintes prélevées n'a permis d'identifier <strong>aucun individu étranger</strong> à l'établissement. Les seules empreintes exploitables appartiennent aux deux co-propriétaires :<br><br>
+        &nbsp;&nbsp;— <strong>Lucianda Rosell</strong>, co-propriétaire<br>
+        &nbsp;&nbsp;— <strong>Alarya K. Rosell</strong>, co-propriétaire<br><br>
+        Ces résultats n'écartent pas l'hypothèse d'une intrusion.
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">05</div>
+        <div class="section-rule"></div>
+        <div class="section-title">Conclusion</div>
+        <div class="section-rule-long"></div>
+      </div>
+      <div class="conclusion-block">
+        <div class="conclusion-text">
+          L'absence totale d'empreintes étrangères laisse fortement supposer que l'auteur portait <strong>des gants</strong>, démontrant un niveau de préméditation significatif. Les portes ouvertes et les accès condamnés forcés confirment qu'une <strong>violation des lieux a vraisemblablement eu lieu</strong>, même en l'absence de preuve matérielle directement attribuable à un suspect.
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">06</div>
+        <div class="section-rule"></div>
+        <div class="section-title">Mesures décidées</div>
+        <div class="section-rule-long"></div>
+      </div>
+      <ul class="action-list">
+        <li>
+          <span class="action-letter">A —</span>
+          <span>Le <strong>Pond Café</strong> est placé sous surveillance renforcée. Des patrouilles régulières seront effectuées aux abords de l'établissement, notamment aux heures creuses et nocturnes.</span>
+        </li>
+        <li>
+          <span class="action-letter">B —</span>
+          <span>Des rondes supplémentaires sont programmées afin d'intercepter tout individu répondant au signalement de <strong>« Batman »</strong> (skateboard visible dans le dos).</span>
+        </li>
+        <li>
+          <span class="action-letter">C —</span>
+          <span>Les propriétaires <strong>Lucianda</strong> et <strong>Alarya K. Rosell</strong> sont invitées à renforcer les mesures de sécurité : changement des serrures, vérification des accès secondaires, signalement immédiat de toute nouvelle anomalie.</span>
+        </li>
+        <li>
+          <span class="action-letter">D —</span>
+          <span>Le dossier reste <strong>ouvert</strong>. Toute information concernant l'identité de « Batman » doit être transmise au bureau des enquêtes dans les plus brefs délais.</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="sig-section">
+      <div class="sig-box">
+        <div class="sig-label">Officier rapporteur</div>
+        <div class="sig-line"></div>
+        <div class="sig-name">Lovelace</div>
+        <div class="sig-role">LSPD — Division Criminelle</div>
+      </div>
+      <div class="sig-box">
+        <div class="sig-label">Superviseur validant</div>
+        <div class="sig-line"></div>
+        <div class="sig-name">Officier Responsable</div>
+        <div class="sig-role">LSPD — Bureau des Enquêtes</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="stamp">
+    <span>LSPD</span>
+    <span class="stamp-main">Enquête<br>en cours</span>
+    <span>2026-04-28</span>
+  </div>
+
+  <div class="footer">
+    <div class="footer-text">
+      Los Santos Police Department · Rapport officiel<br>
+      Dossier #2026-04-2847 · Usage Interne Exclusivement<br>
+      Toute divulgation non autorisée est passible de poursuites
+    </div>
+    <div class="footer-logo">LSPD</div>
+  </div>
+
+  <div class="rule-bottom"></div>
+
+</div>
+</body>
+</html>
