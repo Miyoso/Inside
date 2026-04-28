@@ -1,0 +1,860 @@
+import { useState, useEffect, useRef } from "react";
+
+const CREDENTIALS = [
+  { user: "Admin", pass: "Admin" },
+  { user: "Cartel", pass: "Shadow" },
+  { user: "Ghost", pass: "Reaper" },
+];
+
+const QUESTIONS = [
+  {
+    id: 1,
+    question: "Un deal tourne mal. Ton associé est neutralisé. Tu fais quoi ?",
+    options: [
+      "Tu récupères la marchandise et tu disparais",
+      "Tu attends les secours sur place",
+      "Tu appelles les flics toi-même",
+      "Tu abandonnes tout et tu cours",
+    ],
+    correct: 0,
+  },
+  {
+    id: 2,
+    question: "Quelle est la règle d'or dans le milieu ?",
+    options: [
+      "Toujours faire confiance à ton équipe",
+      "Ne jamais parler aux inconnus",
+      "On ne laisse aucune trace, aucun témoin",
+      "L'argent avant tout",
+    ],
+    correct: 2,
+  },
+  {
+    id: 3,
+    question: "Une livraison est interceptée par une unité rivale. Tu as 3 hommes. Quelle stratégie ?",
+    options: [
+      "Négocier un partage",
+      "Contournement par le nord, récupération discrète",
+      "Attaque frontale immédiate",
+      "Appeler des renforts et attendre",
+    ],
+    correct: 1,
+  },
+  {
+    id: 4,
+    question: "Tu trouves une balance dans ton crew. Que fais-tu avant tout ?",
+    options: [
+      "Tu l'écartes discrètement et tu changes tous les protocoles",
+      "Tu confrontes immédiatement le suspect",
+      "Tu en parles au chef du cartel rival",
+      "Tu ignores, c'est peut-être faux",
+    ],
+    correct: 0,
+  },
+];
+
+const TOTAL_LIVES = 3;
+
+function Glitch({ text }) {
+  return (
+    <span style={{ position: "relative", display: "inline-block" }}>
+      <span className="glitch-text">{text}</span>
+    </span>
+  );
+}
+
+export default function UndergroundQuiz() {
+  const [phase, setPhase] = useState("login"); // login | quiz | success | fail
+  const [loginUser, setLoginUser] = useState("");
+  const [loginPass, setLoginPass] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const [loginShake, setLoginShake] = useState(false);
+  const [currentQ, setCurrentQ] = useState(0);
+  const [lives, setLives] = useState(TOTAL_LIVES);
+  const [selected, setSelected] = useState(null);
+  const [feedback, setFeedback] = useState(null); // 'correct' | 'wrong'
+  const [revealPhoto, setRevealPhoto] = useState(false);
+  const [scanlines, setScanlines] = useState(true);
+  const [bootText, setBootText] = useState([]);
+  const bootLines = [
+    "> Initialisation du réseau souterrain...",
+    "> Chiffrement AES-256 activé",
+    "> Connexion au serveur fantôme... [OK]",
+    "> Protocole d'identification requis",
+  ];
+
+  useEffect(() => {
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i < bootLines.length) {
+        setBootText((prev) => [...prev, bootLines[i]]);
+        i++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 400);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleLogin = () => {
+    const match = CREDENTIALS.find(
+      (c) => c.user === loginUser && c.pass === loginPass
+    );
+    if (match) {
+      setPhase("quiz");
+    } else {
+      setLoginError("ACCÈS REFUSÉ — Identifiants invalides");
+      setLoginShake(true);
+      setTimeout(() => setLoginShake(false), 600);
+    }
+  };
+
+  const handleAnswer = (idx) => {
+    if (selected !== null) return;
+    setSelected(idx);
+    const correct = QUESTIONS[currentQ].correct === idx;
+    setFeedback(correct ? "correct" : "wrong");
+
+    setTimeout(() => {
+      if (correct) {
+        if (currentQ + 1 >= QUESTIONS.length) {
+          setPhase("success");
+          setTimeout(() => setRevealPhoto(true), 800);
+        } else {
+          setCurrentQ((q) => q + 1);
+          setSelected(null);
+          setFeedback(null);
+        }
+      } else {
+        const newLives = lives - 1;
+        setLives(newLives);
+        if (newLives <= 0) {
+          setTimeout(() => setPhase("fail"), 600);
+        } else {
+          setSelected(null);
+          setFeedback(null);
+        }
+      }
+    }, 1200);
+  };
+
+  const reset = () => {
+    setPhase("login");
+    setCurrentQ(0);
+    setLives(TOTAL_LIVES);
+    setSelected(null);
+    setFeedback(null);
+    setRevealPhoto(false);
+    setLoginUser("");
+    setLoginPass("");
+    setLoginError("");
+    setBootText([]);
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i < bootLines.length) {
+        setBootText((prev) => [...prev, bootLines[i]]);
+        i++;
+      } else clearInterval(interval);
+    }, 400);
+  };
+
+  return (
+    <div style={styles.root}>
+      <style>{css}</style>
+
+      {/* Scanlines overlay */}
+      <div style={styles.scanlines} />
+      <div style={styles.vignette} />
+
+      {/* Corner decorations */}
+      <div style={styles.cornerTL} />
+      <div style={styles.cornerTR} />
+      <div style={styles.cornerBL} />
+      <div style={styles.cornerBR} />
+
+      <div style={styles.container}>
+        {/* Header */}
+        <div style={styles.header}>
+          <div style={styles.headerLine} />
+          <div style={styles.headerText}>
+            <span style={styles.skull}>☠</span>
+            <span style={styles.title}>UNDERGROUND ACCESS</span>
+            <span style={styles.skull}>☠</span>
+          </div>
+          <div style={styles.headerSub}>RÉSEAU ILLÉGAL — NIVEAU CRIMINEL</div>
+          <div style={styles.headerLine} />
+        </div>
+
+        {/* LOGIN PHASE */}
+        {phase === "login" && (
+          <div style={styles.loginWrap}>
+            <div style={styles.bootLog}>
+              {bootText.map((line, i) => (
+                <div key={i} style={styles.bootLine}>
+                  {line}
+                </div>
+              ))}
+            </div>
+
+            <div
+              style={{
+                ...styles.loginBox,
+                animation: loginShake ? "shake 0.5s" : "none",
+              }}
+              className={loginShake ? "shake" : ""}
+            >
+              <div style={styles.loginTitle}>◈ IDENTIFICATION REQUISE ◈</div>
+
+              <div style={styles.field}>
+                <label style={styles.label}>IDENTIFIANT</label>
+                <input
+                  style={styles.input}
+                  value={loginUser}
+                  onChange={(e) => {
+                    setLoginUser(e.target.value);
+                    setLoginError("");
+                  }}
+                  onKeyDown={(e) => e.key === "Enter" && handleLogin()}
+                  placeholder="ex: Admin"
+                  spellCheck={false}
+                />
+              </div>
+
+              <div style={styles.field}>
+                <label style={styles.label}>MOT DE PASSE</label>
+                <input
+                  style={styles.input}
+                  type="password"
+                  value={loginPass}
+                  onChange={(e) => {
+                    setLoginPass(e.target.value);
+                    setLoginError("");
+                  }}
+                  onKeyDown={(e) => e.key === "Enter" && handleLogin()}
+                  placeholder="••••••••"
+                />
+              </div>
+
+              {loginError && (
+                <div style={styles.loginError}>{loginError}</div>
+              )}
+
+              <button style={styles.loginBtn} onClick={handleLogin}>
+                ▶ ACCÉDER AU RÉSEAU
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* QUIZ PHASE */}
+        {phase === "quiz" && (
+          <div style={styles.quizWrap}>
+            {/* Lives + Progress */}
+            <div style={styles.statusBar}>
+              <div style={styles.lives}>
+                {Array.from({ length: TOTAL_LIVES }).map((_, i) => (
+                  <span
+                    key={i}
+                    style={{
+                      ...styles.lifeIcon,
+                      opacity: i < lives ? 1 : 0.15,
+                      filter:
+                        i < lives
+                          ? "drop-shadow(0 0 6px #ff3a3a)"
+                          : "none",
+                    }}
+                  >
+                    ♦
+                  </span>
+                ))}
+                <span style={styles.livesLabel}>{lives} VIE{lives > 1 ? "S" : ""}</span>
+              </div>
+              <div style={styles.progress}>
+                {QUESTIONS.map((_, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      ...styles.progressDot,
+                      background:
+                        i < currentQ
+                          ? "#c8a84b"
+                          : i === currentQ
+                          ? "#ffd700"
+                          : "#333",
+                      boxShadow: i === currentQ ? "0 0 8px #ffd700" : "none",
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Question */}
+            <div style={styles.questionBox}>
+              <div style={styles.qNumber}>
+                QUESTION {currentQ + 1} / {QUESTIONS.length}
+              </div>
+              <div style={styles.questionText}>
+                {QUESTIONS[currentQ].question}
+              </div>
+            </div>
+
+            {/* Options */}
+            <div style={styles.options}>
+              {QUESTIONS[currentQ].options.map((opt, i) => {
+                const isSelected = selected === i;
+                const isCorrect = QUESTIONS[currentQ].correct === i;
+                let bg = "transparent";
+                let border = "1px solid #3a3a2a";
+                let color = "#c8b87a";
+                let glow = "none";
+
+                if (selected !== null) {
+                  if (isCorrect) {
+                    bg = "rgba(200,168,75,0.12)";
+                    border = "1px solid #c8a84b";
+                    color = "#ffd700";
+                    glow = "0 0 16px rgba(200,168,75,0.4)";
+                  } else if (isSelected && !isCorrect) {
+                    bg = "rgba(255,58,58,0.1)";
+                    border = "1px solid #ff3a3a";
+                    color = "#ff6b6b";
+                    glow = "0 0 12px rgba(255,58,58,0.3)";
+                  }
+                }
+
+                return (
+                  <button
+                    key={i}
+                    style={{
+                      ...styles.optionBtn,
+                      background: bg,
+                      border,
+                      color,
+                      boxShadow: glow,
+                      cursor: selected !== null ? "default" : "pointer",
+                    }}
+                    onClick={() => handleAnswer(i)}
+                  >
+                    <span style={styles.optionLetter}>
+                      {["A", "B", "C", "D"][i]}.
+                    </span>{" "}
+                    {opt}
+                  </button>
+                );
+              })}
+            </div>
+
+            {feedback && (
+              <div
+                style={{
+                  ...styles.feedbackBanner,
+                  background:
+                    feedback === "correct"
+                      ? "rgba(200,168,75,0.15)"
+                      : "rgba(255,58,58,0.15)",
+                  borderColor:
+                    feedback === "correct" ? "#c8a84b" : "#ff3a3a",
+                  color: feedback === "correct" ? "#ffd700" : "#ff6b6b",
+                }}
+              >
+                {feedback === "correct"
+                  ? "✓ BONNE RÉPONSE — OPÉRATEUR CONFIRMÉ"
+                  : `✗ ERREUR — ${lives - 1 > 0 ? `${lives - 1} VIE${lives - 1 > 1 ? "S" : ""} RESTANTE${lives - 1 > 1 ? "S" : ""}` : "ÉLIMINATION EN COURS..."}`}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* SUCCESS PHASE */}
+        {phase === "success" && (
+          <div style={styles.successWrap}>
+            <div style={styles.successTitle} className="flicker">
+              ◈ ACCÈS ACCORDÉ ◈
+            </div>
+            <div style={styles.successSub}>
+              Vous avez prouvé votre allégeance au réseau.
+            </div>
+
+            <div
+              style={{
+                ...styles.photoFrame,
+                opacity: revealPhoto ? 1 : 0,
+                transform: revealPhoto ? "scale(1)" : "scale(0.9)",
+              }}
+            >
+              {/* Replace this URL with your actual image */}
+              <div style={styles.photoInner}>
+                <div style={styles.photoPlaceholder}>
+                  <div style={styles.photoIcon}>◉</div>
+                  <div style={styles.photoLabel}>DOSSIER CLASSIFIÉ</div>
+                  <div style={styles.photoSub}>
+                    Remplacez cette zone par votre image
+                  </div>
+                  {/* Uncomment below and add your image URL: */}
+                  {/* <img src="VOTRE_URL_IMAGE" style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", inset: 0 }} /> */}
+                </div>
+              </div>
+              <div style={styles.photoCornerTL} />
+              <div style={styles.photoCornerBR} />
+            </div>
+
+            <div style={styles.successCode}>
+              — PROTOCOLE DELTA-7 DÉVERROUILLÉ —
+            </div>
+            <button style={styles.resetBtn} onClick={reset}>
+              ↩ DÉCONNEXION
+            </button>
+          </div>
+        )}
+
+        {/* FAIL PHASE */}
+        {phase === "fail" && (
+          <div style={styles.failWrap}>
+            <div style={styles.failIcon}>✗</div>
+            <div style={styles.failTitle}>ACCÈS REFUSÉ</div>
+            <div style={styles.failSub}>
+              Vous n'avez pas les qualifications requises.
+              <br />
+              Cette tentative a été enregistrée.
+            </div>
+            <button style={{ ...styles.resetBtn, borderColor: "#ff3a3a", color: "#ff3a3a" }} onClick={reset}>
+              ↩ RECOMMENCER
+            </button>
+          </div>
+        )}
+
+        {/* Footer */}
+        <div style={styles.footer}>
+          ▪ CONNEXION CHIFFRÉE ▪ ANONYMAT GARANTI ▪ RÉSEAU FANTÔME ▪
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const css = `
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Bebas+Neue&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+  }
+
+  @keyframes flicker {
+    0%,100% { opacity: 1; }
+    92% { opacity: 1; }
+    93% { opacity: 0.4; }
+    94% { opacity: 1; }
+    96% { opacity: 0.6; }
+    97% { opacity: 1; }
+  }
+
+  @keyframes scanMove {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .flicker { animation: flicker 3s infinite; }
+
+  input::placeholder { color: #3a3a2a; }
+  input:focus { outline: none; border-color: #c8a84b !important; box-shadow: 0 0 12px rgba(200,168,75,0.3) !important; }
+
+  button:hover:not(:disabled) { filter: brightness(1.2); transform: translateY(-1px); transition: all 0.15s; }
+`;
+
+const styles = {
+  root: {
+    minHeight: "100vh",
+    background: "#080806",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontFamily: "'Share Tech Mono', monospace",
+    position: "relative",
+    overflow: "hidden",
+  },
+  scanlines: {
+    position: "fixed",
+    inset: 0,
+    background:
+      "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px)",
+    pointerEvents: "none",
+    zIndex: 10,
+  },
+  vignette: {
+    position: "fixed",
+    inset: 0,
+    background:
+      "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.7) 100%)",
+    pointerEvents: "none",
+    zIndex: 9,
+  },
+  cornerTL: {
+    position: "fixed", top: 16, left: 16,
+    width: 40, height: 40,
+    borderTop: "2px solid #c8a84b", borderLeft: "2px solid #c8a84b",
+    opacity: 0.5,
+  },
+  cornerTR: {
+    position: "fixed", top: 16, right: 16,
+    width: 40, height: 40,
+    borderTop: "2px solid #c8a84b", borderRight: "2px solid #c8a84b",
+    opacity: 0.5,
+  },
+  cornerBL: {
+    position: "fixed", bottom: 16, left: 16,
+    width: 40, height: 40,
+    borderBottom: "2px solid #c8a84b", borderLeft: "2px solid #c8a84b",
+    opacity: 0.5,
+  },
+  cornerBR: {
+    position: "fixed", bottom: 16, right: 16,
+    width: 40, height: 40,
+    borderBottom: "2px solid #c8a84b", borderRight: "2px solid #c8a84b",
+    opacity: 0.5,
+  },
+  container: {
+    width: "100%",
+    maxWidth: 620,
+    padding: "24px 20px",
+    position: "relative",
+    zIndex: 20,
+    animation: "fadeIn 0.6s ease",
+  },
+  header: {
+    textAlign: "center",
+    marginBottom: 28,
+  },
+  headerLine: {
+    height: 1,
+    background: "linear-gradient(90deg, transparent, #c8a84b, transparent)",
+    marginBottom: 10,
+  },
+  headerText: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 12,
+    marginBottom: 6,
+  },
+  skull: {
+    fontSize: 18,
+    color: "#c8a84b",
+    opacity: 0.7,
+  },
+  title: {
+    fontFamily: "'Bebas Neue', sans-serif",
+    fontSize: 30,
+    color: "#ffd700",
+    letterSpacing: 6,
+    textShadow: "0 0 20px rgba(255,215,0,0.4)",
+  },
+  headerSub: {
+    fontSize: 10,
+    color: "#5a5030",
+    letterSpacing: 4,
+    marginBottom: 10,
+  },
+  // LOGIN
+  loginWrap: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 20,
+  },
+  bootLog: {
+    background: "rgba(10,10,5,0.8)",
+    border: "1px solid #1e1e10",
+    padding: "12px 16px",
+    borderRadius: 2,
+    minHeight: 90,
+  },
+  bootLine: {
+    fontSize: 11,
+    color: "#5a7a3a",
+    lineHeight: 1.8,
+    animation: "fadeIn 0.3s ease",
+  },
+  loginBox: {
+    background: "rgba(12,10,5,0.9)",
+    border: "1px solid #3a3020",
+    padding: "24px 28px",
+    borderRadius: 2,
+    display: "flex",
+    flexDirection: "column",
+    gap: 16,
+  },
+  loginTitle: {
+    textAlign: "center",
+    fontSize: 13,
+    color: "#c8a84b",
+    letterSpacing: 3,
+    marginBottom: 4,
+  },
+  field: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 6,
+  },
+  label: {
+    fontSize: 10,
+    color: "#5a5030",
+    letterSpacing: 3,
+  },
+  input: {
+    background: "rgba(0,0,0,0.5)",
+    border: "1px solid #2a2010",
+    color: "#c8b87a",
+    fontFamily: "'Share Tech Mono', monospace",
+    fontSize: 14,
+    padding: "10px 14px",
+    borderRadius: 2,
+    transition: "all 0.2s",
+  },
+  loginError: {
+    fontSize: 11,
+    color: "#ff4444",
+    textAlign: "center",
+    letterSpacing: 1,
+    padding: "8px",
+    border: "1px solid rgba(255,68,68,0.3)",
+    background: "rgba(255,68,68,0.05)",
+  },
+  loginBtn: {
+    background: "transparent",
+    border: "1px solid #c8a84b",
+    color: "#ffd700",
+    fontFamily: "'Share Tech Mono', monospace",
+    fontSize: 13,
+    letterSpacing: 2,
+    padding: "12px",
+    cursor: "pointer",
+    marginTop: 4,
+    textShadow: "0 0 10px rgba(255,215,0,0.3)",
+    transition: "all 0.2s",
+  },
+  // QUIZ
+  quizWrap: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 20,
+    animation: "fadeIn 0.4s ease",
+  },
+  statusBar: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: "10px 16px",
+    background: "rgba(10,8,0,0.8)",
+    border: "1px solid #2a2010",
+  },
+  lives: {
+    display: "flex",
+    alignItems: "center",
+    gap: 8,
+  },
+  lifeIcon: {
+    fontSize: 20,
+    color: "#ff3a3a",
+    transition: "all 0.3s",
+  },
+  livesLabel: {
+    fontSize: 10,
+    color: "#5a3020",
+    letterSpacing: 2,
+    marginLeft: 4,
+  },
+  progress: {
+    display: "flex",
+    gap: 8,
+    alignItems: "center",
+  },
+  progressDot: {
+    width: 10,
+    height: 10,
+    borderRadius: "50%",
+    transition: "all 0.3s",
+  },
+  questionBox: {
+    background: "rgba(12,10,2,0.9)",
+    border: "1px solid #3a3020",
+    padding: "20px 24px",
+    borderRadius: 2,
+  },
+  qNumber: {
+    fontSize: 10,
+    color: "#5a5030",
+    letterSpacing: 4,
+    marginBottom: 12,
+  },
+  questionText: {
+    fontSize: 15,
+    color: "#d4b86a",
+    lineHeight: 1.7,
+  },
+  options: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 10,
+  },
+  optionBtn: {
+    fontFamily: "'Share Tech Mono', monospace",
+    fontSize: 13,
+    textAlign: "left",
+    padding: "13px 18px",
+    borderRadius: 2,
+    transition: "all 0.2s",
+    lineHeight: 1.5,
+  },
+  optionLetter: {
+    color: "#c8a84b",
+    marginRight: 4,
+  },
+  feedbackBanner: {
+    textAlign: "center",
+    fontSize: 12,
+    letterSpacing: 2,
+    padding: "12px",
+    borderRadius: 2,
+    border: "1px solid",
+    animation: "fadeIn 0.2s ease",
+  },
+  // SUCCESS
+  successWrap: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: 20,
+    animation: "fadeIn 0.5s ease",
+  },
+  successTitle: {
+    fontFamily: "'Bebas Neue', sans-serif",
+    fontSize: 32,
+    color: "#ffd700",
+    letterSpacing: 6,
+    textShadow: "0 0 30px rgba(255,215,0,0.5)",
+    textAlign: "center",
+  },
+  successSub: {
+    fontSize: 12,
+    color: "#7a6a3a",
+    letterSpacing: 2,
+    textAlign: "center",
+  },
+  photoFrame: {
+    position: "relative",
+    width: "100%",
+    maxWidth: 420,
+    transition: "all 0.8s cubic-bezier(0.34,1.56,0.64,1)",
+  },
+  photoInner: {
+    border: "1px solid #c8a84b",
+    background: "#0a0800",
+    position: "relative",
+    overflow: "hidden",
+  },
+  photoPlaceholder: {
+    height: 280,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 10,
+    position: "relative",
+  },
+  photoIcon: {
+    fontSize: 48,
+    color: "#c8a84b",
+    opacity: 0.3,
+    animation: "pulse 2s infinite",
+  },
+  photoLabel: {
+    fontSize: 14,
+    color: "#c8a84b",
+    letterSpacing: 4,
+  },
+  photoSub: {
+    fontSize: 10,
+    color: "#3a3020",
+    letterSpacing: 2,
+  },
+  photoCornerTL: {
+    position: "absolute", top: -1, left: -1,
+    width: 20, height: 20,
+    borderTop: "3px solid #ffd700", borderLeft: "3px solid #ffd700",
+  },
+  photoCornerBR: {
+    position: "absolute", bottom: -1, right: -1,
+    width: 20, height: 20,
+    borderBottom: "3px solid #ffd700", borderRight: "3px solid #ffd700",
+  },
+  successCode: {
+    fontSize: 10,
+    color: "#3a3020",
+    letterSpacing: 4,
+    textAlign: "center",
+  },
+  resetBtn: {
+    background: "transparent",
+    border: "1px solid #c8a84b",
+    color: "#c8a84b",
+    fontFamily: "'Share Tech Mono', monospace",
+    fontSize: 12,
+    letterSpacing: 2,
+    padding: "10px 24px",
+    cursor: "pointer",
+    transition: "all 0.2s",
+    marginTop: 8,
+  },
+  // FAIL
+  failWrap: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: 16,
+    animation: "fadeIn 0.5s ease",
+    padding: "20px 0",
+  },
+  failIcon: {
+    fontSize: 60,
+    color: "#ff3a3a",
+    textShadow: "0 0 30px rgba(255,58,58,0.5)",
+    animation: "flicker 2s infinite",
+  },
+  failTitle: {
+    fontFamily: "'Bebas Neue', sans-serif",
+    fontSize: 32,
+    color: "#ff4444",
+    letterSpacing: 6,
+    textShadow: "0 0 20px rgba(255,68,68,0.4)",
+  },
+  failSub: {
+    fontSize: 12,
+    color: "#5a2020",
+    letterSpacing: 1,
+    textAlign: "center",
+    lineHeight: 2,
+  },
+  // FOOTER
+  footer: {
+    textAlign: "center",
+    fontSize: 9,
+    color: "#2a2010",
+    letterSpacing: 3,
+    marginTop: 28,
+  },
+};
