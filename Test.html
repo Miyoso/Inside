@@ -8,22 +8,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;900&family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:          #06090f;
-  --panel:       rgba(255,255,255,0.028);
-  --border:      rgba(255,255,255,0.065);
-  --border-hi:   rgba(255,255,255,0.12);
-  --red:         #e8192c;
-  --red-glow:    rgba(232,25,44,0.18);
-  --red-dim:     rgba(232,25,44,0.07);
-  --blue:        #38bdf8;
-  --blue-dim:    rgba(56,189,248,0.07);
-  --grn:         #86efac;
-  --grn-dim:     rgba(134,239,172,0.07);
-  --sys:         #94a3b8;
-  --text:        #e2e8f0;
-  --muted:       #475569;
-  --muted2:      #64748b;
-  --sidebar:     300px;
+  --bg:         #06090f;
+  --panel:      rgba(255,255,255,0.028);
+  --border:     rgba(255,255,255,0.065);
+  --border-hi:  rgba(255,255,255,0.12);
+  --red:        #e8192c;
+  --red-glow:   rgba(232,25,44,0.18);
+  --red-dim:    rgba(232,25,44,0.07);
+  --blue:       #38bdf8;
+  --blue-dim:   rgba(56,189,248,0.07);
+  --grn:        #86efac;
+  --grn-dim:    rgba(134,239,172,0.07);
+  --sys:        #94a3b8;
+  --text:       #e2e8f0;
+  --muted:      #475569;
+  --muted2:     #64748b;
+  --sidebar:    300px;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(--text); font-family: 'JetBrains Mono', monospace; }
@@ -290,21 +290,21 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 })();
 
 const LOG=[
-  {t:'01:22:45',p:0,    c:'pilot',  s:'PILOTE',   tx:'On approche de la limite des eaux territoriales. On va piquer un peu pour rester sous les radars.', tl:0},
-  {t:'01:23:02',p:15,   c:'crew',   s:'LIVREUR',  tx:'Reçu. La cargaison est stable à l\'arrière. On est dans les temps pour la livraison.'},
-  {t:'01:23:15',p:25,   c:'pilot',  s:'PILOTE',   tx:'Le relief est escarpé ce soir. On va passer juste à côté de la crête.'},
-  {t:'01:23:30',p:35,   c:'system', s:'SYSTEM',   tx:'[SON DE GRÉSILLEMENT STATIQUE DISCRET]', tl:1},
-  {t:'01:23:32',p:40,   c:'crew',   s:'LIVREUR',  tx:'Hey, t\'as vu ça ? Les lumières du tableau de bord viennent de flasher.'},
-  {t:'01:23:35',p:45,   c:'pilot',  s:'PILOTE',   tx:'C\'est rien, probablement juste une chute de tension. Je compense.'},
-  {t:'01:23:42',p:55,   c:'system', s:'SYSTEM',   tx:'[ALERTE : PERTE DE SIGNAL GPS]', tl:2},
-  {t:'01:23:45',p:60,   c:'pilot',  s:'PILOTE',   tx:'Qu\'est-ce qui se passe ?! Le compas tourne dans tous les sens ! On dérive !'},
-  {t:'01:23:50',p:70,   c:'crew',   s:'LIVREUR',  tx:'On perd de l\'altitude ! Il y a des étincelles sur les ailes ! Miller, sors-nous de là !'},
-  {t:'01:23:54',p:75,   c:'system', s:'AVIONIQUE',tx:'<span class="glitch-inline">ERROR 404: ENGINE_CTRL_LINK_LOST</span>', tl:3},
-  {t:'01:23:57',p:80,   c:'pilot',  s:'PILOTE',   tx:'Les commandes répondent plus ! Tout est grillé ! On tombe, on tombe !'},
-  {t:'01:24:02',p:90,   c:'crew',   s:'LIVREUR',  tx:'Redresse ! Regarde devant, c\'est le cimetière ! On va s\'écraser sur les tombes !'},
-  {t:'01:24:05',p:95,   c:'pilot',  s:'PILOTE',   tx:'NIMBUS 22 AU SOL, ON N\'A PLUS RIEN ! DÉFAILLANCE TOTALE... ON VA S\'É—', lw:true},
+  {t:'01:22:45',p:0,   c:'pilot',  s:'PILOTE',   tx:'On approche de la limite des eaux territoriales. On va piquer un peu pour rester sous les radars.', tl:0},
+  {t:'01:23:02',p:15,  c:'crew',   s:'LIVREUR',  tx:'Reçu. La cargaison est stable à l\'arrière. On est dans les temps pour la livraison.'},
+  {t:'01:23:15',p:25,  c:'pilot',  s:'PILOTE',   tx:'Regarde le Mur là-bas. Il est immense ce soir. On va passer juste à côté.'},
+  {t:'01:23:30',p:35,  c:'system', s:'SYSTEM',   tx:'[SON DE GRÉSILLEMENT STATIQUE DISCRET]', tl:1},
+  {t:'01:23:32',p:40,  c:'crew',   s:'LIVREUR',  tx:'Hey, t\'as vu ça ? Les lumières du tableau de bord viennent de flasher.'},
+  {t:'01:23:35',p:45,  c:'pilot',  s:'PILOTE',   tx:'C\'est rien, probablement juste une chute de tension. Je compense.'},
+  {t:'01:23:42',p:55,  c:'system', s:'SYSTEM',   tx:'[ALERTE : PERTE DE SIGNAL GPS]', tl:2},
+  {t:'01:23:45',p:60,  c:'pilot',  s:'PILOTE',   tx:'Qu\'est-ce qui se passe ?! Le compas tourne dans tous les sens ! On dérive vers le Mur !'},
+  {t:'01:23:50',p:70,  c:'crew',   s:'LIVREUR',  tx:'On est trop près ! Le Mur... il y a des étincelles sur les ailes ! Miller, sors-nous de là !'},
+  {t:'01:23:54',p:75,  c:'system', s:'AVIONIQUE',tx:'<span class="glitch-inline">ERROR 404: ENGINE_CTRL_LINK_LOST</span>', tl:3},
+  {t:'01:23:57',p:80,  c:'pilot',  s:'PILOTE',   tx:'Les commandes répondent plus ! Tout est grillé ! On tombe, on tombe !'},
+  {t:'01:24:02',p:90,  c:'crew',   s:'LIVREUR',  tx:'Redresse ! Regarde devant, c\'est le cimetière ! On va s\'écraser sur les tombes !'},
+  {t:'01:24:05',p:95,  c:'pilot',  s:'PILOTE',   tx:'NIMBUS 22 AU SOL, ON N\'A PLUS RIEN ! C\'EST LE MUR... C\'EST LE MU—', lw:true},
   {t:'01:24:07',p:100, c:'fatal',  s:'FATAL',    tx:'[BRUIT D\'IMPACT MASSIF - RUPTURE DE L\'ENREGISTREMENT]', crash:true, tl:4},
-  {t:'01:24:08',p:100, c:'system', s:'STATUS',    tx:'--- SIGNAL PERDU : FIN DE LA SÉQUENCE ---'}
+  {t:'01:24:08',p:100, c:'system', s:'STATUS',   tx:'--- SIGNAL PERDU : FIN DE LA SÉQUENCE ---'}
 ];
 
 const $msgs=document.getElementById('msgs'), $idle=document.getElementById('idle'), $play=document.getElementById('playBtn'), $rep=document.getElementById('repBtn'), $st=document.getElementById('status'), $cv=document.getElementById('crash-ov'), $app=document.getElementById('app'), $sig=document.getElementById('sig'), $tlf=document.getElementById('tlf'), $sp=document.getElementById('sp'), $sc=document.getElementById('sc');
