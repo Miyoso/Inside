@@ -63,6 +63,22 @@ nav{position:fixed;width:100%;z-index:100;top:2px;background:rgba(11,7,23,.92);b
 .mc ul li:last-child{border-bottom:none}
 .mc ul li::before{content:'›';color:rgba(220,38,38,.6);flex-shrink:0}
 .mc ul li strong{color:rgba(255,255,255,.88)}
+.rtable{width:100%;border-collapse:collapse;margin-top:.9rem;font-size:.78rem}
+.rtable th{background:rgba(220,38,38,.12);color:#f87171;font-weight:700;text-transform:uppercase;letter-spacing:.8px;padding:.6rem .8rem;text-align:left;border-bottom:1px solid rgba(220,38,38,.25)}
+.rtable td{padding:.55rem .8rem;border-bottom:1px solid rgba(255,255,255,.04);color:rgba(232,224,240,.72)}
+.rtable tr:last-child td{border-bottom:none}
+.rtable tr:hover td{background:rgba(255,255,255,.015)}
+.biz-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:1.1rem 1.3rem;margin-bottom:.8rem}
+.biz-card h4{font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:.7rem;display:flex;align-items:center;gap:7px}
+.biz-card h4.gang{color:#f87171}
+.biz-card h4.mc-c{color:#fb923c}
+.biz-card h4.orga{color:#a78bfa}
+.biz-card h4.mafia{color:#fbbf24}
+.biz-card p{font-size:.8rem;color:rgba(232,224,240,.6);line-height:1.6}
+.biz-card ul{list-style:none;margin-top:.5rem}
+.biz-card ul li{font-size:.78rem;color:rgba(232,224,240,.6);padding:.2rem 0;display:flex;gap:7px}
+.biz-card ul li::before{content:'›';color:rgba(220,38,38,.5);flex-shrink:0}
+.sub-title{font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:2px;color:rgba(220,38,38,.7);text-transform:uppercase;margin:.9rem 0 .3rem;font-weight:700}
 .apply{background:rgba(220,38,38,.07);border:1px solid rgba(220,38,38,.22);border-radius:14px;padding:2rem;text-align:center;margin-top:2.5rem}
 .apply h3{font-size:1rem;font-weight:600;color:#fff;margin-bottom:.75rem}
 .apply p{font-size:.85rem;color:rgba(232,224,240,.55);line-height:1.7;max-width:500px;margin:0 auto}
@@ -102,52 +118,141 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
 
 <div id="cnav"><div class="cni">
   <button class="cb active" onclick="jumpTo('s1')"><i class="fa-solid fa-shield fa-xs"></i> Principes</button>
-  <button class="cb" onclick="jumpTo('s2')"><i class="fa-solid fa-leaf fa-xs"></i> Économie</button>
-  <button class="cb" onclick="jumpTo('s3')"><i class="fa-solid fa-money-bill fa-xs"></i> Braquages</button>
-  <button class="cb" onclick="jumpTo('s4')"><i class="fa-solid fa-user-lock fa-xs"></i> PDO</button>
-  <button class="cb" onclick="jumpTo('s5')"><i class="fa-solid fa-shield-halved fa-xs"></i> Services Publics</button>
-  <button class="cb" onclick="jumpTo('s6')"><i class="fa-solid fa-crosshairs fa-xs"></i> Combat</button>
-  <button class="cb" onclick="jumpTo('s7')"><i class="fa-solid fa-video fa-xs"></i> Preuves</button>
+  <button class="cb" onclick="jumpTo('s2')"><i class="fa-solid fa-crosshairs fa-xs"></i> Fusillades</button>
+  <button class="cb" onclick="jumpTo('s3')"><i class="fa-solid fa-home fa-xs"></i> Quartier</button>
+  <button class="cb" onclick="jumpTo('s4')"><i class="fa-solid fa-rotate-left fa-xs"></i> Répercussions</button>
+  <button class="cb" onclick="jumpTo('s5')"><i class="fa-solid fa-leaf fa-xs"></i> Économie</button>
+  <button class="cb" onclick="jumpTo('s6')"><i class="fa-solid fa-money-bill fa-xs"></i> Braquages</button>
+  <button class="cb" onclick="jumpTo('s7')"><i class="fa-solid fa-user-lock fa-xs"></i> PDO & Otages</button>
+  <button class="cb" onclick="jumpTo('s8')"><i class="fa-solid fa-truck-medical fa-xs"></i> Services Publics</button>
+  <button class="cb" onclick="jumpTo('s9')"><i class="fa-solid fa-car fa-xs"></i> Convois</button>
+  <button class="cb" onclick="jumpTo('s10')"><i class="fa-solid fa-handshake fa-xs"></i> Alliances</button>
+  <button class="cb" onclick="jumpTo('s11')"><i class="fa-solid fa-gun fa-xs"></i> Armement</button>
+  <button class="cb" onclick="jumpTo('s12')"><i class="fa-solid fa-briefcase fa-xs"></i> Business</button>
+  <button class="cb" onclick="jumpTo('s13')"><i class="fa-solid fa-warehouse fa-xs"></i> Logistique</button>
+  <button class="cb" onclick="jumpTo('s14')"><i class="fa-solid fa-masks-theater fa-xs"></i> Immersion</button>
+  <button class="cb" onclick="jumpTo('s15')"><i class="fa-solid fa-gavel fa-xs"></i> Sanctions</button>
 </div></div>
 
 <div class="wrap">
+
+  <!-- S1 PRINCIPES -->
   <div id="s1" class="sa"><div class="card">
     <div class="sh"><div class="sn">1</div><h3>Principes Fondamentaux & Fair-Play</h3></div>
-    <div class="ri"><div class="ric"><i class="fa-solid fa-handshake"></i></div><div class="rt"><strong>Fair-Play :</strong> Équilibrez vos victoires et vos défaites pour favoriser le RP de chacun.</div></div>
-    <div class="ri"><div class="ric"><i class="fa-solid fa-eye"></i></div><div class="rt"><strong>Fear RP :</strong> Obligatoire. Si braqué en premier, vous devez coopérer. Le fear quartier/villa s'applique — ne pénétrez jamais seul dans le QG adverse.</div></div>
-    <div class="ri"><div class="ric"><i class="fa-solid fa-heart-pulse"></i></div><div class="rt"><strong>Pain RP :</strong> Les blessures doivent être jouées rigoureusement. <em>Exemple : crash en course-poursuite = subir les conséquences physiques proportionnelles.</em></div></div>
-    <div class="ri"><div class="ric"><i class="fa-solid fa-home"></i></div><div class="rt"><strong>Retour quartier :</strong> Interdiction de se réfugier dans son QG pendant ou après une poursuite. Camper un QG adverse est interdit.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-handshake"></i></div><div class="rt"><strong>Fair-Play :</strong> Le respect des autres joueurs est primordial. Équilibrez vos victoires et vos défaites pour favoriser le RP de chacun.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-eye"></i></div><div class="rt"><strong>Fear RP :</strong> Obligatoire. Si braqué en premier, vous devez coopérer. La peur est une obligation en toutes circonstances.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-home"></i></div><div class="rt"><strong>Fear Quartier / Villa :</strong> Ne pénétrez <strong>jamais seul</strong> dans le QG d'un groupe adverse. Le camp QG adverse est interdit.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-heart-pulse"></i></div><div class="rt"><strong>Pain RP :</strong> Les blessures doivent être jouées rigoureusement, notamment après un accident ou une poursuite. <em>Exemple : crash en course-poursuite = subir les conséquences physiques proportionnelles.</em></div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-right-left"></i></div><div class="rt"><strong>Transfert d'items :</strong> Tout transfert entre personnages (P1/P2) ou via ami pour contourner le système est sanctionné.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-clock-rotate-left"></i></div><div class="rt"><strong>Revenge RP :</strong> Un cooldown de <strong>24h minimum</strong> est imposé pour toute scène de revenge, que vous soyez gagnant ou perdant — sauf en cas de non-respect de territoire.</div></div>
     <div class="warn"><i class="fa-solid fa-triangle-exclamation"></i><div><strong>Interdictions techniques :</strong> Packs GF, Strafe, CVC, Pit de véhicules, No recoil, Speed boost, Speed reload ou tout avantage logiciel sont strictement interdits.</div></div>
   </div></div>
 
+  <!-- S2 FUSILLADES -->
   <div id="s2" class="sa"><div class="card">
-    <div class="sh"><div class="sn">2</div><h3>Économie & Drogues</h3></div>
+    <div class="sh"><div class="sn">2</div><h3>Fusillades & Combat</h3></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-circle-dot"></i></div><div class="rt"><strong>Dernier recours :</strong> Les fusillades doivent rester un <strong>ultime recours</strong>. La montée en tension doit être respectée — pas de fusillade pour un conflit mineur (ex : insulte).</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-skull"></i></div><div class="rt"><strong>Corps en coma :</strong> Interdiction de déplacer ou de ramasser un joueur en état de coma, qu'il soit allié ou ennemi.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-stairs"></i></div><div class="rt"><strong>Position dominante :</strong> La prise de hauteur est <strong>strictement interdite</strong> lors des fusillades.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-shield"></i></div><div class="rt"><strong>Zones safes :</strong> Toute fusillade dans une zone safe ou neutre est interdite.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-gun"></i></div><div class="rt"><strong>Conservation des armes :</strong> Toute arme utilisée lors d'une fusillade doit être <strong>conservée par son utilisateur</strong> jusqu'à la fin complète de la scène. La transférer ou la jeter est strictement interdit durant ce laps de temps.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-skull-crossbones"></i></div><div class="rt"><strong>Mort RP :</strong> En cas de blessures répétées liées à plusieurs fusillades, une Mort RP peut être appliquée. Plus les événements sont rapprochés, plus le risque est élevé. <em>→ 2 fusillades initiées sur 48h peuvent entraîner une Mort RP.</em></div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-tire"></i></div><div class="rt"><strong>Tirs sur pneus :</strong> Interdits avant <strong>25 minutes de poursuite</strong>, sauf "No Fear" abusif avéré.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-truck"></i></div><div class="rt"><strong>Plans mules / récup :</strong> Autorisés après <strong>15 min de CP contre la police</strong>, pour grosses scènes/livraisons. Véhicules autorisés : <em>Mule, Speedo, Pounder</em>.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-vest"></i></div><div class="rt"><strong>Gilets factices :</strong> Le port de gilets pare-balles factices est <strong>interdit</strong>.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-shirt"></i></div><div class="rt"><strong>Tenues ennemies :</strong> Interdit de porter la couleur d'un gang/orga adverse pendant une fusillade.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Call de tir :</strong> Un call de tir ne peut être donné qu'<strong>en cas de nofear adverse avéré</strong>, jamais autrement.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-user-xmark"></i></div><div class="rt"><strong>Freekills :</strong> Strictement interdits et sévèrement sanctionnés (ban, blacklist).</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-calendar"></i></div><div class="rt"><strong>Rendez-vous RP :</strong> Aucun tir ne doit être engagé pendant un rendez-vous RP à moins d'une raison valable.</div></div>
+  </div></div>
+
+  <!-- S3 QUARTIER & TERRITOIRE -->
+  <div id="s3" class="sa"><div class="card">
+    <div class="sh"><div class="sn">3</div><h3>Quartier & Territoire</h3></div>
+    <p class="sub-title"><i class="fa-solid fa-home"></i> Règles QG</p>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Camp QG :</strong> Le camp du QG adverse est <strong>interdit</strong>.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-right-from-bracket"></i></div><div class="rt"><strong>Retour QG :</strong> Interdit dès lors que vous êtes suivi. Vous ne pouvez pas vous réfugier dans votre QG pendant ou après une poursuite.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-people-group"></i></div><div class="rt"><strong>Descentes quartier :</strong> Autorisées mais <strong>rares (1 par semaine)</strong>. Minimum <strong>10 attaquants</strong>. Seules les <strong>armes blanches et de poing</strong> sont autorisées.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Interdiction :</strong> La descente quartier pour prendre en otage des joueurs est <strong>formellement interdite</strong>.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-shield"></i></div><div class="rt"><strong>Sécurité :</strong> Le but d'un quartier est qu'il reste safe. Vous vous devez de faire en sorte qu'il le reste.</div></div>
+    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-map"></i> Territoires</p>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-map-location-dot"></i></div><div class="rt"><strong>Usage RP :</strong> La carte est un outil à utiliser en RP de manière cohérente. <em>Exemple : "J'ai mes guetteurs sur cette zone."</em></div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-layer-group"></i></div><div class="rt"><strong>Échelle :</strong> Gang, MC, Orga et Mafia ne revendiquent pas la même échelle de territoire. <strong>Les PF ont interdiction d'avoir un territoire.</strong></div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-shield-halved"></i></div><div class="rt"><strong>Protection & taxe :</strong> Un crew ayant un territoire se doit de le protéger et peut imposer une <strong>taxe</strong> à tout crew souhaitant vendre dans ce dernier.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-chart-line"></i></div><div class="rt"><strong>Coefficient :</strong> Si vous êtes crew leader dans un territoire, vous bénéficiez du <strong>coefficient multiplicateur</strong> de ce territoire.</div></div>
+  </div></div>
+
+  <!-- S4 RÉPERCUSSIONS & REVENGE -->
+  <div id="s4" class="sa"><div class="card">
+    <div class="sh"><div class="sn">4</div><h3>Répercussions RP & Revenge RP</h3></div>
+    <p class="sub-title"><i class="fa-solid fa-scale-balanced"></i> Répercussions</p>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-stairs"></i></div><div class="rt"><strong>Échelle de violence :</strong> Elle doit être respectée et ne doit pas être gravie trop vite. Les répercussions doivent se faire sur le <strong>long terme</strong> pour développer les interactions entre les groupes.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-skull"></i></div><div class="rt"><strong>Mort RP :</strong> Les demandes de Mort RP doivent contenir des <strong>preuves détaillées</strong> et ne sont pas à prendre à la légère.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-circle-exclamation"></i></div><div class="rt"><strong>Exposition :</strong> Lorsque vous débutez une scène, vous vous exposez à tout type de sanctions ou de répercussions RP.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-user-injured"></i></div><div class="rt"><strong>Scènes traumatisantes :</strong> Les scènes potentiellement traumatisantes (torture lourde, démembrement) sont soumises à l'accord du <strong>staff</strong> et du <strong>joueur concerné</strong>.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-arrows-up-to-line"></i></div><div class="rt"><strong>Proportionnalité :</strong> Les répercussions doivent être progressives et proportionnelles. <em>Pas de GF pour un "ta gueule" quand un brawl serait plus adapté.</em></div></div>
+    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-clock-rotate-left"></i> Revenge RP</p>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-hourglass"></i></div><div class="rt"><strong>Cooldown :</strong> Si vous subissez une scène où vous "perdez", vous ne devez répondre que <strong>les jours suivants</strong>. Un cooldown de <strong>24h est obligatoire</strong>, que vous soyez gagnant ou perdant — sauf en cas de non-respect de territoire.</div></div>
+    <div class="info-box"><i class="fa-solid fa-circle-info"></i><div>Nous mettons un gros point d'honneur sur la création de trames intergroupe. Faites vivre votre RP et votre histoire de groupe à travers des scènes intéressantes et théâtrales.</div></div>
+  </div></div>
+
+  <!-- S5 ÉCONOMIE & DROGUES -->
+  <div id="s5" class="sa"><div class="card">
+    <div class="sh"><div class="sn">5</div><h3>Économie & Drogues</h3></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-truck"></i></div><div class="rt"><strong>Logistique :</strong> Récolte, production et transfert doivent s'effectuer impérativement en <strong>véhicules utilitaires</strong>.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Vente Nomade :</strong> Motos, vélos ou quads pour la vente de drogue sont <strong>strictement interdits</strong>.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-users"></i></div><div class="rt"><strong>Occupation de Secteur :</strong> Vente en groupe limitée à <strong>5 personnes maximum</strong> sur un même secteur simultanément.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Informations illégales :</strong> Interdit de divulguer gratuitement des informations sensibles (ex : positions de drogues). Ces informations peuvent être vendues ou utilisées dans le cadre de missions RP.</div></div>
+    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-flask"></i> Attaque de Laboratoire</p>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Camp labo :</strong> Interdiction de camper devant le laboratoire.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-hand-fist"></i></div><div class="rt"><strong>Braquage labo :</strong> Si vous croisez un groupe dans l'instance, vous pouvez le braquer.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-percent"></i></div><div class="rt"><strong>Pillage :</strong> Vous pouvez prendre <strong>uniquement 50% de la drogue</strong> lors d'un braquage de laboratoire.</div></div>
+    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-person"></i> Groupe de PF</p>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-circle-info"></i></div><div class="rt"><strong>Approvisionnement :</strong> Les PF ne peuvent se fournir en drogue et en armes qu'<strong>auprès des gangs</strong>. Toute autre source est strictement interdite.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-leaf"></i></div><div class="rt"><strong>Trafic PF :</strong> En termes de trafic, les PF sont limités à la <strong>vente de weed uniquement</strong>.</div></div>
   </div></div>
 
-  <div id="s3" class="sa"><div class="card">
-    <div class="sh"><div class="sn">3</div><h3>Braquages & Racket</h3></div>
+  <!-- S6 BRAQUAGES & RACKET -->
+  <div id="s6" class="sa"><div class="card">
+    <div class="sh"><div class="sn">6</div><h3>Braquages & Racket</h3></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-wallet"></i></div><div class="rt"><strong>Racket :</strong> Prélèvement maximal de <strong>50% de l'argent liquide</strong> possédé par la victime.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-landmark"></i></div><div class="rt"><strong>Accès Bancaire :</strong> Interdiction absolue de forcer un retrait au distributeur (ATM).</div></div>
-    <div class="ri"><div class="ric"><i class="fa-solid fa-tractor"></i></div><div class="rt"><strong>Zones de Farm :</strong> Pillage (loot) proscrit sur les points de farm (Go Fast, entreprises…). Coups de pression RP autorisés, pas le loot.</div></div>
-    <div class="warn"><i class="fa-solid fa-triangle-exclamation"></i><div><strong>Arnaques scriptées :</strong> Fausses ventes d'armes/drogues via menu sont interdites. Les prêts non rendus ne sont pas considérés comme arnaques scriptées par le Staff.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-tractor"></i></div><div class="rt"><strong>Zones de Farm :</strong> Pillage proscrit sur les points de farm, de vente, zones d'entreprise et zones safes/neutres. Coups de pression RP autorisés, pas le loot.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-user-secret"></i></div><div class="rt"><strong>Freeloot :</strong> Interdit de racketter un joueur au hasard uniquement pour son argent ou ses objets, sans contexte RP.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-building-columns"></i></div><div class="rt"><strong>Braquage Fleeca / Bijouterie :</strong> Attendre <strong>15 min</strong> l'arrivée du LSPD avant de repartir, <strong>3 otages minimum, 4 braqueurs minimum, 2 armes à feu minimum</strong>, 1 véhicule max au départ, 15 min de CP pour plan mule/récup.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-store"></i></div><div class="rt"><strong>Braquage ATM / Supérette :</strong> Prise d'otage autorisée. Interdiction des plans pneu / mule / récup. Attente de l'arrivée du LSPD : <strong>10 min minimum</strong>.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-building"></i></div><div class="rt"><strong>Entreprises :</strong> Un crew peut imposer une taxe dans son territoire. Les patrons peuvent refuser ou accepter selon le contexte RP. Aucune activité légale ne doit être utilisée à des fins illégales.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-crown"></i></div><div class="rt"><strong>Gouvernement :</strong> Interdit de braquer un membre du gouvernement. Toute action contre eux nécessite <strong>l'accord du staff</strong>.</div></div>
+    <div class="warn"><i class="fa-solid fa-triangle-exclamation"></i><div><strong>Arnaques :</strong> Toute forme d'arnaque abusive (fausses ventes d'armes, drogues, immobilier…) est interdite. Les prêts non rendus ne sont pas considérés comme arnaques scriptées par le Staff. Prêter un objet précieux est votre responsabilité RP.</div></div>
   </div></div>
 
-  <div id="s4" class="sa"><div class="card">
-    <div class="sh"><div class="sn">4</div><h3>Prises d'Otages (PDO)</h3></div>
+  <!-- S7 PDO & OTAGES -->
+  <div id="s7" class="sa"><div class="card">
+    <div class="sh"><div class="sn">7</div><h3>Prises d'Otages (PDO) & Gestion des Otages</h3></div>
+    <p class="sub-title"><i class="fa-solid fa-user-lock"></i> Conditions PDO</p>
     <div class="ri"><div class="ric"><i class="fa-solid fa-shield-halved"></i></div><div class="rt"><strong>Conditions :</strong> Uniquement en cas de conflit RP majeur ou braquage de banque.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-comments"></i></div><div class="rt"><strong>Négociations :</strong> "Rush otage" et "faux otages" formellement interdits. Absence du groupe adverse = mort RP possible (optionnel).</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-gem"></i></div><div class="rt"><strong>Loot :</strong> Vol de bijoux/lunettes autorisé. <strong>Vol d'armes interdit</strong>, sauf accord Staff ou mise en caution.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-mobile"></i></div><div class="rt"><strong>Téléphones :</strong> Doivent être rendus en fin de scène. Interdiction de supprimer des contacts (sauf ceux vous concernant).</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-crosshairs"></i></div><div class="rt"><strong>Engagement armé :</strong> Interdiction de tirer si le groupe adverse détient un otage — risque de mort RP pour l'otage.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-clock"></i></div><div class="rt"><strong>Durée maximale :</strong> Il est <strong>strictement interdit de détenir un otage pendant plus d'une heure</strong>.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-dollar-sign"></i></div><div class="rt"><strong>Rançon :</strong> La rançon d'un membre ne doit pas dépasser <strong>X $</strong> (lead / co-lead : <strong>X $</strong>). Cette décision doit rester cohérente et justifiée RP.</div></div>
+    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-ban"></i> Interdictions — Gestion des Otages</p>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-box-open"></i></div><div class="rt"><strong>Inventaire :</strong> Interdit de piller les otages ou de vider entièrement leur inventaire.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-wrench"></i></div><div class="rt"><strong>Outils incohérents :</strong> Interdit d'utiliser clé anglaise, marteau, pioche, lampe torche, queue de billard, poing américain, club de golf, masse, pelle, pied de biche, bouteille ou hache lors de scènes d'otage.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-shield"></i></div><div class="rt"><strong>Négociateurs LSPD :</strong> Interdit de les prendre en otage, sauf autorisation Staff.</div></div>
+    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-shield-halved"></i> Prise d'otage LSPD — Cas autorisés</p>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-check"></i></div><div class="rt">Braquer ou prendre en otage un agent du LSPD est interdit <strong>sauf dans les cas suivants</strong> :<br>→ Sécurisation d'un lead risquant la prison à vie<br>→ Attaque de convoi de fonds ou transports spéciaux<br>→ Réaction légitime à un no fear d'une patrouille<br>→ Événement RP spécial validé par le staff<br>→ Sécurisation d'une arme lourde dans un contexte RP sérieux</div></div>
+    <div class="warn"><i class="fa-solid fa-triangle-exclamation"></i><div>Les otages policiers entraînent des conséquences RP lourdes (descente, représailles, mandat, etc.). Une raison solide et cohérente est indispensable.</div></div>
+    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-people-group"></i> Si un membre de votre groupe est capturé</p>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-circle-dot"></i></div><div class="rt">Le gang ou l'organisation <strong>doit se présenter pour négocier</strong>. En cas de refus ou d'ignorance : l'otage peut être gardé, une intervention staff peut être demandée, ou une mort RP peut être appliquée si le cas est répété (optionnel).</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-gun"></i></div><div class="rt"><strong>Prêts d'armes :</strong> Les prêts se font 100% en RP. En cas d'abus, le staff n'intervient pas.</div></div>
   </div></div>
 
-  <div id="s5" class="sa"><div class="card">
-    <div class="sh"><div class="sn">5</div><h3>Interactions Services Publics</h3></div>
-    <div class="g2">
+  <!-- S8 SERVICES PUBLICS & SAMS -->
+  <div id="s8" class="sa"><div class="card">
+    <div class="sh"><div class="sn">8</div><h3>Interactions Services Publics & SAMS</h3></div>
+    <div class="g2" style="margin-bottom:1rem">
       <div class="mc">
         <h4><i class="fa-solid fa-shield"></i> LSPD</h4>
         <ul>
@@ -155,30 +260,176 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
           <li>Copbaiting (provocation inutile) interdit.</li>
           <li>Sabotage des pneus de patrouille interdit.</li>
           <li>Fuite par l'eau interdite.</li>
+          <li>Interdiction de voler les véhicules de police, SAMS, services publics.</li>
         </ul>
       </div>
       <div class="mc">
-        <h4><i class="fa-solid fa-truck-medical"></i> EMS</h4>
+        <h4><i class="fa-solid fa-truck-medical"></i> EMS / SAMS</h4>
         <ul>
           <li>Braquer ou piéger un EMS (faux appels) interdit.</li>
           <li>Honnêteté sur ses blessures obligatoire.</li>
           <li>Discussions illégales proscrites à l'hôpital.</li>
+          <li>Prise d'otage EMS : justification RP solide obligatoire.</li>
           <li>Manquement = ATA lourde ou mort RP.</li>
         </ul>
       </div>
     </div>
+    <p class="sub-title"><i class="fa-solid fa-hospital"></i> Prise en charge médicale — ATA</p>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-clock"></i></div><div class="rt"><strong>Délais standards :</strong> Si vous êtes transporté à l'hôpital, jouez la scène avec les SAMS et respectez les ATA :<br>→ <strong>30 min</strong> sans effort physique<br>→ <strong>45 min</strong> avant de courir ou de conduire<br>→ <strong>1 heure</strong> avant de pouvoir utiliser une arme<br><em>Ces délais peuvent varier selon la gravité des blessures et l'appréciation des SAMS.</em></div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Interdictions strictes :</strong> Mentir sur ses blessures — minimiser son état — refuser une scène médicale cohérente — quitter discrètement — donner ou cacher ses armes — demander un revive via report.</div></div>
+    <div class="warn"><i class="fa-solid fa-triangle-exclamation"></i><div>Tout refus abusif de scène avec les SAMS peut entraîner une <strong>ATA lourde</strong> ou une <strong>Mort RP</strong> selon la gravité.</div></div>
+    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-circle-info"></i> Interactions et scènes spécifiques</p>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Informations illégales :</strong> Interdit de partager gratuitement des informations illégales (ex : positions de drogues). Vous pouvez les vendre ou missionner d'autres groupes dans un cadre RP.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-circle-dot"></i></div><div class="rt"><strong>Conséquences RP :</strong> Prises d'otages LSPD/SAMS — elles peuvent entraîner des répercussions importantes (descentes, représailles, intensification des conflits, etc.).</div></div>
   </div></div>
 
-  <div id="s6" class="sa"><div class="card">
-    <div class="sh"><div class="sn">6</div><h3>Règles de Combat & Sécurité</h3></div>
-    <div class="ri"><div class="ric"><i class="fa-solid fa-circle-dot"></i></div><div class="rt"><strong>Tirs sur pneus :</strong> Interdits avant <strong>25 minutes de poursuite</strong>, sauf "No Fear" abusif avéré.</div></div>
-    <div class="ri"><div class="ric"><i class="fa-solid fa-circle-dot"></i></div><div class="rt"><strong>Plans mules / récup :</strong> Autorisés après <strong>15 min de CP contre la police</strong>, pour grosses scènes/livraisons. Véhicules autorisés : <em>Mule, Speedo, Pounder</em>.</div></div>
-    <div class="ri"><div class="ric"><i class="fa-solid fa-circle-dot"></i></div><div class="rt"><strong>Safe Zones :</strong> Vol, braquage et pillage strictement interdits dans les zones safe et véhicules de services publics.</div></div>
+  <!-- S9 CONVOIS & DÉPLACEMENTS -->
+  <div id="s9" class="sa"><div class="card">
+    <div class="sh"><div class="sn">9</div><h3>Convois & Déplacements</h3></div>
+    <p class="sub-title"><i class="fa-solid fa-car"></i> Règles de Poursuite</p>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>PIT interdits :</strong> Les manœuvres d'immobilisation (PIT) sont <strong>strictement interdites</strong>.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-map"></i></div><div class="rt"><strong>Recherche d'une cible :</strong> Lors de la recherche, séparez-vous sur la carte (pas de limite de nombre) pour favoriser un jeu réaliste.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-car-side"></i></div><div class="rt"><strong>Poursuite :</strong> Une fois la cible localisée, maximum <strong>2 véhicules</strong> pour la poursuite.<br><em>Exception MC : 2 véhicules max OU 7 motos max.</em></div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-box"></i></div><div class="rt"><strong>Protection cargaison :</strong> <strong>4 véhicules maximum</strong> au total, véhicule de transport inclus.</div></div>
+    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-route"></i> Déplacements</p>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Convois organisés :</strong> <strong>Strictement interdits</strong> pour les activités illégales. Les déplacements doivent rester discrets, cohérents et crédibles en RP.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-van-shuttle"></i></div><div class="rt"><strong>Transactions :</strong> Les transactions importantes (armes, drogues, grosses marchandises) doivent se faire en <strong>van ou véhicule utilitaire discret</strong>.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-car-burst"></i></div><div class="rt"><strong>Véhicules interdits :</strong> Véhicules super sportifs et véhicules d'entreprise/location interdits. Fuites en bateau interdites (sauf accord exceptionnel staff illégal et 911).</div></div>
+    <div class="info-box"><i class="fa-solid fa-circle-info"></i><div>Privilégiez le fait de vous disperser et d'innover lors de vos déplacements.</div></div>
   </div></div>
 
-  <div id="s7" class="sa"><div class="card">
-    <div class="sh"><div class="sn">7</div><h3>Preuves & Support</h3></div>
-    <div class="info-box"><i class="fa-solid fa-circle-info"></i><div><strong>Conseil Modération :</strong> Enregistrez ou "clippez" vos scènes litigieuses. Le Staff sanctionne les abus constatés par preuve vidéo. Amusez-vous et privilégiez toujours la scène RP au "Win RP".</div></div>
+  <!-- S10 ALLIANCES & REVENDICATIONS -->
+  <div id="s10" class="sa"><div class="card">
+    <div class="sh"><div class="sn">10</div><h3>Alliances & Revendications</h3></div>
+    <p class="sub-title"><i class="fa-solid fa-handshake"></i> Alliances</p>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-check"></i></div><div class="rt"><strong>Autorisées :</strong> Les alliances à <strong>but commercial uniquement</strong> sont autorisées.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Coalitions abusives :</strong> <strong>Strictement interdit</strong> de s'allier à plusieurs groupes dans le but d'en attaquer un autre.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-circle-info"></i></div><div class="rt"><strong>Objectif :</strong> Les alliances doivent servir à créer du jeu, des interactions et des trames RP, sans déséquilibrer ni écraser les autres groupes.</div></div>
+    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-flag"></i> Revendications</p>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-vest"></i></div><div class="rt"><strong>MC — Tenue :</strong> Les membres de MC ne peuvent retirer leur cuir que lors de <strong>gros événements</strong>.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-bullhorn"></i></div><div class="rt"><strong>Obligation :</strong> Tout acte envers un autre groupe <strong>doit être revendiqué</strong>.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-id-card"></i></div><div class="rt"><strong>Appartenance :</strong> Interdit de nier appartenir à un groupe si vous êtes un <strong>haut gradé ou leader</strong>.</div></div>
+    <div class="info-box"><i class="fa-solid fa-circle-info"></i><div>Les revendications permettent de créer des trames RP durables et des affrontements construits dans le temps.</div></div>
+  </div></div>
+
+  <!-- S11 ARMEMENT & CHARGEURS -->
+  <div id="s11" class="sa"><div class="card">
+    <div class="sh"><div class="sn">11</div><h3>Armement & Chargeurs</h3></div>
+    <p class="sub-title"><i class="fa-solid fa-layer-group"></i> Limite de Chargeurs par Personne</p>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-circle-dot"></i></div><div class="rt"><strong>Armes de poing :</strong> 4 chargeurs max</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-circle-dot"></i></div><div class="rt"><strong>Armes auto légères (SMG) :</strong> 4 chargeurs max</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-circle-dot"></i></div><div class="rt"><strong>Armes lourdes (rifles) :</strong> 3 chargeurs max</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-circle-dot"></i></div><div class="rt"><strong>Fusil à pompe :</strong> 3 chargeurs max</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-circle-info"></i></div><div class="rt"><em>Le chargeur déjà engagé dans l'arme n'est pas comptabilisé dans cette limite.</em></div></div>
+    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-gun"></i> Armement par Type de Groupe</p>
+    <div class="g2">
+      <div class="mc"><h4><i class="fa-solid fa-crown"></i> Mafia</h4><ul><li>3 armes lourdes maximum</li><li>3 armes automatiques maximum</li></ul></div>
+      <div class="mc"><h4><i class="fa-solid fa-people-group"></i> Groupes Criminels</h4><ul><li>2 armes lourdes maximum</li><li>2 armes automatiques maximum</li></ul></div>
+      <div class="mc"><h4><i class="fa-solid fa-motorcycle"></i> Motor Clubs</h4><ul><li>1 arme lourde maximum</li><li>2 armes automatiques maximum</li></ul></div>
+      <div class="mc"><h4><i class="fa-solid fa-street-view"></i> Gangs</h4><ul><li>1 arme lourde maximum</li><li>1 arme automatique maximum</li></ul></div>
+    </div>
+    <div class="warn" style="margin-top:1rem"><i class="fa-solid fa-triangle-exclamation"></i><div>En l'absence d'armes lourdes, il est possible de compenser par des armes automatiques. <strong>Le port d'une arme lourde sur une moto est strictement interdit.</strong></div></div>
+  </div></div>
+
+  <!-- S12 BUSINESS & ACTIVITÉS -->
+  <div id="s12" class="sa"><div class="card">
+    <div class="sh"><div class="sn">12</div><h3>Business & Activités Illégales</h3></div>
+    <p class="sub-title"><i class="fa-solid fa-list"></i> Missions Communes — Tous groupes</p>
+    <div class="info-box" style="margin-bottom:.9rem"><i class="fa-solid fa-circle-info"></i><div>Accès via <strong>F2 → Missions</strong> pour tous les groupes.</div></div>
+    <table class="rtable">
+      <thead><tr><th>Mission</th><th>Rang</th><th>Fréquence</th></tr></thead>
+      <tbody>
+        <tr><td>Vente de drogue</td><td>Rang D</td><td>—</td></tr>
+        <tr><td>Vol de sac à main</td><td>Rang D</td><td>—</td></tr>
+        <tr><td>Braquage de tatoueur</td><td>Rang D</td><td>—</td></tr>
+        <tr><td>Braquage de barber</td><td>Rang D</td><td>—</td></tr>
+        <tr><td>Racket</td><td>Rang D</td><td>—</td></tr>
+        <tr><td>GoFast</td><td>Rang C</td><td>—</td></tr>
+        <tr><td>GoFast Maritime</td><td>Rang C</td><td>—</td></tr>
+        <tr><td>Braquage de Binco</td><td>Rang C</td><td>—</td></tr>
+        <tr><td>Vol d'ATM</td><td>Rang C</td><td>—</td></tr>
+        <tr><td>Braquage de Supérette</td><td>Rang C</td><td>—</td></tr>
+        <tr><td>Braquage de Yacht</td><td>Rang B</td><td>1/semaine (tous groupes)</td></tr>
+        <tr><td>Cambriolage</td><td>Rang B</td><td>—</td></tr>
+        <tr><td>Braquage d'Ammunation</td><td>Rang B</td><td>1/semaine (tous groupes)</td></tr>
+        <tr><td>Braquage de Vangelico</td><td>Rang B</td><td>1/semaine/groupe</td></tr>
+        <tr><td>Braquage de Fleeca</td><td>Rang B</td><td>2/semaine/groupe</td></tr>
+      </tbody>
+    </table>
+    <p class="sub-title" style="margin-top:1.5rem"><i class="fa-solid fa-briefcase"></i> Business par Type de Groupe</p>
+    <div class="biz-card">
+      <h4 class="gang"><i class="fa-solid fa-street-view"></i> GANG</h4>
+      <p><strong>Laboratoires :</strong> X weed par run — Production : X$/u — Durée : X min</p>
+      <p style="margin-top:.5rem"><strong>Craft d'armes :</strong> Couteau, Katana, Couteau à cran d'arrêt, Poing américain, Dague de combat, Machette, Pied de biche, Masse, HK PM710, Vintage Pistol</p>
+      <p style="margin-top:.5rem"><strong>Commandes tablette :</strong> Balles de pistolet, Outils de crochetage, Ordinateur portable, Zip Ties, Percussion court, Chargeur allongé</p>
+    </div>
+    <div class="biz-card">
+      <h4 class="mc-c"><i class="fa-solid fa-motorcycle"></i> MOTOR CLUB (MC)</h4>
+      <p><strong>Laboratoires :</strong> X meth par run — Production : X$/u — Durée : X min</p>
+      <p style="margin-top:.5rem"><strong>Craft d'armes :</strong> Colt M45A1, Colt M1878, Skorpion, Mossberg 500, Spas 12</p>
+      <p style="margin-top:.5rem"><strong>Commandes tablette :</strong> Munition fusil à pompe, Cocktail molotov</p>
+      <p style="margin-top:.5rem"><strong>Business additionnels :</strong> Protection des commerces contre l'extorsion, prêts à taux élevés, organisation de fight clubs / combats illégaux avec paris, soirées bikers, concerts, runs motos payants.</p>
+    </div>
+    <div class="biz-card">
+      <h4 class="orga"><i class="fa-solid fa-building"></i> ORGANISATION (ORGA)</h4>
+      <p><strong>Laboratoires :</strong> X Fentanyl par run — Production : X$/u — Durée : X min</p>
+      <p style="margin-top:.5rem"><strong>Craft d'armes :</strong> Beretta 92 FS, Glock 17, Tec 9, MP5, AK47</p>
+      <p style="margin-top:.5rem"><strong>Commandes tablette :</strong> Pince</p>
+      <p style="margin-top:.5rem"><strong>Business additionnels :</strong> Trafic d'armes, corruption (flics / avocats / juges), prêts d'argent aux gangs et PF, acquisition d'entreprises couverture.</p>
+    </div>
+    <div class="biz-card">
+      <h4 class="mafia"><i class="fa-solid fa-crown"></i> MAFIA</h4>
+      <p><strong>Laboratoires :</strong> X cocaïne par run — Production : X$/u — Durée : X min</p>
+      <p style="margin-top:.5rem"><strong>Craft d'armes :</strong> Desert Eagle 50, Taurus, Mini Uzi, Gusenberg, AK47</p>
+      <p style="margin-top:.5rem"><strong>Missions additionnelles :</strong> Gestion des groupes en RP, acquisition de boîtes de nuit, corruption auprès du gouvernement, politique.</p>
+    </div>
+    <div class="warn"><i class="fa-solid fa-triangle-exclamation"></i><div><strong>Mafias & Orga :</strong> Ne peuvent <strong>pas vendre dans la rue</strong>. Les ventes de drogue ont pour but de proposer du jeu et de l'interaction, pas uniquement du profit.</div></div>
+  </div></div>
+
+  <!-- S13 ENTREPÔT, TABLETTES & LOGISTIQUE -->
+  <div id="s13" class="sa"><div class="card">
+    <div class="sh"><div class="sn">13</div><h3>Entrepôt, Tablettes & Logistique</h3></div>
+    <p class="sub-title"><i class="fa-solid fa-warehouse"></i> Entrepôt</p>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-map-pin"></i></div><div class="rt"><strong>Stockage obligatoire :</strong> Tout ce qui est destiné à la revente doit être stocké dans un entrepôt à un <strong>minimum de 1,5 km du QG</strong> — c'est du RP.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Nourrices :</strong> Les nourrices sont <strong>formellement interdites</strong>.</div></div>
+    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-tablet-screen-button"></i> Règles Tablettes</p>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-circle-info"></i></div><div class="rt">La tablette permet de commander tout ce qui est disponible sur le plateau illégal. Tous les groupes y ont accès mais les business diffèrent selon la hiérarchie illégale.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Interdictions :</strong> Interdit de passer <strong>2 fois la même commande</strong> et de looter à <strong>plus de 50% de la commande</strong>.</div></div>
+    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-car"></i> Véhicules par Type de Groupe</p>
+    <div class="g2">
+      <div class="mc"><h4><i class="fa-solid fa-people-group"></i> Gang / OC</h4><ul><li>3 voitures</li><li>+ 1 Speedo sur commande</li></ul></div>
+      <div class="mc"><h4><i class="fa-solid fa-motorcycle"></i> MC</h4><ul><li>7 motos</li><li>+ 2 véhicules</li><li>+ 1 Speedo sur commande</li></ul></div>
+    </div>
+    <div class="ri" style="margin-top:.8rem"><div class="ric"><i class="fa-solid fa-clock"></i></div><div class="rt"><strong>Horaires des commandes :</strong> Entre <strong>X h et X h</strong>. La cargaison doit être récupérée uniquement en véhicule de transport (Speedo, Burrito, Mule, Pounder…). <em>Le Speedo Express est interdit.</em></div></div>
+  </div></div>
+
+  <!-- S14 IMMERSION & FAIR-PLAY -->
+  <div id="s14" class="sa"><div class="card">
+    <div class="sh"><div class="sn">14</div><h3>Immersion, Fair-Play & Contenus</h3></div>
+    <p class="sub-title"><i class="fa-solid fa-masks-theater"></i> Immersion RP</p>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Tenues / Masques :</strong> Visages troll, tenues incohérentes ou masques portés hors scènes illégales sont <strong>interdits</strong>.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Trash talk :</strong> Interdit de trash talker, danser ou provoquer une personne à terre.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Animations :</strong> Pas d'animations/ragdoll pendant un tir ni lors d'un transfert d'arme.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-skull"></i></div><div class="rt"><strong>Coma :</strong> Si vous tombez dans le coma, vous ne pouvez pas revenir sur scène ni dans la zone. Le LSPD peut vous fouiller et récupérer vos armes après réanimation.</div></div>
+    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-video"></i> Vidéo & Communication Externe</p>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-percent"></i></div><div class="rt"><strong>Contenu GF :</strong> Maximum <strong>40% de scènes "GF"</strong> autorisées dans vos contenus publiés.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-gavel"></i></div><div class="rt"><strong>Sanctions créateurs :</strong> Le Staff se donne le droit de sanctionner les créateurs de contenus GF portant atteinte au serveur publiés sur d'autres plateformes.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-music"></i></div><div class="rt"><strong>Musiques :</strong> Interdit d'utiliser des musiques troll ou des contenus incitant à la haine.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-film"></i></div><div class="rt"><strong>Contextualisation :</strong> Les scènes doivent être des conséquences RP contextualisées. Toute violation peut entraîner un <strong>ban permanent</strong>.</div></div>
+    <div class="info-box"><i class="fa-solid fa-circle-info"></i><div><strong>Preuves :</strong> Enregistrez ou "clippez" vos scènes litigieuses. Le Staff sanctionne les abus constatés par preuve vidéo. Amusez-vous et privilégiez toujours la scène RP au "Win RP".</div></div>
+  </div></div>
+
+  <!-- S15 SANCTIONS -->
+  <div id="s15" class="sa"><div class="card">
+    <div class="sh"><div class="sn">15</div><h3>Sanctions & Procédures</h3></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-circle-info"></i></div><div class="rt">En cas de non-respect du règlement, les sanctions suivantes peuvent être appliquées selon la gravité :</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-1"></i></div><div class="rt"><strong>Avertissement oral ou écrit</strong> — <em>Pôle illégal</em></div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-2"></i></div><div class="rt"><strong>Suspension temporaire de faction</strong> — <em>Pôle illégal avec accord d'un référent illégal</em></div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-3"></i></div><div class="rt"><strong>Interdiction définitive de rejouer dans la faction</strong> — <em>Référent illégal</em></div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-4"></i></div><div class="rt"><strong>Wipe personnage</strong> — <em>Référent illégal</em></div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-5"></i></div><div class="rt"><strong>Bannissement du serveur</strong> — <em>Référent illégal avec accord d'un responsable staff</em></div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-6"></i></div><div class="rt"><strong>Blacklist illégale définitive</strong> pour les cas graves — <em>Référent illégal</em></div></div>
+    <div class="info-box" style="margin-top:.9rem"><i class="fa-solid fa-circle-info"></i><div>Toute sanction sera précédée d'un échange avec le staff, afin de permettre au joueur d'exposer sa version des faits.</div></div>
   </div></div>
 
   <div class="apply">
@@ -192,7 +443,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
 </div>
 
 <footer>
-  <p>Dernière mise à jour : Mars 2026 · Privilégiez toujours la scène RP au "Win RP".</p>
+  <p>Dernière mise à jour : Juin 2026 · Privilégiez toujours la scène RP au "Win RP".</p>
   <p>&copy; 2026 Inside Roleplay. Tous droits réservés.</p>
   <div class="fl">
     <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener"><i class="fa-brands fa-discord"></i></a>
@@ -204,9 +455,9 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
 <script>
 window.addEventListener('scroll',()=>{const t=document.documentElement.scrollHeight-window.innerHeight;document.getElementById('pb').style.width=(window.scrollY/t*100)+'%'});
 function jumpTo(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'})}
-const secs=['s1','s2','s3','s4','s5','s6','s7'],cbs=document.querySelectorAll('.cb');
-new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const i=secs.indexOf(e.target.id);if(i!==-1)cbs.forEach((b,j)=>b.classList.toggle('active',i===j))}})},{threshold:.4}).observe||secs.forEach(id=>{const el=document.getElementById(id);if(el)new IntersectionObserver(e=>{if(e[0].isIntersecting){const i=secs.indexOf(id);cbs.forEach((b,j)=>b.classList.toggle('active',i===j))}},{threshold:.4}).observe(el)});
-const ob=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const i=secs.indexOf(e.target.id);if(i!==-1)cbs.forEach((b,j)=>b.classList.toggle('active',i===j))}})},{threshold:.4});
+const secs=['s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11','s12','s13','s14','s15'];
+const cbs=document.querySelectorAll('.cb');
+const ob=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const i=secs.indexOf(e.target.id);if(i!==-1)cbs.forEach((b,j)=>b.classList.toggle('active',i===j))}})},{threshold:.3});
 secs.forEach(id=>{const el=document.getElementById(id);if(el)ob.observe(el)});
 </script>
 </body>
