@@ -16,13 +16,9 @@
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:#fff;overflow-x:hidden;min-height:100vh;display:flex;flex-direction:column}
-
-/* ── SCROLLBAR ── */
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:linear-gradient(var(--ac),var(--ac2));border-radius:2px}
-
-/* ── BACKGROUNDS ── */
 .cosmic-bg{position:fixed;top:0;left:0;width:100vw;height:100vh;
   background:
     radial-gradient(circle at 50% 30%,rgba(122,40,203,.2) 0%,transparent 50%),
@@ -30,15 +26,9 @@ body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:#fff;over
   z-index:-2}
 .stars{background:transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat top center;
   z-index:-1;position:fixed;top:0;left:0;width:100%;height:100%;opacity:.35}
-
-/* ── PROGRESS BAR ── */
 #pb{position:fixed;top:0;left:0;height:2px;width:0%;
   background:linear-gradient(90deg,var(--ac),var(--ac2),#a855f7);
   z-index:1000;box-shadow:0 0 10px var(--ac)}
-
-/* ════════════════════════
-   NAV UNIFIÉE
-════════════════════════ */
 nav#mainnav{
   position:fixed;width:100%;z-index:200;top:2px;
   background:rgba(11,7,23,.94);
@@ -69,10 +59,6 @@ nav#mainnav.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.5)}
 .mobile-nav a:hover{color:#fff;background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.08)}
 .mobile-nav a.active{color:var(--ac);background:rgba(220,38,38,.08);border-color:rgba(220,38,38,.2)}
 .mobile-nav .mn-disc{margin-top:auto;padding-top:1rem;border-top:1px solid rgba(255,255,255,.06)}
-
-/* ════════════════════════
-   HERO
-════════════════════════ */
 main{flex:1;padding-top:80px;position:relative;z-index:1}
 .hero-section{padding:3rem 1.5rem 4rem;display:flex;flex-direction:column;align-items:center;text-align:center}
 .logo-container{filter:drop-shadow(0 0 30px rgba(255,51,102,.6));animation:pulse-glow 3s infinite alternate;position:relative;z-index:1;margin-bottom:1.5rem}
@@ -82,8 +68,6 @@ main{flex:1;padding-top:80px;position:relative;z-index:1}
 .hero-section h1 span{background:linear-gradient(135deg,#f87171,var(--ac2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-tagline{font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:4px;color:rgba(255,255,255,.28);text-transform:uppercase;margin-bottom:3rem}
 .hero-section h2{font-size:1.15rem;font-weight:600;margin-bottom:3rem;color:rgba(255,255,255,.8)}
-
-/* ── CTA CARDS ── */
 .cta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:860px;width:100%;margin-bottom:5rem}
 .cta-card{background:rgba(255,255,255,.03);border-radius:14px;padding:2rem 1.5rem;display:flex;flex-direction:column;align-items:center;text-decoration:none;color:#fff;transition:all .3s;border:1px solid rgba(255,255,255,.05)}
 .cta-card:hover{transform:translateY(-5px);background:rgba(255,255,255,.05)}
@@ -94,15 +78,12 @@ main{flex:1;padding-top:80px;position:relative;z-index:1}
 .cc-pink{border-color:rgba(255,51,102,.3);box-shadow:0 0 16px rgba(255,51,102,.1)}.cc-pink:hover{border-color:rgba(255,51,102,.7);box-shadow:0 0 28px rgba(255,51,102,.25)}.cc-pink .icon-wrap{background:rgba(255,51,102,.12);color:#f87171}
 .cc-gold{border-color:rgba(249,212,35,.3);box-shadow:0 0 16px rgba(249,212,35,.08)}.cc-gold:hover{border-color:rgba(249,212,35,.7);box-shadow:0 0 28px rgba(249,212,35,.2)}.cc-gold .icon-wrap{background:rgba(249,212,35,.12);color:#fcd34d}
 .cc-purple{border-color:rgba(122,40,203,.3);box-shadow:0 0 16px rgba(122,40,203,.1)}.cc-purple:hover{border-color:rgba(122,40,203,.7);box-shadow:0 0 28px rgba(122,40,203,.25)}.cc-purple .icon-wrap{background:rgba(122,40,203,.12);color:#c084fc}
-
-/* ── WIKI SECTION ── */
 .wiki-section{width:100%;max-width:900px;margin:0 auto}
 .section-divider{display:flex;align-items:center;gap:1rem;margin-bottom:.75rem}
 .section-divider .line{height:1px;flex:1;background:linear-gradient(to right,transparent,rgba(255,255,255,.08))}
 .section-divider .line-r{background:linear-gradient(to left,transparent,rgba(255,255,255,.08))}
 .section-divider span{font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:3px;color:rgba(255,255,255,.3);text-transform:uppercase;display:flex;align-items:center;gap:.5rem}
 .section-subtitle{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:2px;color:rgba(255,255,255,.18);text-transform:uppercase;text-align:center;margin-bottom:1.5rem}
-
 .wiki-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
 .wiki-card{display:flex;align-items:center;gap:1rem;background:rgba(255,255,255,.025);border-radius:12px;padding:1.1rem 1.3rem;text-decoration:none;color:#fff;transition:all .25s;border:1px solid rgba(255,255,255,.05);position:relative;overflow:hidden}
 .wiki-card:hover{transform:translateX(5px)}
@@ -117,28 +98,20 @@ main{flex:1;padding-top:80px;position:relative;z-index:1}
 .wc-cyan{border-color:rgba(14,159,184,.18)}.wc-cyan:hover{border-color:rgba(14,159,184,.5);background:rgba(14,159,184,.06)}.wc-cyan .wiki-card-icon{background:rgba(14,159,184,.1);color:#22d3ee}
 .wc-green{border-color:rgba(22,163,74,.18)}.wc-green:hover{border-color:rgba(22,163,74,.5);background:rgba(22,163,74,.06)}.wc-green .wiki-card-icon{background:rgba(22,163,74,.1);color:#4ade80}
 .wiki-full{grid-column:1 / -1}
-
-/* ── FEATURES ── */
 .features{border-top:1px solid rgba(255,255,255,.05);background:rgba(0,0,0,.35);backdrop-filter:blur(8px);padding:3.5rem 1.5rem;margin-top:5rem}
 .features-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
 .feature-item{display:flex;align-items:center;gap:1rem}
 .feature-icon{background:rgba(255,255,255,.07);padding:1rem;border-radius:10px;font-size:1.1rem;flex-shrink:0}
 .feature-text h4{font-size:.9rem;font-weight:700;margin-bottom:.25rem}
 .feature-text p{font-size:.8rem;color:rgba(255,255,255,.4);line-height:1.5}
-
-/* ── FOOTER ── */
 footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.06);background:rgba(5,3,10,.9);padding:2rem 1.5rem;text-align:center}
 footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
 .fl{display:flex;justify-content:center;gap:1.2rem;margin-top:1rem}
 .fl a{color:rgba(255,255,255,.2);transition:all .2s;font-size:1.05rem;width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid rgba(255,255,255,.07)}
 .fl a:hover{color:var(--ac);border-color:rgba(220,38,38,.3);background:rgba(220,38,38,.06)}
-
-/* ── BACK TO TOP ── */
 #btt{position:fixed;bottom:1.8rem;right:1.8rem;width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;z-index:500;box-shadow:0 4px 20px rgba(220,38,38,.4);opacity:0;transform:translateY(10px);transition:all .3s;pointer-events:none}
 #btt.visible{opacity:1;transform:translateY(0);pointer-events:all}
 #btt:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(220,38,38,.5)}
-
-/* ── RESPONSIVE ── */
 @media(max-width:768px){
   .nl,.nbtn{display:none}
   .hamburger{display:flex}
@@ -158,8 +131,6 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
 <div class="cosmic-bg"></div>
 <div class="stars"></div>
 <div id="pb"></div>
-
-<!-- ═══════════════ NAV ═══════════════ -->
 <nav id="mainnav">
   <div class="ni">
     <a href="index.html" class="nlogo">
@@ -169,9 +140,9 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
     <div class="nl">
       <a href="index.html" class="active">Accueil</a>
       <a href="Lore.html">Lore</a>
-      <a href="Reglementill.html">Règl. Illégal</a>
-      <a href="gangorga.html">Gangs & Orga</a>
-      <a href="petitesfrappes.html">PF & Habitants</a>
+      <a href="reglement.html">Règlement</a>
+      <a href="video.html">Vidéo</a>
+      <a href="boutique.html">Boutique</a>
     </div>
     <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener" class="nbtn">
       <i class="fa-brands fa-discord" style="color:#5865F2"></i> Discord
@@ -181,35 +152,26 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
     </button>
   </div>
 </nav>
-
-<!-- Mobile nav -->
 <div class="mobile-nav" id="mobnav">
   <a href="index.html" class="active"><i class="fa-solid fa-house fa-sm"></i> Accueil</a>
   <a href="Lore.html"><i class="fa-solid fa-book fa-sm"></i> Lore</a>
-  <a href="Reglementill.html"><i class="fa-solid fa-gavel fa-sm"></i> Règlement Illégal</a>
-  <a href="gangorga.html"><i class="fa-solid fa-people-group fa-sm"></i> Gangs & Orga</a>
-  <a href="petitesfrappes.html"><i class="fa-solid fa-street-view fa-sm"></i> PF & Habitants</a>
+  <a href="reglement.html"><i class="fa-solid fa-scroll fa-sm"></i> Règlement</a>
+  <a href="video.html"><i class="fa-solid fa-video fa-sm"></i> Vidéo</a>
+  <a href="boutique.html"><i class="fa-solid fa-cart-shopping fa-sm"></i> Boutique</a>
   <div class="mn-disc">
     <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener">
       <i class="fa-brands fa-discord" style="color:#5865F2"></i> Rejoindre le Discord
     </a>
   </div>
 </div>
-
-<!-- ═══════════════ MAIN ═══════════════ -->
 <main>
   <div class="hero-section">
-
-    <!-- Logo -->
     <div class="logo-container">
       <img src="logo.png" alt="Logo Inside Roleplay" onerror="this.src='https://via.placeholder.com/180/ff3366/ffffff?text=INSIDE'">
     </div>
-
     <h1>BIENVENUE SUR<br><span>INSIDE ROLEPLAY</span></h1>
     <p class="hero-tagline">L'expérience GTA RP · San Andreas</p>
     <h2>Une Ville, des Milliers d'Histoires, une Étoile à Suivre.</h2>
-
-    <!-- CTA CARDS -->
     <div class="cta-grid">
       <a href="#" class="cta-card cc-pink">
         <div class="icon-wrap"><i class="fa-solid fa-rocket"></i></div>
@@ -227,8 +189,6 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
         <p>Découvre nos exclusivités</p>
       </a>
     </div>
-
-    <!-- WIKI -->
     <div id="wiki" class="wiki-section">
       <div class="section-divider">
         <div class="line"></div>
@@ -279,11 +239,8 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
         </a>
       </div>
     </div>
-
   </div>
 </main>
-
-<!-- ═══════════════ FEATURES ═══════════════ -->
 <section class="features">
   <div class="features-grid">
     <div class="feature-item">
@@ -304,8 +261,6 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
     </div>
   </div>
 </section>
-
-<!-- ═══════════════ FOOTER ═══════════════ -->
 <footer>
   <p>Dernière mise à jour : Juin 2026 · Inside Roleplay — San Andreas</p>
   <p>&copy; 2026 Inside Roleplay. Tous droits réservés.</p>
@@ -316,22 +271,16 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
     <a href="https://www.youtube.com/@inside-roleplay" target="_blank" rel="noopener" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
   </div>
 </footer>
-
-<!-- BACK TO TOP -->
 <button id="btt" title="Retour en haut" onclick="window.scrollTo({top:0,behavior:'smooth'})">
   <i class="fa-solid fa-chevron-up"></i>
 </button>
-
 <script>
-/* Progress bar + nav scroll shadow */
 window.addEventListener('scroll',()=>{
   const t=document.documentElement.scrollHeight-window.innerHeight;
   document.getElementById('pb').style.width=(window.scrollY/t*100)+'%';
   document.getElementById('mainnav').classList.toggle('scrolled',window.scrollY>10);
   document.getElementById('btt').classList.toggle('visible',window.scrollY>400);
 });
-
-/* Hamburger */
 const hbg=document.getElementById('hbg');
 const mobnav=document.getElementById('mobnav');
 hbg.addEventListener('click',()=>{

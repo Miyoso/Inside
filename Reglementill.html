@@ -25,8 +25,6 @@
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:#e8e0f0;overflow-x:hidden}
-
-/* ── BACKGROUNDS ── */
 .cosmic-bg{position:fixed;top:0;left:0;width:100vw;height:100vh;
   background:
     radial-gradient(ellipse at 15% 20%,rgba(220,38,38,.13) 0%,transparent 55%),
@@ -35,20 +33,12 @@ body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:#e8e0f0;o
   z-index:-2}
 .stars{background:transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
   position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;opacity:.25}
-
-/* ── PROGRESS BAR ── */
 #pb{position:fixed;top:0;left:0;height:2px;width:0%;
   background:linear-gradient(90deg,var(--ac),var(--ac2),#a855f7);
   z-index:1000;box-shadow:0 0 10px var(--ac);transition:width .1s}
-
-/* ── SCROLLBAR ── */
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:linear-gradient(var(--ac),var(--ac2));border-radius:2px}
-
-/* ══════════════════════════════
-   NAVIGATION PRINCIPALE
-══════════════════════════════ */
 nav{
   position:fixed;width:100%;z-index:200;top:2px;
   background:rgba(11,7,23,.94);
@@ -57,14 +47,11 @@ nav{
   transition:box-shadow .3s
 }
 nav.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.5)}
-
 .ni{max-width:1200px;margin:0 auto;display:flex;align-items:center;
   justify-content:space-between;padding:0 1.5rem;height:62px}
-
 .nlogo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;flex-shrink:0}
 .nlogo img{width:30px;height:30px;object-fit:contain}
 .nlogo span{font-family:'Bebas Neue',cursive;font-size:1.35rem;letter-spacing:2px}
-
 .nl{display:flex;align-items:center;gap:.1rem}
 .nl a{
   font-family:'IBM Plex Mono',monospace;font-size:.7rem;font-weight:500;
@@ -74,7 +61,6 @@ nav.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.5)}
 }
 .nl a:hover{color:#fff;background:rgba(255,255,255,.05)}
 .nl a.active{color:var(--ac)}
-
 .nbtn{
   background:rgba(220,38,38,.12);border:1px solid rgba(220,38,38,.3);
   color:#f87171;padding:.4rem 1rem;border-radius:7px;font-size:.73rem;
@@ -82,8 +68,6 @@ nav.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.5)}
   gap:6px;transition:all .2s;flex-shrink:0
 }
 .nbtn:hover{background:rgba(220,38,38,.22);color:#fff}
-
-/* Hamburger */
 .hamburger{
   display:none;flex-direction:column;gap:5px;cursor:pointer;
   padding:.5rem;border-radius:8px;transition:background .2s;
@@ -98,8 +82,6 @@ nav.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.5)}
 .hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
 .hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
 .hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
-
-/* Mobile nav overlay */
 .mobile-nav{
   display:none;position:fixed;top:64px;left:0;right:0;bottom:0;
   background:rgba(11,7,23,.97);backdrop-filter:blur(24px);
@@ -118,16 +100,11 @@ nav.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.5)}
 .mobile-nav a:hover{color:#fff;background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.08)}
 .mobile-nav a.active{color:var(--ac);background:rgba(220,38,38,.08);border-color:rgba(220,38,38,.2)}
 .mobile-nav .mn-disc{margin-top:auto;padding-top:1rem;border-top:1px solid rgba(255,255,255,.06)}
-
-/* ══════════════════════════════
-   HERO
-══════════════════════════════ */
 .hero{padding:130px 1.5rem 60px;text-align:center;position:relative;z-index:1}
 .hero::before{
   content:'';position:absolute;inset:0;z-index:-1;
   background:radial-gradient(ellipse at 50% 0%,rgba(220,38,38,.18) 0%,transparent 60%)
 }
-
 .badge{
   display:inline-flex;align-items:center;gap:8px;
   border:1px solid rgba(220,38,38,.4);background:rgba(220,38,38,.07);
@@ -138,7 +115,6 @@ nav.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.5)}
 }
 .badge::before{content:'■';font-size:.4rem;animation:blink 1.2s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-
 .hero h1{
   font-family:'Bebas Neue',cursive;font-size:clamp(3.5rem,10vw,7rem);
   line-height:.88;letter-spacing:3px;animation:up 1s cubic-bezier(.16,1,.3,1) .15s both
@@ -147,14 +123,11 @@ nav.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.5)}
   background:linear-gradient(135deg,#f87171,var(--ac2),#a855f7);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
 }
-
 .hero-sub{
   font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:4px;
   color:var(--text-dim);text-transform:uppercase;margin-top:1rem;
   animation:up .8s ease .4s both
 }
-
-/* Stats pills */
 .hero-stats{
   display:flex;justify-content:center;flex-wrap:wrap;gap:.6rem;
   margin-top:1.8rem;animation:up .8s ease .5s both
@@ -167,7 +140,6 @@ nav.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.5)}
 }
 .stat-pill i{color:var(--ac);font-size:.7rem}
 .stat-pill strong{color:#fff}
-
 .hero-desc{
   max-width:560px;margin:1.8rem auto 0;
   background:rgba(220,38,38,.05);border-left:3px solid rgba(220,38,38,.45);
@@ -176,10 +148,6 @@ nav.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.5)}
   animation:up .8s ease .6s both
 }
 @keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-
-/* ══════════════════════════════
-   NAV SECTIONS (barre du bas)
-══════════════════════════════ */
 #cnav{
   position:sticky;top:64px;z-index:90;
   background:rgba(11,7,23,.97);backdrop-filter:blur(20px);
@@ -199,14 +167,8 @@ nav.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.5)}
 .cb i{font-size:.7rem}
 .cb:hover{color:rgba(255,255,255,.75);background:rgba(255,255,255,.03)}
 .cb.active{color:var(--ac);border-bottom-color:var(--ac)}
-
-/* ══════════════════════════════
-   CONTENU PRINCIPAL
-══════════════════════════════ */
 .wrap{max-width:900px;margin:0 auto;padding:2.5rem 1.5rem 7rem;position:relative;z-index:1}
 .sa{scroll-margin-top:135px}
-
-/* Cards */
 .card{
   background:var(--card);
   border:1px solid var(--card-border);
@@ -225,8 +187,6 @@ nav.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.5)}
   transform:translateY(-1px)
 }
 .card:hover::before{opacity:1}
-
-/* Section header */
 .sh{display:flex;align-items:center;gap:13px;margin-bottom:1.4rem;
   padding-bottom:1rem;border-bottom:1px solid rgba(220,38,38,.12)}
 .sn{
@@ -238,8 +198,6 @@ nav.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.5)}
   box-shadow:0 4px 14px rgba(220,38,38,.4)
 }
 .sh h3{font-size:1.1rem;font-weight:700;color:#fff;letter-spacing:.3px}
-
-/* Rule items */
 .ri{
   display:flex;align-items:flex-start;gap:12px;
   padding:.8rem 0;border-bottom:1px solid rgba(255,255,255,.03)
@@ -253,8 +211,6 @@ nav.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.5)}
 .rt{font-size:.87rem;line-height:1.7;color:var(--text)}
 .rt strong{color:#fff;font-weight:600}
 .rt em{color:var(--text-dim);font-size:.8rem}
-
-/* Boxes */
 .warn{
   background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);
   border-left:3px solid rgba(239,68,68,.7);border-radius:10px;
@@ -276,8 +232,6 @@ nav.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.5)}
   color:rgba(255,255,255,.55);display:flex;gap:9px;align-items:flex-start
 }
 .success-box i{color:#34d399;flex-shrink:0;margin-top:2px}
-
-/* Sub-titles */
 .sub-title{
   font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:2px;
   color:rgba(220,38,38,.75);text-transform:uppercase;
@@ -288,11 +242,7 @@ nav.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.5)}
   content:'';flex:1;height:1px;
   background:linear-gradient(90deg,rgba(220,38,38,.2),transparent)
 }
-
-/* Grid 2 cols */
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-
-/* Mini cards */
 .mc{
   background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.07);
   border-radius:12px;padding:1.1rem 1.3rem;transition:border-color .2s
@@ -310,10 +260,6 @@ nav.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.5)}
 .mc ul li:last-child{border-bottom:none}
 .mc ul li::before{content:'›';color:rgba(220,38,38,.55);flex-shrink:0}
 .mc ul li strong{color:rgba(255,255,255,.85)}
-
-/* ══════════════════════════════
-   TABLE MISSIONS
-══════════════════════════════ */
 .rtable{width:100%;border-collapse:collapse;margin-top:.9rem;font-size:.8rem;border-radius:10px;overflow:hidden}
 .rtable thead tr{background:rgba(220,38,38,.1)}
 .rtable th{
@@ -325,8 +271,6 @@ nav.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.5)}
 .rtable tr:hover td{background:rgba(255,255,255,.02)}
 .rtable tr:last-child td{border-bottom:none}
 .rtable td:first-child{font-weight:600;color:rgba(255,255,255,.9)}
-
-/* Rank badges */
 .rank-badge{
   display:inline-flex;align-items:center;justify-content:center;
   font-size:.65rem;font-weight:800;letter-spacing:.8px;
@@ -337,15 +281,10 @@ nav.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.5)}
 .rank-b{background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;box-shadow:0 2px 8px rgba(59,130,246,.3)}
 .rank-c{background:linear-gradient(135deg,#10b981,#059669);color:#fff;box-shadow:0 2px 8px rgba(16,185,129,.3)}
 .rank-d{background:rgba(107,114,128,.25);color:rgba(255,255,255,.55);border:1px solid rgba(107,114,128,.3)}
-
 .freq-badge{
   font-family:'IBM Plex Mono',monospace;font-size:.65rem;
   color:var(--text-dim);white-space:nowrap
 }
-
-/* ══════════════════════════════
-   BIZ CARDS
-══════════════════════════════ */
 .biz-card{
   background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);
   border-radius:12px;padding:1.1rem 1.3rem;margin-bottom:.8rem
@@ -363,10 +302,6 @@ nav.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.5)}
   padding:.2rem 0;display:flex;gap:7px
 }
 .biz-card ul li::before{content:'›';color:rgba(220,38,38,.5);flex-shrink:0}
-
-/* ══════════════════════════════
-   CALL TO ACTION
-══════════════════════════════ */
 .apply{
   background:linear-gradient(135deg,rgba(220,38,38,.07),rgba(168,85,247,.05));
   border:1px solid rgba(220,38,38,.18);border-radius:16px;
@@ -390,10 +325,6 @@ nav.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.5)}
   color:rgba(255,255,255,.6)
 }
 .btn-ghost:hover{background:rgba(255,255,255,.11);color:#fff}
-
-/* ══════════════════════════════
-   FOOTER
-══════════════════════════════ */
 footer{
   position:relative;z-index:1;
   border-top:1px solid rgba(255,255,255,.06);
@@ -407,10 +338,6 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
   border-radius:8px;border:1px solid rgba(255,255,255,.07)
 }
 .fl a:hover{color:var(--ac);border-color:rgba(220,38,38,.3);background:rgba(220,38,38,.06)}
-
-/* ══════════════════════════════
-   BACK TO TOP
-══════════════════════════════ */
 #btt{
   position:fixed;bottom:1.8rem;right:1.8rem;
   width:42px;height:42px;border-radius:10px;
@@ -424,38 +351,25 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
 }
 #btt.visible{opacity:1;transform:translateY(0);pointer-events:all}
 #btt:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(220,38,38,.5)}
-
-/* ══════════════════════════════
-   MOBILE RESPONSIVE
-══════════════════════════════ */
 @media(max-width:768px){
   .nl{display:none}
   .nbtn{display:none}
   .hamburger{display:flex}
   .ni{padding:0 1rem}
-
   .hero{padding:100px 1rem 40px}
   .hero h1{font-size:clamp(3rem,14vw,5rem)}
-
   .hero-stats{gap:.4rem}
   .stat-pill{font-size:.65rem;padding:.35rem .75rem}
-
   .wrap{padding:2rem 1rem 6rem}
-
   .card{padding:1.3rem;border-radius:12px}
   .sh h3{font-size:1rem}
-
   .g2{grid-template-columns:1fr}
-
   .rtable{font-size:.75rem}
   .rtable th,.rtable td{padding:.5rem .6rem}
-
   #cnav{padding:0 .5rem}
   .cb{padding:.7rem .7rem;font-size:.6rem;gap:5px}
-
   #btt{bottom:1.2rem;right:1.2rem;width:38px;height:38px}
 }
-
 @media(max-width:480px){
   .hero h1{font-size:clamp(2.8rem,15vw,4.5rem)}
   .ctas{flex-direction:column;align-items:center}
@@ -468,8 +382,6 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
 <div class="cosmic-bg"></div>
 <div class="stars"></div>
 <div id="pb"></div>
-
-<!-- ═══════════════ NAVIGATION ═══════════════ -->
 <nav id="mainnav">
   <div class="ni">
     <a href="index.html" class="nlogo">
@@ -479,9 +391,9 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
     <div class="nl">
       <a href="index.html">Accueil</a>
       <a href="Lore.html">Lore</a>
-      <a href="Reglementill.html" class="active">Règl. Illégal</a>
-      <a href="gangorga.html">Gangs & Orga</a>
-      <a href="petitesfrappes.html">PF & Habitants</a>
+      <a href="reglement.html" class="active">Règlement</a>
+      <a href="video.html">Vidéo</a>
+      <a href="boutique.html">Boutique</a>
     </div>
     <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener" class="nbtn">
       <i class="fa-brands fa-discord" style="color:#5865F2"></i> Discord
@@ -491,22 +403,18 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
     </button>
   </div>
 </nav>
-
-<!-- Mobile nav -->
 <div class="mobile-nav" id="mobnav">
   <a href="index.html"><i class="fa-solid fa-house fa-sm"></i> Accueil</a>
   <a href="Lore.html"><i class="fa-solid fa-book fa-sm"></i> Lore</a>
-  <a href="Reglementill.html" class="active"><i class="fa-solid fa-gavel fa-sm"></i> Règlement Illégal</a>
-  <a href="gangorga.html"><i class="fa-solid fa-people-group fa-sm"></i> Gangs & Orga</a>
-  <a href="petitesfrappes.html"><i class="fa-solid fa-street-view fa-sm"></i> PF & Habitants</a>
+  <a href="reglement.html" class="active"><i class="fa-solid fa-scroll fa-sm"></i> Règlement</a>
+  <a href="video.html"><i class="fa-solid fa-video fa-sm"></i> Vidéo</a>
+  <a href="boutique.html"><i class="fa-solid fa-cart-shopping fa-sm"></i> Boutique</a>
   <div class="mn-disc">
     <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener">
       <i class="fa-brands fa-discord" style="color:#5865F2"></i> Rejoindre le Discord
     </a>
   </div>
 </div>
-
-<!-- ═══════════════ HERO ═══════════════ -->
 <div class="hero">
   <div class="badge">Code Criminel · San Andreas</div>
   <h1>RÈGLEMENT<br><span>ILLÉGAL</span></h1>
@@ -519,8 +427,6 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
   </div>
   <p class="hero-desc">"Ce règlement encadre l'ensemble des activités criminelles. La cohérence et le fair-play sont les piliers de la vie souterraine d'InsideRP."</p>
 </div>
-
-<!-- ═══════════════ SECTION NAV ═══════════════ -->
 <div id="cnav"><div class="cni">
   <button class="cb active" onclick="jumpTo('s1')"><i class="fa-solid fa-shield fa-xs"></i> Principes</button>
   <button class="cb" onclick="jumpTo('s2')"><i class="fa-solid fa-crosshairs fa-xs"></i> Fusillades</button>
@@ -538,11 +444,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
   <button class="cb" onclick="jumpTo('s14')"><i class="fa-solid fa-masks-theater fa-xs"></i> Immersion</button>
   <button class="cb" onclick="jumpTo('s15')"><i class="fa-solid fa-gavel fa-xs"></i> Sanctions</button>
 </div></div>
-
-<!-- ═══════════════ CONTENU ═══════════════ -->
 <div class="wrap">
-
-  <!-- S1 PRINCIPES -->
   <div id="s1" class="sa"><div class="card">
     <div class="sh"><div class="sn">1</div><h3>Principes Fondamentaux & Fair-Play</h3></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-handshake"></i></div><div class="rt"><strong>Fair-Play :</strong> Le respect des autres joueurs est primordial. Équilibrez vos victoires et vos défaites pour favoriser le RP de chacun.</div></div>
@@ -553,8 +455,6 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
     <div class="ri"><div class="ric"><i class="fa-solid fa-clock-rotate-left"></i></div><div class="rt"><strong>Revenge RP :</strong> Un cooldown de <strong>24h minimum</strong> est imposé pour toute scène de revenge, que vous soyez gagnant ou perdant — sauf en cas de non-respect de territoire.</div></div>
     <div class="warn"><i class="fa-solid fa-triangle-exclamation"></i><div><strong>Interdictions techniques :</strong> Packs GF, Strafe, CVC, Pit de véhicules, No recoil, Speed boost, Speed reload ou tout avantage logiciel sont strictement interdits.</div></div>
   </div></div>
-
-  <!-- S2 FUSILLADES -->
   <div id="s2" class="sa"><div class="card">
     <div class="sh"><div class="sn">2</div><h3>Fusillades & Combat</h3></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-circle-dot"></i></div><div class="rt"><strong>Dernier recours :</strong> Les fusillades doivent rester un <strong>ultime recours</strong>. La montée en tension doit être respectée — pas de fusillade pour un conflit mineur.</div></div>
@@ -571,8 +471,6 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
     <div class="ri"><div class="ric"><i class="fa-solid fa-user-xmark"></i></div><div class="rt"><strong>Freekills :</strong> Strictement interdits et sévèrement sanctionnés (ban, blacklist).</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-calendar"></i></div><div class="rt"><strong>Rendez-vous RP :</strong> Aucun tir ne doit être engagé pendant un rendez-vous RP à moins d'une raison valable.</div></div>
   </div></div>
-
-  <!-- S3 QUARTIER & TERRITOIRE -->
   <div id="s3" class="sa"><div class="card">
     <div class="sh"><div class="sn">3</div><h3>Quartier & Territoire</h3></div>
     <p class="sub-title"><i class="fa-solid fa-home"></i> Règles QG</p>
@@ -587,8 +485,6 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
     <div class="ri"><div class="ric"><i class="fa-solid fa-shield-halved"></i></div><div class="rt"><strong>Protection & taxe :</strong> Un crew ayant un territoire se doit de le protéger et peut imposer une <strong>taxe</strong> à tout crew souhaitant vendre dans ce dernier.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-chart-line"></i></div><div class="rt"><strong>Coefficient :</strong> Si vous êtes crew leader dans un territoire, vous bénéficiez du <strong>coefficient multiplicateur</strong> de ce territoire.</div></div>
   </div></div>
-
-  <!-- S4 RÉPERCUSSIONS & REVENGE -->
   <div id="s4" class="sa"><div class="card">
     <div class="sh"><div class="sn">4</div><h3>Répercussions RP & Revenge RP</h3></div>
     <p class="sub-title"><i class="fa-solid fa-scale-balanced"></i> Répercussions</p>
@@ -601,8 +497,6 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
     <div class="ri"><div class="ric"><i class="fa-solid fa-hourglass"></i></div><div class="rt"><strong>Cooldown :</strong> Si vous subissez une scène où vous "perdez", vous ne devez répondre que <strong>les jours suivants</strong>. Un cooldown de <strong>24h est obligatoire</strong>, que vous soyez gagnant ou perdant — sauf en cas de non-respect de territoire.</div></div>
     <div class="info-box"><i class="fa-solid fa-circle-info"></i><div>Nous mettons un gros point d'honneur sur la création de trames intergroupe. Faites vivre votre RP et votre histoire de groupe à travers des scènes intéressantes et théâtrales.</div></div>
   </div></div>
-
-  <!-- S5 ÉCONOMIE & DROGUES -->
   <div id="s5" class="sa"><div class="card">
     <div class="sh"><div class="sn">5</div><h3>Économie & Drogues</h3></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-truck"></i></div><div class="rt"><strong>Logistique :</strong> Récolte, production et transfert doivent s'effectuer impérativement en <strong>véhicules utilitaires</strong>.</div></div>
@@ -617,8 +511,6 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
     <div class="ri"><div class="ric"><i class="fa-solid fa-circle-info"></i></div><div class="rt"><strong>Approvisionnement :</strong> Les PF ne peuvent se fournir en drogue et en armes qu'<strong>auprès des gangs</strong>. Toute autre source est strictement interdite.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-leaf"></i></div><div class="rt"><strong>Trafic PF :</strong> En termes de trafic, les PF sont limités à la <strong>vente de weed uniquement</strong>.</div></div>
   </div></div>
-
-  <!-- S6 BRAQUAGES & RACKET -->
   <div id="s6" class="sa"><div class="card">
     <div class="sh"><div class="sn">6</div><h3>Braquages & Racket</h3></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-wallet"></i></div><div class="rt"><strong>Racket :</strong> Prélèvement maximal de <strong>50% de l'argent liquide</strong> possédé par la victime.</div></div>
@@ -631,8 +523,6 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
     <div class="ri"><div class="ric"><i class="fa-solid fa-crown"></i></div><div class="rt"><strong>Gouvernement :</strong> Interdit de braquer un membre du gouvernement. Toute action contre eux nécessite <strong>l'accord du staff</strong>.</div></div>
     <div class="warn"><i class="fa-solid fa-triangle-exclamation"></i><div><strong>Arnaques :</strong> Toute forme d'arnaque abusive (fausses ventes d'armes, drogues, immobilier…) est interdite. Les prêts non rendus ne sont pas considérés comme arnaques scriptées par le Staff.</div></div>
   </div></div>
-
-  <!-- S7 PDO & OTAGES -->
   <div id="s7" class="sa"><div class="card">
     <div class="sh"><div class="sn">7</div><h3>Prises d'Otages (PDO) & Gestion des Otages</h3></div>
     <p class="sub-title"><i class="fa-solid fa-user-lock"></i> Conditions PDO</p>
@@ -654,8 +544,6 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
     <div class="ri"><div class="ric"><i class="fa-solid fa-circle-dot"></i></div><div class="rt">Le gang ou l'organisation <strong>doit se présenter pour négocier</strong>. En cas de refus ou d'ignorance : l'otage peut être gardé, une intervention staff peut être demandée, ou une mort RP peut être appliquée si le cas est répété (optionnel).</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-gun"></i></div><div class="rt"><strong>Prêts d'armes :</strong> Les prêts se font 100% en RP. En cas d'abus, le staff n'intervient pas.</div></div>
   </div></div>
-
-  <!-- S8 SERVICES PUBLICS & SAMS -->
   <div id="s8" class="sa"><div class="card">
     <div class="sh"><div class="sn">8</div><h3>Interactions Services Publics & SAMS</h3></div>
     <div class="g2" style="margin-bottom:1rem">
@@ -688,8 +576,6 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
     <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Informations illégales :</strong> Interdit de partager gratuitement des informations illégales. Vous pouvez les vendre ou missionner d'autres groupes dans un cadre RP.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-circle-dot"></i></div><div class="rt"><strong>Conséquences RP :</strong> Prises d'otages LSPD/SAMS — elles peuvent entraîner des répercussions importantes (descentes, représailles, intensification des conflits, etc.).</div></div>
   </div></div>
-
-  <!-- S9 CONVOIS & DÉPLACEMENTS -->
   <div id="s9" class="sa"><div class="card">
     <div class="sh"><div class="sn">9</div><h3>Convois & Déplacements</h3></div>
     <p class="sub-title"><i class="fa-solid fa-car"></i> Règles de Poursuite</p>
@@ -703,8 +589,6 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
     <div class="ri"><div class="ric"><i class="fa-solid fa-car-burst"></i></div><div class="rt"><strong>Véhicules interdits :</strong> Véhicules super sportifs et véhicules d'entreprise/location interdits. Fuites en bateau interdites (sauf accord exceptionnel staff illégal et 911).</div></div>
     <div class="info-box"><i class="fa-solid fa-circle-info"></i><div>Privilégiez le fait de vous disperser et d'innover lors de vos déplacements.</div></div>
   </div></div>
-
-  <!-- S10 ALLIANCES & REVENDICATIONS -->
   <div id="s10" class="sa"><div class="card">
     <div class="sh"><div class="sn">10</div><h3>Alliances & Revendications</h3></div>
     <p class="sub-title"><i class="fa-solid fa-handshake"></i> Alliances</p>
@@ -717,8 +601,6 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
     <div class="ri"><div class="ric"><i class="fa-solid fa-id-card"></i></div><div class="rt"><strong>Appartenance :</strong> Interdit de nier appartenir à un groupe si vous êtes un <strong>haut gradé ou leader</strong>.</div></div>
     <div class="info-box"><i class="fa-solid fa-circle-info"></i><div>Les revendications permettent de créer des trames RP durables et des affrontements construits dans le temps.</div></div>
   </div></div>
-
-  <!-- S11 ARMEMENT & CHARGEURS -->
   <div id="s11" class="sa"><div class="card">
     <div class="sh"><div class="sn">11</div><h3>Armement & Chargeurs</h3></div>
     <p class="sub-title"><i class="fa-solid fa-layer-group"></i> Limite de Chargeurs par Personne</p>
@@ -736,8 +618,6 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
     </div>
     <div class="warn" style="margin-top:1rem"><i class="fa-solid fa-triangle-exclamation"></i><div>En l'absence d'armes lourdes, il est possible de compenser par des armes automatiques. <strong>Le port d'une arme lourde sur une moto est strictement interdit.</strong></div></div>
   </div></div>
-
-  <!-- S12 BUSINESS & ACTIVITÉS -->
   <div id="s12" class="sa"><div class="card">
     <div class="sh"><div class="sn">12</div><h3>Business & Activités Illégales</h3></div>
     <p class="sub-title"><i class="fa-solid fa-list"></i> Missions Communes — Tous groupes</p>
@@ -764,8 +644,6 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
     </table>
     <div class="success-box" style="margin-top:.5rem"><i class="fa-solid fa-circle-check"></i><div><strong>Orga, Mafia & MC :</strong> Sont <strong>autorisés à vendre dans la rue</strong>. Les ventes de drogue ont pour but de proposer du jeu et de l'interaction, pas uniquement du profit.</div></div>
   </div></div>
-
-  <!-- S13 ENTREPÔT, TABLETTES & LOGISTIQUE -->
   <div id="s13" class="sa"><div class="card">
     <div class="sh"><div class="sn">13</div><h3>Entrepôt, Tablettes & Logistique</h3></div>
     <p class="sub-title"><i class="fa-solid fa-warehouse"></i> Entrepôt</p>
@@ -781,8 +659,6 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
     </div>
     <div class="ri" style="margin-top:.9rem"><div class="ric"><i class="fa-solid fa-clock"></i></div><div class="rt"><strong>Horaires des commandes :</strong> Entre <strong>18h et 2h</strong>. La cargaison doit être récupérée uniquement en véhicule de transport (Speedo, Burrito, Mule, Pounder…). <em>Le Speedo Express est interdit.</em></div></div>
   </div></div>
-
-  <!-- S14 IMMERSION & FAIR-PLAY -->
   <div id="s14" class="sa"><div class="card">
     <div class="sh"><div class="sn">14</div><h3>Immersion, Fair-Play & Contenus</h3></div>
     <p class="sub-title"><i class="fa-solid fa-masks-theater"></i> Immersion RP</p>
@@ -797,8 +673,6 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
     <div class="ri"><div class="ric"><i class="fa-solid fa-film"></i></div><div class="rt"><strong>Contextualisation :</strong> Les scènes doivent être des conséquences RP contextualisées. Toute violation peut entraîner un <strong>ban permanent</strong>.</div></div>
     <div class="info-box"><i class="fa-solid fa-circle-info"></i><div><strong>Preuves :</strong> Enregistrez ou "clippez" vos scènes litigieuses. Le Staff sanctionne les abus constatés par preuve vidéo. Amusez-vous et privilégiez toujours la scène RP au "Win RP".</div></div>
   </div></div>
-
-  <!-- S15 SANCTIONS -->
   <div id="s15" class="sa"><div class="card">
     <div class="sh"><div class="sn">15</div><h3>Sanctions & Procédures</h3></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-circle-info"></i></div><div class="rt">En cas de non-respect du règlement, les sanctions suivantes peuvent être appliquées selon la gravité :</div></div>
@@ -810,8 +684,6 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
     <div class="ri"><div class="ric"><i class="fa-solid fa-6"></i></div><div class="rt"><strong>Blacklist illégale définitive</strong> pour les cas graves — <em>Référent illégal</em></div></div>
     <div class="info-box" style="margin-top:.9rem"><i class="fa-solid fa-circle-info"></i><div>Toute sanction sera précédée d'un échange avec le staff, afin de permettre au joueur d'exposer sa version des faits.</div></div>
   </div></div>
-
-  <!-- CTA -->
   <div class="apply">
     <h3>💡 Conseils pour les Chefs de Groupe</h3>
     <p>Un groupe respecté n'est pas celui qui tire le plus, mais celui qui propose les scènes les plus immersives. <strong>Privilégiez le jeu plutôt que le shoot et l'égo !</strong></p>
@@ -821,8 +693,6 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
     </div>
   </div>
 </div>
-
-<!-- FOOTER -->
 <footer>
   <p>Dernière mise à jour : Juin 2026 · Privilégiez toujours la scène RP au "Win RP".</p>
   <p>&copy; 2026 Inside Roleplay. Tous droits réservés.</p>
@@ -833,27 +703,17 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
     <a href="https://www.youtube.com/@inside-roleplay" target="_blank" rel="noopener" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
   </div>
 </footer>
-
-<!-- BACK TO TOP -->
 <button id="btt" title="Retour en haut" onclick="window.scrollTo({top:0,behavior:'smooth'})">
   <i class="fa-solid fa-chevron-up"></i>
 </button>
-
 <script>
-/* ── Progress bar ── */
 window.addEventListener('scroll',()=>{
   const t=document.documentElement.scrollHeight-window.innerHeight;
   document.getElementById('pb').style.width=(window.scrollY/t*100)+'%';
-  // Nav shadow
   document.getElementById('mainnav').classList.toggle('scrolled',window.scrollY>10);
-  // Back to top
   document.getElementById('btt').classList.toggle('visible',window.scrollY>400);
 });
-
-/* ── Section jump ── */
 function jumpTo(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'})}
-
-/* ── Active section highlight ── */
 const secs=['s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11','s12','s13','s14','s15'];
 const cbs=document.querySelectorAll('.cb');
 const ob=new IntersectionObserver(entries=>{
@@ -865,8 +725,6 @@ const ob=new IntersectionObserver(entries=>{
   });
 },{threshold:.25,rootMargin:'-130px 0px -55% 0px'});
 secs.forEach(id=>{const el=document.getElementById(id);if(el)ob.observe(el)});
-
-/* ── Hamburger menu ── */
 const hbg=document.getElementById('hbg');
 const mobnav=document.getElementById('mobnav');
 hbg.addEventListener('click',()=>{
@@ -879,8 +737,6 @@ mobnav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
   mobnav.classList.remove('open');
   document.body.style.overflow='';
 }));
-
-/* ── Rank badge colors ── */
 document.querySelectorAll('#missions-table td:nth-child(2)').forEach(td=>{
   const t=td.textContent.trim();
   let cls='';
@@ -890,8 +746,6 @@ document.querySelectorAll('#missions-table td:nth-child(2)').forEach(td=>{
   else if(t.includes('Rang D'))cls='rank-d';
   if(cls)td.innerHTML=`<span class="rank-badge ${cls}">${t}</span>`;
 });
-
-/* ── Card entrance animation ── */
 const cardOb=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(e.isIntersecting){

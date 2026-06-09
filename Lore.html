@@ -7,7 +7,6 @@
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
         :root {
             --bg: #080612;
@@ -20,20 +19,16 @@
             --text: #e8e0f0;
             --muted: #6b6480;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
             font-family: 'Rajdhani', sans-serif;
             background: var(--bg);
             color: var(--text);
             overflow-x: hidden;
         }
-
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg); }
         ::-webkit-scrollbar-thumb { background: linear-gradient(var(--purple), var(--pink)); border-radius: 3px; }
-
         #progress-bar {
             position: fixed; top: 0; left: 0; height: 3px; width: 0%;
             background: linear-gradient(90deg, var(--purple), var(--pink), var(--gold));
@@ -41,15 +36,12 @@
             transition: width 0.1s linear;
             box-shadow: 0 0 10px var(--pink);
         }
-
         #bg-canvas {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
             z-index: 0; pointer-events: none;
             opacity: 0.6;
         }
-
-        /* ════ NAV UNIFIÉE ════ */
         nav#mainnav{position:fixed;width:100%;z-index:200;top:2px;background:rgba(11,7,23,.94);backdrop-filter:blur(24px);border-bottom:1px solid rgba(220,38,38,.1);transition:box-shadow .3s}
         nav#mainnav.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.5)}
         .ni{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;height:62px}
@@ -73,8 +65,6 @@
         .mobile-nav a:hover{color:#fff;background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.08)}
         .mobile-nav a.active{color:#dc2626;background:rgba(220,38,38,.08);border-color:rgba(220,38,38,.2)}
         .mobile-nav .mn-disc{margin-top:auto;padding-top:1rem;border-top:1px solid rgba(255,255,255,.06)}
-        /* ════ FIN NAV ════ */
-
         #hero {
             position: relative; min-height: 100vh;
             display: flex; flex-direction: column;
@@ -82,15 +72,12 @@
             text-align: center; z-index: 1;
             overflow: hidden;
         }
-
         .hero-vignette {
             position: absolute; inset: 0;
             background: radial-gradient(ellipse at center, transparent 30%, rgba(8,6,18,0.95) 100%);
             z-index: 1; pointer-events: none;
         }
-
         .hero-content { position: relative; z-index: 2; }
-
         .classified-badge {
             display: inline-flex; align-items: center; gap: 8px;
             border: 1px solid rgba(122,40,203,0.5);
@@ -103,7 +90,6 @@
         }
         .classified-badge::before { content: '■'; font-size: 0.5rem; animation: blink 1s infinite; }
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-
         .hero-title {
             font-family: 'Bebas Neue', cursive;
             font-size: clamp(5rem, 15vw, 13rem);
@@ -111,7 +97,6 @@
             letter-spacing: 4px;
             animation: title-appear 1.2s cubic-bezier(0.16,1,0.3,1) 0.8s both;
         }
-
         .hero-title .line1 { display: block; color: white; }
         .hero-title .line2 {
             display: block;
@@ -120,7 +105,6 @@
             background-clip: text;
             position: relative;
         }
-
         .glitch-wrapper { position: relative; display: inline-block; }
         .glitch-wrapper::before, .glitch-wrapper::after {
             content: attr(data-text);
@@ -132,7 +116,6 @@
         }
         .glitch-wrapper::before { left: 2px; animation-delay: 0.3s; filter: hue-rotate(90deg); }
         .glitch-wrapper::after  { left: -2px; animation-delay: 0.6s; filter: hue-rotate(270deg); }
-
         @keyframes glitch-loop {
             0%,94%,100% { clip-path: none; transform: none; opacity: 0; }
             95% { clip-path: polygon(0 20%,100% 20%,100% 35%,0 35%); transform: translate(-3px,0); opacity: 0.7; }
@@ -140,14 +123,12 @@
             97% { clip-path: polygon(0 5%,100% 5%,100% 15%,0 15%); transform: translate(-1px,0); opacity: 0.7; }
             98% { clip-path: none; transform: none; opacity: 0; }
         }
-
         .hero-sub {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 0.75rem; letter-spacing: 6px; color: var(--muted);
             text-transform: uppercase; margin-top: 1.5rem;
             animation: badge-appear 1s ease 1.4s both;
         }
-
         .scroll-cue {
             position: absolute; bottom: 2rem; left: 50%;
             transform: translateX(-50%); z-index: 2;
@@ -158,10 +139,8 @@
         .scroll-cue span { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 3px; color: var(--muted); }
         .scroll-line { width: 1px; height: 50px; background: linear-gradient(var(--purple), transparent); animation: scroll-pulse 2s ease-in-out infinite; }
         @keyframes scroll-pulse { 0%,100%{opacity:0.3;transform:scaleY(0.8)} 50%{opacity:1;transform:scaleY(1)} }
-
         @keyframes badge-appear { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
         @keyframes title-appear { from{opacity:0;transform:translateY(60px) skewY(2deg)} to{opacity:1;transform:translateY(0) skewY(0)} }
-
         #chapter-nav {
             position: sticky; top: 67px; z-index: 90;
             background: rgba(8,6,18,0.92); backdrop-filter: blur(20px);
@@ -182,13 +161,11 @@
         .chap-btn:hover { color: white; }
         .chap-btn.active { color: white; border-bottom-color: var(--purple-light); }
         .chap-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-
         #lore-content {
             position: relative; z-index: 1;
             max-width: 1100px; margin: 0 auto;
             padding: 80px 1.5rem 120px;
         }
-
         .era-label {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 0.65rem; letter-spacing: 4px; color: var(--muted);
@@ -197,7 +174,6 @@
         }
         .era-label::before { content:''; flex: 1; height: 1px; background: rgba(255,255,255,0.06); }
         .era-label::after { content:''; width: 20px; height: 1px; background: var(--purple); }
-
         .timeline { position: relative; }
         .timeline::before {
             content:''; position: absolute;
@@ -206,7 +182,6 @@
             transform: translateX(-50%);
             opacity: 0.2;
         }
-
         .event-card {
             display: grid; grid-template-columns: 1fr 60px 1fr;
             gap: 0; margin-bottom: 3rem; opacity: 0;
@@ -214,19 +189,15 @@
             transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1);
         }
         .event-card.visible { opacity: 1; transform: translateY(0); }
-
         .event-card.left .card-content { grid-column: 1; grid-row: 1; padding-right: 2.5rem; text-align: right; }
         .event-card.left .card-spacer  { grid-column: 2; grid-row: 1; }
         .event-card.left .card-empty   { grid-column: 3; grid-row: 1; }
-
         .event-card.right .card-empty   { grid-column: 1; grid-row: 1; }
         .event-card.right .card-spacer  { grid-column: 2; grid-row: 1; }
         .event-card.right .card-content { grid-column: 3; grid-row: 1; padding-left: 2.5rem; text-align: left; }
-
         .card-spacer {
             display: flex; flex-direction: column; align-items: center; position: relative;
         }
-
         .timeline-dot {
             width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0;
             border: 3px solid var(--bg); position: relative; z-index: 2;
@@ -238,9 +209,7 @@
         .timeline-dot.pink   { background: var(--pink); box-shadow: 0 0 12px var(--pink); }
         .timeline-dot.gold   { background: var(--gold); box-shadow: 0 0 18px var(--gold); animation: pulse-gold 2s infinite; }
         @keyframes pulse-gold { 0%,100%{box-shadow:0 0 18px var(--gold)} 50%{box-shadow:0 0 35px var(--gold), 0 0 60px rgba(249,212,35,0.3)} }
-
         .event-card:hover .timeline-dot { transform: scale(1.4); }
-
         .card-inner {
             background: rgba(255,255,255,0.025);
             border: 1px solid rgba(255,255,255,0.06);
@@ -250,15 +219,12 @@
             position: relative;
         }
         .card-inner:hover { background: rgba(255,255,255,0.05); transform: translateY(-3px); }
-
         .card-inner.purple-card { border-color: rgba(122,40,203,0.3); }
         .card-inner.pink-card   { border-color: rgba(255,51,102,0.3); }
         .card-inner.gold-card   { border-color: rgba(249,212,35,0.35); }
-
         .card-inner.purple-card:hover { box-shadow: 0 8px 40px rgba(122,40,203,0.2); border-color: rgba(122,40,203,0.6); }
         .card-inner.pink-card:hover   { box-shadow: 0 8px 40px rgba(255,51,102,0.2); border-color: rgba(255,51,102,0.6); }
         .card-inner.gold-card:hover   { box-shadow: 0 8px 40px rgba(249,212,35,0.2); border-color: rgba(249,212,35,0.6); }
-
         .card-accent {
             height: 3px; width: 100%;
             background: linear-gradient(90deg, var(--purple), transparent);
@@ -270,9 +236,7 @@
         .event-card.right .card-accent.gold {
             background-direction: reverse;
         }
-
         .card-body { padding: 1.5rem; }
-
         .card-date {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
@@ -280,23 +244,19 @@
         }
         .event-card.right .card-date { justify-content: flex-start; }
         .event-card.left .card-date  { justify-content: flex-end; }
-
         .date-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
         .card-date.purple { color: var(--purple-light); }
         .card-date.pink   { color: var(--pink); }
         .card-date.gold   { color: var(--gold); }
-
         .card-title {
             font-family: 'Bebas Neue', cursive;
             font-size: 1.7rem; letter-spacing: 2px;
             color: white; margin-bottom: 0.75rem; line-height: 1;
         }
-
         .card-preview {
             font-size: 0.9rem; line-height: 1.7; color: rgba(232,224,240,0.7);
             font-weight: 400;
         }
-
         .card-expand-btn {
             display: flex; align-items: center; gap: 6px;
             font-family: 'IBM Plex Mono', monospace;
@@ -312,7 +272,6 @@
         .event-card.left  .card-expand-btn { justify-content: flex-end; }
         .expand-icon { transition: transform 0.3s ease; font-size: 0.6rem; }
         .expanded .expand-icon { transform: rotate(180deg); }
-
         .card-extra {
             max-height: 0; overflow: hidden;
             transition: max-height 0.5s cubic-bezier(0.16,1,0.3,1), padding 0.4s ease;
@@ -324,7 +283,6 @@
             margin-top: 0.75rem;
         }
         .card-extra strong { color: rgba(232,224,240,0.9); font-weight: 600; }
-
         .redact {
             background: rgba(255,255,255,0.85); color: transparent;
             border-radius: 2px; cursor: pointer;
@@ -339,7 +297,6 @@
             font-size: 0.6rem; color: var(--muted); letter-spacing: 1px;
             display: inline-block; margin-left: 4px;
         }
-
         .tag {
             display: inline-block; padding: 2px 8px; border-radius: 3px;
             font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem;
@@ -353,7 +310,6 @@
         .tag-row { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 0.75rem; }
         .event-card.left .tag-row { justify-content: flex-end; }
         .event-card.right .tag-row { justify-content: flex-start; }
-
         #finale {
             position: relative; z-index: 1;
             padding: 80px 1.5rem 120px;
@@ -382,7 +338,6 @@
         }
         .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: live-pulse 1.5s infinite; }
         @keyframes live-pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
-
         .finale-title {
             font-family: 'Bebas Neue', cursive;
             font-size: clamp(3rem, 8vw, 5.5rem);
@@ -393,12 +348,10 @@
             background: linear-gradient(135deg, var(--gold), #ff9f00);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         }
-
         .finale-text {
             font-size: 1rem; line-height: 1.85; color: rgba(232,224,240,0.7);
             margin-bottom: 1.25rem; position: relative; z-index: 1;
         }
-
         .tension-bar {
             display: flex; align-items: center; gap: 12px;
             justify-content: center; margin: 2rem 0;
@@ -422,7 +375,6 @@
             font-family: 'IBM Plex Mono', monospace;
             font-size: 0.7rem; color: var(--gold); letter-spacing: 1px;
         }
-
         .rowlins-profile {
             display: inline-flex; align-items: center; gap: 1rem;
             background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
@@ -442,7 +394,6 @@
         .threat-pip { width: 12px; height: 4px; border-radius: 1px; background: rgba(255,255,255,0.1); }
         .threat-pip.filled { background: var(--pink); box-shadow: 0 0 4px var(--pink); }
         .threat-label { font-family: 'IBM Plex Mono'; font-size: 0.6rem; color: var(--pink); letter-spacing: 1px; }
-
         .cta-area { display: flex; gap: 1rem; justify-content: center; margin-top: 2.5rem; flex-wrap: wrap; }
         .cta-btn {
             display: inline-flex; align-items: center; gap: 8px;
@@ -462,13 +413,11 @@
             border: 1px solid rgba(255,255,255,0.15);
         }
         .cta-secondary:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
-
         footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.06);background:rgba(5,3,10,.9);padding:2rem 1.5rem;text-align:center}
         footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
         .fl{display:flex;justify-content:center;gap:1.2rem;margin-top:1rem}
         .fl a{color:rgba(255,255,255,.2);transition:all .2s;font-size:1.05rem;width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid rgba(255,255,255,.07)}
         .fl a:hover{color:#dc2626;border-color:rgba(220,38,38,.3);background:rgba(220,38,38,.06)}
-
         @media (max-width: 768px) {
             .timeline::before { left: 20px; }
             .event-card { grid-template-columns: 40px 1fr; grid-template-rows: auto; }
@@ -494,10 +443,8 @@
     </style>
 </head>
 <body>
-
 <div id="progress-bar"></div>
 <canvas id="bg-canvas"></canvas>
-
 <nav id="mainnav">
   <div class="ni">
     <a href="index.html" class="nlogo">
@@ -507,9 +454,9 @@
     <div class="nl">
       <a href="index.html">Accueil</a>
       <a href="Lore.html" class="active">Lore</a>
-      <a href="Reglementill.html">Règl. Illégal</a>
-      <a href="gangorga.html">Gangs & Orga</a>
-      <a href="petitesfrappes.html">PF & Habitants</a>
+      <a href="reglement.html">Règlement</a>
+      <a href="video.html">Vidéo</a>
+      <a href="boutique.html">Boutique</a>
     </div>
     <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener" class="nbtn">
       <i class="fa-brands fa-discord" style="color:#5865F2"></i> Discord
@@ -519,20 +466,18 @@
     </button>
   </div>
 </nav>
-
 <div class="mobile-nav" id="mobnav">
   <a href="index.html"><i class="fa-solid fa-house fa-sm"></i> Accueil</a>
   <a href="Lore.html" class="active"><i class="fa-solid fa-book fa-sm"></i> Lore</a>
-  <a href="Reglementill.html"><i class="fa-solid fa-gavel fa-sm"></i> Règlement Illégal</a>
-  <a href="gangorga.html"><i class="fa-solid fa-people-group fa-sm"></i> Gangs & Orga</a>
-  <a href="petitesfrappes.html"><i class="fa-solid fa-street-view fa-sm"></i> PF & Habitants</a>
+  <a href="reglement.html"><i class="fa-solid fa-scroll fa-sm"></i> Règlement</a>
+  <a href="video.html"><i class="fa-solid fa-video fa-sm"></i> Vidéo</a>
+  <a href="boutique.html"><i class="fa-solid fa-cart-shopping fa-sm"></i> Boutique</a>
   <div class="mn-disc">
     <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener">
       <i class="fa-brands fa-discord" style="color:#5865F2"></i> Rejoindre le Discord
     </a>
   </div>
 </div>
-
 <section id="hero">
     <div class="hero-vignette"></div>
     <div class="hero-content">
@@ -552,7 +497,6 @@
         <div class="scroll-line"></div>
     </div>
 </section>
-
 <div id="chapter-nav">
     <div class="chapter-nav-inner">
         <button class="chap-btn active" onclick="scrollToEvent(0)">
@@ -578,10 +522,8 @@
         </button>
     </div>
 </div>
-
 <section id="lore-content">
     <div class="timeline">
-
         <div class="event-card left" id="event-0">
             <div class="card-content">
                 <div class="card-inner purple-card">
@@ -615,7 +557,6 @@
             </div>
             <div class="card-empty"></div>
         </div>
-
         <div class="event-card right" id="event-1">
             <div class="card-empty"></div>
             <div class="card-spacer">
@@ -650,7 +591,6 @@
                 </div>
             </div>
         </div>
-
         <div class="event-card left" id="event-2">
             <div class="card-content">
                 <div class="card-inner pink-card">
@@ -684,7 +624,6 @@
             </div>
             <div class="card-empty"></div>
         </div>
-
         <div class="event-card right" id="event-3">
             <div class="card-empty"></div>
             <div class="card-spacer">
@@ -720,7 +659,6 @@
                 </div>
             </div>
         </div>
-
         <div class="event-card left" id="event-4">
             <div class="card-content">
                 <div class="card-inner purple-card">
@@ -755,7 +693,6 @@
             </div>
             <div class="card-empty"></div>
         </div>
-
         <div class="event-card right" id="event-5">
             <div class="card-empty"></div>
             <div class="card-spacer">
@@ -789,7 +726,6 @@
                 </div>
             </div>
         </div>
-
         <div class="event-card left" id="event-6">
             <div class="card-content">
                 <div class="card-inner pink-card">
@@ -824,10 +760,8 @@
             </div>
             <div class="card-empty"></div>
         </div>
-
     </div>
 </section>
-
 <section id="finale">
     <div class="finale-inner">
         <div class="finale-glow"></div>
@@ -836,7 +770,6 @@
             SITUATION ACTUELLE
         </div>
         <div class="finale-title">AUJOURD'<span>HUI</span></div>
-
         <div class="rowlins-profile">
             <div class="profile-avatar">MR</div>
             <div class="profile-info">
@@ -854,14 +787,12 @@
                 </div>
             </div>
         </div>
-
         <p class="finale-text">
             Magnus V. Rowlins siège toujours au sommet du pouvoir. Réélu sans faille à chaque mandat, il doit sa longévité à la figure de protecteur qu'il a su entretenir. Et tandis que les inégalités rongent toujours la société et que la peur plane sur San Andreas, beaucoup voient encore en lui le dernier rempart contre le chaos.
         </p>
         <p class="finale-text">
             D'ici quelques semaines, l'État s'apprête à vivre de nouvelles <strong style="color:white">élections gouvernementales</strong> — prélude à une atmosphère de tension et d'incertitude. Le calendrier veut que ce moment coïncide avec le Jour de la Séparation, célébration du grand exode vers le sud, souvenir gravé dans la mémoire du peuple.
         </p>
-
         <div class="tension-bar" id="tension-bar">
             <span class="tension-label">TENSION SOCIALE</span>
             <div class="tension-track">
@@ -869,7 +800,6 @@
             </div>
             <span class="tension-pct">78%</span>
         </div>
-
         <div class="cta-area">
             <a href="https://discord.gg/NV4Bq7g3XC" class="cta-btn cta-primary">
                 <i class="fa-solid fa-rocket"></i> Rejoindre le Serveur
@@ -880,7 +810,6 @@
         </div>
     </div>
 </section>
-
 <footer>
   <p>Dernière mise à jour : Juin 2026 · Archives de San Andreas</p>
   <p>&copy; 2026 Inside Roleplay. Tous droits réservés.</p>
@@ -891,16 +820,13 @@
     <a href="https://www.youtube.com/@inside-roleplay" target="_blank" rel="noopener" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
   </div>
 </footer>
-
 <script>
 const canvas = document.getElementById('bg-canvas');
 const ctx = canvas.getContext('2d');
 let W = canvas.width = window.innerWidth;
 let H = canvas.height = window.innerHeight;
-
 const particles = [];
 const colors = ['rgba(122,40,203,', 'rgba(255,51,102,', 'rgba(249,212,35,'];
-
 for (let i = 0; i < 80; i++) {
     particles.push({
         x: Math.random() * W, y: Math.random() * H,
@@ -911,7 +837,6 @@ for (let i = 0; i < 80; i++) {
         a: Math.random() * 0.5 + 0.1
     });
 }
-
 function drawParticles() {
     ctx.clearRect(0, 0, W, H);
     particles.forEach(p => {
@@ -930,15 +855,12 @@ window.addEventListener('resize', () => {
     W = canvas.width = window.innerWidth;
     H = canvas.height = window.innerHeight;
 });
-
 window.addEventListener('scroll', () => {
     const total = document.documentElement.scrollHeight - window.innerHeight;
     const pct = (window.scrollY / total) * 100;
     document.getElementById('progress-bar').style.width = pct + '%';
     document.getElementById('mainnav').classList.toggle('scrolled', window.scrollY > 10);
 });
-
-/* Hamburger */
 const hbg=document.getElementById('hbg');
 const mobnav=document.getElementById('mobnav');
 hbg.addEventListener('click',()=>{
@@ -951,7 +873,6 @@ mobnav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
   mobnav.classList.remove('open');
   document.body.style.overflow='';
 }));
-
 const cards = document.querySelectorAll('.event-card');
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -962,7 +883,6 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.15 });
 cards.forEach(c => observer.observe(c));
-
 const tensionObs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
         if (e.isIntersecting) {
@@ -971,7 +891,6 @@ const tensionObs = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.5 });
 tensionObs.observe(document.getElementById('tension-bar'));
-
 function toggleCard(btn) {
     const inner = btn.closest('.card-inner');
     const extra = inner.querySelector('.card-extra');
@@ -981,15 +900,12 @@ function toggleCard(btn) {
     const span = btn.querySelector('span');
     span.textContent = isOpen ? 'Lire l\'archive complète' : 'Réduire';
 }
-
 function scrollToEvent(idx) {
     const el = document.getElementById('event-' + idx);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
-
 const chapBtns = document.querySelectorAll('.chap-btn');
 const allEvents = [...cards, document.getElementById('finale')];
-
 const chapObs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
         if (e.isIntersecting) {
