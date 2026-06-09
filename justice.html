@@ -111,6 +111,20 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.06);ba
 footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
 .fl{display:flex;justify-content:center;gap:1.1rem;margin-top:.9rem}
 .fl a{color:rgba(255,255,255,.22);transition:color .2s;font-size:1.05rem}.fl a:hover{color:var(--ac)}
+
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.5rem;border-radius:8px;transition:background .2s;background:none;border:none;flex-shrink:0}
+.hamburger:hover{background:rgba(255,255,255,.06)}
+.hamburger span{display:block;width:22px;height:2px;background:rgba(255,255,255,.7);border-radius:2px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-nav{display:none;position:fixed;top:64px;left:0;right:0;bottom:0;background:rgba(11,7,23,.97);backdrop-filter:blur(24px);z-index:190;flex-direction:column;padding:1.5rem;gap:.4rem;overflow-y:auto;transform:translateY(-10px);opacity:0;transition:all .25s ease}
+.mobile-nav.open{display:flex;transform:translateY(0);opacity:1}
+.mobile-nav a{padding:.9rem 1.1rem;font-family:'IBM Plex Mono',monospace;font-size:.8rem;color:rgba(255,255,255,.5);text-decoration:none;text-transform:uppercase;letter-spacing:1px;border-radius:10px;transition:all .2s;display:flex;align-items:center;gap:10px;border:1px solid transparent}
+.mobile-nav a:hover{color:#fff;background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.08)}
+.mobile-nav a.active{color:#dc2626;background:rgba(220,38,38,.08);border-color:rgba(220,38,38,.2)}
+.mobile-nav .mn-disc{margin-top:auto;padding-top:1rem;border-top:1px solid rgba(255,255,255,.06)}
+@media(max-width:768px){.nl{display:none}.hamburger{display:flex}}
 </style>
 </head>
 <body>
@@ -118,25 +132,30 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
 <div class="stars"></div>
 <div id="pb"></div>
 
-<nav>
+<nav id="mainnav">
   <div class="ni">
-    <a href="index.html" class="nlogo">
-      <img src="logo.png" alt="Logo" onerror="this.src='https://via.placeholder.com/30/f97316/000?text=I'">
-      <span>Inside Roleplay</span>
-    </a>
+    <a href="index.html" class="nlogo"><img src="logo.png" alt="" onerror="this.src='https://via.placeholder.com/30/dc2626/fff?text=I'"><span>Inside Roleplay</span></a>
     <div class="nl">
       <a href="index.html">Accueil</a>
       <a href="Lore.html">Lore</a>
-      
-      <a href="justice.html" class="active">Justice</a>
-      
-      <a href="entreprise.html">Entreprise</a>
+      <a href="reglement.html" class="active">Règlement</a>
+      <a href="video.html">Vidéo</a>
+      <a href="boutique.html">Boutique</a>
     </div>
-    <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener" class="nbtn">
-      <i class="fa-brands fa-discord" style="color:#5865F2"></i> Discord
-    </a>
+    <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener" class="nbtn"><i class="fa-brands fa-discord" style="color:#5865F2"></i> Discord</a>
+    <button class="hamburger" id="hbg" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
+<div class="mobile-nav" id="mobnav">
+  <a href="index.html"><i class="fa-solid fa-house fa-sm"></i> Accueil</a>
+  <a href="Lore.html"><i class="fa-solid fa-book fa-sm"></i> Lore</a>
+  <a href="reglement.html" class="active"><i class="fa-solid fa-scroll fa-sm"></i> Règlement</a>
+  <a href="video.html"><i class="fa-solid fa-video fa-sm"></i> Vidéo</a>
+  <a href="boutique.html"><i class="fa-solid fa-cart-shopping fa-sm"></i> Boutique</a>
+  <div class="mn-disc">
+    <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener"><i class="fa-brands fa-discord" style="color:#5865F2"></i> Rejoindre le Discord</a>
+  </div>
+</div>
 
 <div class="hero">
   <div class="badge">⚖️ Wiki InsideRP · 2026</div>
@@ -275,7 +294,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
     <p>Consultez les ressources officielles ou contactez l'équipe Staff sur Discord. <strong>Chaque procédure compte.</strong></p>
     <div class="ctas">
       <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener" class="btn btn-ac"><i class="fa-brands fa-discord"></i> Rejoindre le Discord</a>
-      <a href="index.html" class="btn btn-ghost"><i class="fa-solid fa-arrow-left"></i> Retour Accueil</a>
+      <a href="reglement.html" class="btn btn-ghost"><i class="fa-solid fa-arrow-left"></i> Retour Règlements</a>
     </div>
   </div>
 
@@ -304,6 +323,13 @@ const ob=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting){const i=secs.indexOf(e.target.id);if(i!==-1)cbs.forEach((b,j)=>b.classList.toggle('active',i===j))}});
 },{threshold:.4});
 secs.forEach(id=>{const el=document.getElementById(id);if(el)ob.observe(el)});
+
+const hbg=document.getElementById('hbg');
+const mobnav=document.getElementById('mobnav');
+if(hbg&&mobnav){
+  hbg.addEventListener('click',()=>{hbg.classList.toggle('open');mobnav.classList.toggle('open');document.body.style.overflow=mobnav.classList.contains('open')?'hidden':'';});
+  mobnav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{hbg.classList.remove('open');mobnav.classList.remove('open');document.body.style.overflow='';}));
+}
 </script>
 </body>
 </html>
