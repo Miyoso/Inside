@@ -6,116 +6,521 @@
 <title>Inside Roleplay | Règlement Illégal</title>
 <link rel="icon" type="image/png" href="logo.png">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@300;400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@300;400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0b0717;--ac:#dc2626;--ac2:#ff3366;--card:rgba(255,255,255,0.025)}
+:root{
+  --bg:#0b0717;
+  --bg2:#0f0b1e;
+  --ac:#dc2626;
+  --ac2:#ff3366;
+  --card:rgba(255,255,255,0.03);
+  --card-border:rgba(220,38,38,0.12);
+  --text:rgba(232,224,240,0.82);
+  --text-dim:rgba(232,224,240,0.38);
+  --rank-a:#f59e0b;
+  --rank-b:#3b82f6;
+  --rank-c:#10b981;
+  --rank-d:#6b7280;
+}
 *{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:#e8e0f0;overflow-x:hidden}
-.cosmic-bg{position:fixed;top:0;left:0;width:100vw;height:100vh;background:radial-gradient(circle at 20% 25%,rgba(220,38,38,.1) 0%,transparent 50%),radial-gradient(circle at 80% 75%,rgba(122,40,203,.12) 0%,transparent 45%);z-index:-2}
-.stars{background:transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;opacity:.35}
-#pb{position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--ac),var(--ac2));z-index:1000;box-shadow:0 0 8px var(--ac)}
-::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--ac);border-radius:3px}
-nav{position:fixed;width:100%;z-index:100;top:2px;background:rgba(11,7,23,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(220,38,38,.12)}
-.ni{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;height:62px}
-.nl a{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:500;letter-spacing:1.5px;text-decoration:none;color:rgba(255,255,255,.4);transition:color .2s;text-transform:uppercase;margin-left:2rem}
-.nl a:hover{color:#fff}.nl a.active{color:var(--ac);border-bottom:1.5px solid var(--ac);padding-bottom:2px}
-.nlogo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
+
+/* ── BACKGROUNDS ── */
+.cosmic-bg{position:fixed;top:0;left:0;width:100vw;height:100vh;
+  background:
+    radial-gradient(ellipse at 15% 20%,rgba(220,38,38,.13) 0%,transparent 55%),
+    radial-gradient(ellipse at 85% 80%,rgba(122,40,203,.14) 0%,transparent 50%),
+    radial-gradient(ellipse at 50% 50%,rgba(15,10,30,.8) 0%,transparent 100%);
+  z-index:-2}
+.stars{background:transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+  position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;opacity:.25}
+
+/* ── PROGRESS BAR ── */
+#pb{position:fixed;top:0;left:0;height:2px;width:0%;
+  background:linear-gradient(90deg,var(--ac),var(--ac2),#a855f7);
+  z-index:1000;box-shadow:0 0 10px var(--ac);transition:width .1s}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--ac),var(--ac2));border-radius:2px}
+
+/* ══════════════════════════════
+   NAVIGATION PRINCIPALE
+══════════════════════════════ */
+nav{
+  position:fixed;width:100%;z-index:200;top:2px;
+  background:rgba(11,7,23,.94);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid rgba(220,38,38,.1);
+  transition:box-shadow .3s
+}
+nav.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.5)}
+
+.ni{max-width:1200px;margin:0 auto;display:flex;align-items:center;
+  justify-content:space-between;padding:0 1.5rem;height:62px}
+
+.nlogo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;flex-shrink:0}
 .nlogo img{width:30px;height:30px;object-fit:contain}
 .nlogo span{font-family:'Bebas Neue',cursive;font-size:1.35rem;letter-spacing:2px}
-.nbtn{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:#fff;padding:.4rem 1rem;border-radius:6px;font-size:.75rem;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:6px;transition:all .2s}
-.nbtn:hover{background:rgba(255,255,255,.14)}
-.hero{padding:120px 1.5rem 50px;text-align:center;position:relative;z-index:1}
-.badge{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(220,38,38,.45);background:rgba(220,38,38,.08);padding:5px 18px;border-radius:2px;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:3px;color:#f87171;text-transform:uppercase;margin-bottom:1.2rem;animation:up .8s ease both}
-.badge::before{content:'■';font-size:.4rem;animation:blink 1s infinite}
+
+.nl{display:flex;align-items:center;gap:.1rem}
+.nl a{
+  font-family:'IBM Plex Mono',monospace;font-size:.7rem;font-weight:500;
+  letter-spacing:1.2px;text-decoration:none;color:rgba(255,255,255,.38);
+  transition:color .2s;text-transform:uppercase;padding:.4rem .8rem;
+  border-radius:6px;transition:all .2s
+}
+.nl a:hover{color:#fff;background:rgba(255,255,255,.05)}
+.nl a.active{color:var(--ac)}
+
+.nbtn{
+  background:rgba(220,38,38,.12);border:1px solid rgba(220,38,38,.3);
+  color:#f87171;padding:.4rem 1rem;border-radius:7px;font-size:.73rem;
+  font-weight:600;text-decoration:none;display:flex;align-items:center;
+  gap:6px;transition:all .2s;flex-shrink:0
+}
+.nbtn:hover{background:rgba(220,38,38,.22);color:#fff}
+
+/* Hamburger */
+.hamburger{
+  display:none;flex-direction:column;gap:5px;cursor:pointer;
+  padding:.5rem;border-radius:8px;transition:background .2s;
+  background:none;border:none;flex-shrink:0
+}
+.hamburger:hover{background:rgba(255,255,255,.06)}
+.hamburger span{
+  display:block;width:22px;height:2px;
+  background:rgba(255,255,255,.7);border-radius:2px;
+  transition:all .3s
+}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+/* Mobile nav overlay */
+.mobile-nav{
+  display:none;position:fixed;top:64px;left:0;right:0;bottom:0;
+  background:rgba(11,7,23,.97);backdrop-filter:blur(24px);
+  z-index:190;flex-direction:column;padding:1.5rem;gap:.4rem;
+  overflow-y:auto;transform:translateY(-10px);opacity:0;
+  transition:all .25s ease
+}
+.mobile-nav.open{display:flex;transform:translateY(0);opacity:1}
+.mobile-nav a{
+  padding:.9rem 1.1rem;font-family:'IBM Plex Mono',monospace;font-size:.8rem;
+  color:rgba(255,255,255,.5);text-decoration:none;text-transform:uppercase;
+  letter-spacing:1px;border-radius:10px;transition:all .2s;
+  display:flex;align-items:center;gap:10px;
+  border:1px solid transparent
+}
+.mobile-nav a:hover{color:#fff;background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.08)}
+.mobile-nav a.active{color:var(--ac);background:rgba(220,38,38,.08);border-color:rgba(220,38,38,.2)}
+.mobile-nav .mn-disc{margin-top:auto;padding-top:1rem;border-top:1px solid rgba(255,255,255,.06)}
+
+/* ══════════════════════════════
+   HERO
+══════════════════════════════ */
+.hero{padding:130px 1.5rem 60px;text-align:center;position:relative;z-index:1}
+.hero::before{
+  content:'';position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(ellipse at 50% 0%,rgba(220,38,38,.18) 0%,transparent 60%)
+}
+
+.badge{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid rgba(220,38,38,.4);background:rgba(220,38,38,.07);
+  padding:5px 18px;border-radius:2px;
+  font-family:'IBM Plex Mono',monospace;font-size:.6rem;
+  letter-spacing:3px;color:#f87171;text-transform:uppercase;
+  margin-bottom:1.4rem;animation:up .8s ease both
+}
+.badge::before{content:'■';font-size:.4rem;animation:blink 1.2s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-.hero h1{font-family:'Bebas Neue',cursive;font-size:clamp(3rem,9vw,6.5rem);line-height:.9;letter-spacing:3px;animation:up 1s cubic-bezier(.16,1,.3,1) .15s both}
-.hero h1 span{background:linear-gradient(135deg,#f87171,var(--ac2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-sub{font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:4px;color:rgba(255,255,255,.28);text-transform:uppercase;margin-top:.9rem;animation:up .8s ease .45s both}
-.hero-desc{max-width:600px;margin:1.8rem auto 0;background:rgba(220,38,38,.06);border-left:3px solid rgba(220,38,38,.5);padding:.9rem 1.3rem;border-radius:0 8px 8px 0;font-size:.88rem;font-style:italic;color:rgba(255,255,255,.5);animation:up .8s ease .6s both}
-@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-#cnav{position:sticky;top:64px;z-index:90;background:rgba(11,7,23,.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.04);padding:0 1.5rem;overflow-x:auto;white-space:nowrap}
+
+.hero h1{
+  font-family:'Bebas Neue',cursive;font-size:clamp(3.5rem,10vw,7rem);
+  line-height:.88;letter-spacing:3px;animation:up 1s cubic-bezier(.16,1,.3,1) .15s both
+}
+.hero h1 span{
+  background:linear-gradient(135deg,#f87171,var(--ac2),#a855f7);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+}
+
+.hero-sub{
+  font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:4px;
+  color:var(--text-dim);text-transform:uppercase;margin-top:1rem;
+  animation:up .8s ease .4s both
+}
+
+/* Stats pills */
+.hero-stats{
+  display:flex;justify-content:center;flex-wrap:wrap;gap:.6rem;
+  margin-top:1.8rem;animation:up .8s ease .5s both
+}
+.stat-pill{
+  display:flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+  border-radius:20px;padding:.4rem .9rem;font-size:.72rem;
+  color:rgba(255,255,255,.5)
+}
+.stat-pill i{color:var(--ac);font-size:.7rem}
+.stat-pill strong{color:#fff}
+
+.hero-desc{
+  max-width:560px;margin:1.8rem auto 0;
+  background:rgba(220,38,38,.05);border-left:3px solid rgba(220,38,38,.45);
+  padding:1rem 1.4rem;border-radius:0 10px 10px 0;
+  font-size:.87rem;font-style:italic;color:rgba(255,255,255,.45);
+  animation:up .8s ease .6s both
+}
+@keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══════════════════════════════
+   NAV SECTIONS (barre du bas)
+══════════════════════════════ */
+#cnav{
+  position:sticky;top:64px;z-index:90;
+  background:rgba(11,7,23,.97);backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,.04);
+  padding:0 1.5rem;overflow-x:auto;white-space:nowrap
+}
 #cnav::-webkit-scrollbar{height:0}
 .cni{max-width:1200px;margin:0 auto;display:flex}
-.cb{display:inline-flex;align-items:center;gap:7px;padding:.8rem 1.1rem;font-size:.68rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.32);border-bottom:2px solid transparent;cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;transition:all .2s;font-family:'IBM Plex Mono',monospace}
-.cb:hover{color:#fff}.cb.active{color:var(--ac);border-bottom-color:var(--ac)}
-.wrap{max-width:880px;margin:0 auto;padding:2.5rem 1.5rem 6rem;position:relative;z-index:1}
-.sa{scroll-margin-top:130px}
-.sh{display:flex;align-items:center;gap:12px;margin-bottom:1.3rem;padding-bottom:.9rem;border-bottom:1px solid rgba(220,38,38,.18)}
-.sn{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;width:34px;height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.95rem;flex-shrink:0;font-family:'Bebas Neue',cursive;letter-spacing:1px}
-.sh h3{font-size:1.1rem;font-weight:600;color:#fff}
-.card{background:var(--card);backdrop-filter:blur(12px);border:1px solid rgba(220,38,38,.1);border-radius:14px;padding:1.8rem;margin-bottom:1.3rem;transition:border-color .3s,box-shadow .3s}
-.card:hover{border-color:rgba(220,38,38,.28);box-shadow:0 0 24px rgba(220,38,38,.06)}
-.ri{display:flex;align-items:flex-start;gap:11px;padding:.7rem 0;border-bottom:1px solid rgba(255,255,255,.04)}
-.ri:last-child{border-bottom:none;padding-bottom:0}.ri:first-child{padding-top:0}
-.ric{flex-shrink:0;margin-top:3px;color:var(--ac);font-size:.8rem;width:14px;text-align:center}
-.rt{font-size:.87rem;line-height:1.65;color:rgba(232,224,240,.78)}
-.rt strong{color:#fff;font-weight:600}.rt em{color:rgba(255,255,255,.32);font-size:.8rem}
-.warn{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.25);border-radius:10px;padding:.9rem 1.1rem;margin-top:.9rem;font-size:.82rem;color:rgba(255,255,255,.55);display:flex;gap:9px;align-items:flex-start}
+.cb{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:.75rem 1rem;font-size:.65rem;font-weight:600;
+  letter-spacing:.8px;text-transform:uppercase;
+  color:var(--text-dim);border-bottom:2px solid transparent;
+  cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;
+  transition:all .2s;font-family:'IBM Plex Mono',monospace;flex-shrink:0
+}
+.cb i{font-size:.7rem}
+.cb:hover{color:rgba(255,255,255,.75);background:rgba(255,255,255,.03)}
+.cb.active{color:var(--ac);border-bottom-color:var(--ac)}
+
+/* ══════════════════════════════
+   CONTENU PRINCIPAL
+══════════════════════════════ */
+.wrap{max-width:900px;margin:0 auto;padding:2.5rem 1.5rem 7rem;position:relative;z-index:1}
+.sa{scroll-margin-top:135px}
+
+/* Cards */
+.card{
+  background:var(--card);
+  border:1px solid var(--card-border);
+  border-radius:16px;padding:1.8rem;margin-bottom:1.5rem;
+  transition:border-color .3s,box-shadow .3s,transform .2s;
+  position:relative;overflow:hidden
+}
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(220,38,38,.35),transparent);
+  opacity:0;transition:opacity .3s
+}
+.card:hover{
+  border-color:rgba(220,38,38,.25);
+  box-shadow:0 8px 40px rgba(220,38,38,.07),0 2px 12px rgba(0,0,0,.4);
+  transform:translateY(-1px)
+}
+.card:hover::before{opacity:1}
+
+/* Section header */
+.sh{display:flex;align-items:center;gap:13px;margin-bottom:1.4rem;
+  padding-bottom:1rem;border-bottom:1px solid rgba(220,38,38,.12)}
+.sn{
+  background:linear-gradient(135deg,var(--ac),var(--ac2));
+  color:#fff;width:36px;height:36px;border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:1rem;flex-shrink:0;
+  font-family:'Bebas Neue',cursive;letter-spacing:1px;
+  box-shadow:0 4px 14px rgba(220,38,38,.4)
+}
+.sh h3{font-size:1.1rem;font-weight:700;color:#fff;letter-spacing:.3px}
+
+/* Rule items */
+.ri{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:.8rem 0;border-bottom:1px solid rgba(255,255,255,.03)
+}
+.ri:last-child{border-bottom:none;padding-bottom:0}
+.ri:first-child{padding-top:0}
+.ric{
+  flex-shrink:0;margin-top:3px;color:var(--ac);
+  font-size:.78rem;width:16px;text-align:center
+}
+.rt{font-size:.87rem;line-height:1.7;color:var(--text)}
+.rt strong{color:#fff;font-weight:600}
+.rt em{color:var(--text-dim);font-size:.8rem}
+
+/* Boxes */
+.warn{
+  background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);
+  border-left:3px solid rgba(239,68,68,.7);border-radius:10px;
+  padding:.9rem 1.1rem;margin-top:.9rem;font-size:.82rem;
+  color:rgba(255,255,255,.55);display:flex;gap:9px;align-items:flex-start
+}
 .warn i{color:#f87171;flex-shrink:0;margin-top:2px}
-.info-box{background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.2);border-radius:10px;padding:.9rem 1.1rem;margin-top:.9rem;font-size:.82rem;color:rgba(255,255,255,.55);display:flex;gap:9px;align-items:flex-start}
+.info-box{
+  background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.18);
+  border-left:3px solid rgba(59,130,246,.6);border-radius:10px;
+  padding:.9rem 1.1rem;margin-top:.9rem;font-size:.82rem;
+  color:rgba(255,255,255,.55);display:flex;gap:9px;align-items:flex-start
+}
 .info-box i{color:#60a5fa;flex-shrink:0;margin-top:2px}
+.success-box{
+  background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.18);
+  border-left:3px solid rgba(16,185,129,.6);border-radius:10px;
+  padding:.9rem 1.1rem;margin-top:.9rem;font-size:.82rem;
+  color:rgba(255,255,255,.55);display:flex;gap:9px;align-items:flex-start
+}
+.success-box i{color:#34d399;flex-shrink:0;margin-top:2px}
+
+/* Sub-titles */
+.sub-title{
+  font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:2px;
+  color:rgba(220,38,38,.75);text-transform:uppercase;
+  margin:.9rem 0 .4rem;font-weight:700;
+  display:flex;align-items:center;gap:6px
+}
+.sub-title::after{
+  content:'';flex:1;height:1px;
+  background:linear-gradient(90deg,rgba(220,38,38,.2),transparent)
+}
+
+/* Grid 2 cols */
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-@media(max-width:600px){.g2{grid-template-columns:1fr}}
-.mc{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:1.1rem 1.3rem}
-.mc h4{font-size:.8rem;font-weight:700;color:#f87171;text-transform:uppercase;letter-spacing:1px;margin-bottom:.7rem;display:flex;align-items:center;gap:7px}
+
+/* Mini cards */
+.mc{
+  background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.07);
+  border-radius:12px;padding:1.1rem 1.3rem;transition:border-color .2s
+}
+.mc:hover{border-color:rgba(255,255,255,.12)}
+.mc h4{
+  font-size:.78rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:1px;margin-bottom:.75rem;display:flex;align-items:center;gap:7px
+}
 .mc ul{list-style:none}
-.mc ul li{font-size:.8rem;color:rgba(232,224,240,.65);padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;gap:7px;align-items:flex-start}
+.mc ul li{
+  font-size:.8rem;color:rgba(232,224,240,.6);padding:.3rem 0;
+  border-bottom:1px solid rgba(255,255,255,.04);display:flex;gap:7px;align-items:flex-start
+}
 .mc ul li:last-child{border-bottom:none}
-.mc ul li::before{content:'›';color:rgba(220,38,38,.6);flex-shrink:0}
-.mc ul li strong{color:rgba(255,255,255,.88)}
-.rtable{width:100%;border-collapse:collapse;margin-top:.9rem;font-size:.78rem}
-.rtable th{background:rgba(220,38,38,.12);color:#f87171;font-weight:700;text-transform:uppercase;letter-spacing:.8px;padding:.6rem .8rem;text-align:left;border-bottom:1px solid rgba(220,38,38,.25)}
-.rtable td{padding:.55rem .8rem;border-bottom:1px solid rgba(255,255,255,.04);color:rgba(232,224,240,.72)}
+.mc ul li::before{content:'›';color:rgba(220,38,38,.55);flex-shrink:0}
+.mc ul li strong{color:rgba(255,255,255,.85)}
+
+/* ══════════════════════════════
+   TABLE MISSIONS
+══════════════════════════════ */
+.rtable{width:100%;border-collapse:collapse;margin-top:.9rem;font-size:.8rem;border-radius:10px;overflow:hidden}
+.rtable thead tr{background:rgba(220,38,38,.1)}
+.rtable th{
+  color:#f87171;font-weight:700;text-transform:uppercase;
+  letter-spacing:.8px;padding:.7rem .9rem;text-align:left;
+  border-bottom:1px solid rgba(220,38,38,.2);font-size:.72rem
+}
+.rtable td{padding:.6rem .9rem;border-bottom:1px solid rgba(255,255,255,.04);color:var(--text)}
+.rtable tr:hover td{background:rgba(255,255,255,.02)}
 .rtable tr:last-child td{border-bottom:none}
-.rtable tr:hover td{background:rgba(255,255,255,.015)}
-.biz-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:1.1rem 1.3rem;margin-bottom:.8rem}
-.biz-card h4{font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:.7rem;display:flex;align-items:center;gap:7px}
-.biz-card h4.gang{color:#f87171}
-.biz-card h4.mc-c{color:#fb923c}
-.biz-card h4.orga{color:#a78bfa}
-.biz-card h4.mafia{color:#fbbf24}
+.rtable td:first-child{font-weight:600;color:rgba(255,255,255,.9)}
+
+/* Rank badges */
+.rank-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:.65rem;font-weight:800;letter-spacing:.8px;
+  text-transform:uppercase;padding:2px 9px;border-radius:4px;
+  font-family:'IBM Plex Mono',monospace
+}
+.rank-a{background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;box-shadow:0 2px 8px rgba(245,158,11,.35)}
+.rank-b{background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;box-shadow:0 2px 8px rgba(59,130,246,.3)}
+.rank-c{background:linear-gradient(135deg,#10b981,#059669);color:#fff;box-shadow:0 2px 8px rgba(16,185,129,.3)}
+.rank-d{background:rgba(107,114,128,.25);color:rgba(255,255,255,.55);border:1px solid rgba(107,114,128,.3)}
+
+.freq-badge{
+  font-family:'IBM Plex Mono',monospace;font-size:.65rem;
+  color:var(--text-dim);white-space:nowrap
+}
+
+/* ══════════════════════════════
+   BIZ CARDS
+══════════════════════════════ */
+.biz-card{
+  background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);
+  border-radius:12px;padding:1.1rem 1.3rem;margin-bottom:.8rem
+}
+.biz-card h4{
+  font-size:.82rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:1px;margin-bottom:.7rem;display:flex;align-items:center;gap:7px
+}
+.biz-card h4.gang{color:#f87171}.biz-card h4.mc-c{color:#fb923c}
+.biz-card h4.orga{color:#a78bfa}.biz-card h4.mafia{color:#fbbf24}
 .biz-card p{font-size:.8rem;color:rgba(232,224,240,.6);line-height:1.6}
 .biz-card ul{list-style:none;margin-top:.5rem}
-.biz-card ul li{font-size:.78rem;color:rgba(232,224,240,.6);padding:.2rem 0;display:flex;gap:7px}
+.biz-card ul li{
+  font-size:.78rem;color:rgba(232,224,240,.6);
+  padding:.2rem 0;display:flex;gap:7px
+}
 .biz-card ul li::before{content:'›';color:rgba(220,38,38,.5);flex-shrink:0}
-.sub-title{font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:2px;color:rgba(220,38,38,.7);text-transform:uppercase;margin:.9rem 0 .3rem;font-weight:700}
-.apply{background:rgba(220,38,38,.07);border:1px solid rgba(220,38,38,.22);border-radius:14px;padding:2rem;text-align:center;margin-top:2.5rem}
-.apply h3{font-size:1rem;font-weight:600;color:#fff;margin-bottom:.75rem}
-.apply p{font-size:.85rem;color:rgba(232,224,240,.55);line-height:1.7;max-width:500px;margin:0 auto}
+
+/* ══════════════════════════════
+   CALL TO ACTION
+══════════════════════════════ */
+.apply{
+  background:linear-gradient(135deg,rgba(220,38,38,.07),rgba(168,85,247,.05));
+  border:1px solid rgba(220,38,38,.18);border-radius:16px;
+  padding:2.2rem;text-align:center;margin-top:2.5rem
+}
+.apply h3{font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:.8rem}
+.apply p{font-size:.85rem;color:rgba(232,224,240,.5);line-height:1.7;max-width:500px;margin:0 auto}
 .ctas{display:flex;gap:.8rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:7px;padding:.65rem 1.4rem;border-radius:7px;font-size:.78rem;font-weight:700;text-decoration:none;letter-spacing:.5px;transition:all .2s;text-transform:uppercase}
-.btn-ac{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff}
-.btn-ac:hover{opacity:.85;transform:translateY(-2px)}
-.btn-ghost{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.65)}
-.btn-ghost:hover{background:rgba(255,255,255,.12);color:#fff}
-footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.06);background:rgba(5,3,10,.8);padding:1.8rem;text-align:center}
-footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
-.fl{display:flex;justify-content:center;gap:1.1rem;margin-top:.9rem}
-.fl a{color:rgba(255,255,255,.22);transition:color .2s;font-size:1.05rem}.fl a:hover{color:var(--ac)}
+.btn{
+  display:inline-flex;align-items:center;gap:7px;padding:.65rem 1.4rem;
+  border-radius:8px;font-size:.78rem;font-weight:700;text-decoration:none;
+  letter-spacing:.5px;transition:all .2s;text-transform:uppercase
+}
+.btn-ac{
+  background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;
+  box-shadow:0 4px 18px rgba(220,38,38,.3)
+}
+.btn-ac:hover{opacity:.88;transform:translateY(-2px);box-shadow:0 6px 24px rgba(220,38,38,.4)}
+.btn-ghost{
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  color:rgba(255,255,255,.6)
+}
+.btn-ghost:hover{background:rgba(255,255,255,.11);color:#fff}
+
+/* ══════════════════════════════
+   FOOTER
+══════════════════════════════ */
+footer{
+  position:relative;z-index:1;
+  border-top:1px solid rgba(255,255,255,.06);
+  background:rgba(5,3,10,.9);padding:2rem 1.5rem;text-align:center
+}
+footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
+.fl{display:flex;justify-content:center;gap:1.2rem;margin-top:1rem}
+.fl a{
+  color:rgba(255,255,255,.2);transition:all .2s;font-size:1.05rem;
+  width:34px;height:34px;display:flex;align-items:center;justify-content:center;
+  border-radius:8px;border:1px solid rgba(255,255,255,.07)
+}
+.fl a:hover{color:var(--ac);border-color:rgba(220,38,38,.3);background:rgba(220,38,38,.06)}
+
+/* ══════════════════════════════
+   BACK TO TOP
+══════════════════════════════ */
+#btt{
+  position:fixed;bottom:1.8rem;right:1.8rem;
+  width:42px;height:42px;border-radius:10px;
+  background:linear-gradient(135deg,var(--ac),var(--ac2));
+  color:#fff;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.9rem;z-index:500;
+  box-shadow:0 4px 20px rgba(220,38,38,.4);
+  opacity:0;transform:translateY(10px);
+  transition:all .3s;pointer-events:none
+}
+#btt.visible{opacity:1;transform:translateY(0);pointer-events:all}
+#btt:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(220,38,38,.5)}
+
+/* ══════════════════════════════
+   MOBILE RESPONSIVE
+══════════════════════════════ */
+@media(max-width:768px){
+  .nl{display:none}
+  .nbtn{display:none}
+  .hamburger{display:flex}
+  .ni{padding:0 1rem}
+
+  .hero{padding:100px 1rem 40px}
+  .hero h1{font-size:clamp(3rem,14vw,5rem)}
+
+  .hero-stats{gap:.4rem}
+  .stat-pill{font-size:.65rem;padding:.35rem .75rem}
+
+  .wrap{padding:2rem 1rem 6rem}
+
+  .card{padding:1.3rem;border-radius:12px}
+  .sh h3{font-size:1rem}
+
+  .g2{grid-template-columns:1fr}
+
+  .rtable{font-size:.75rem}
+  .rtable th,.rtable td{padding:.5rem .6rem}
+
+  #cnav{padding:0 .5rem}
+  .cb{padding:.7rem .7rem;font-size:.6rem;gap:5px}
+
+  #btt{bottom:1.2rem;right:1.2rem;width:38px;height:38px}
+}
+
+@media(max-width:480px){
+  .hero h1{font-size:clamp(2.8rem,15vw,4.5rem)}
+  .ctas{flex-direction:column;align-items:center}
+  .btn{width:100%;justify-content:center;max-width:280px}
+  .rtable{display:block;overflow-x:auto}
+}
 </style>
 </head>
 <body>
-<div class="cosmic-bg"></div><div class="stars"></div><div id="pb"></div>
-<nav>
+<div class="cosmic-bg"></div>
+<div class="stars"></div>
+<div id="pb"></div>
+
+<!-- ═══════════════ NAVIGATION ═══════════════ -->
+<nav id="mainnav">
   <div class="ni">
-    <a href="index.html" class="nlogo"><img src="logo.png" alt="" onerror="this.src='https://via.placeholder.com/30/dc2626/fff?text=I'"><span>Inside Roleplay</span></a>
+    <a href="index.html" class="nlogo">
+      <img src="logo.png" alt="" onerror="this.src='https://via.placeholder.com/30/dc2626/fff?text=I'">
+      <span>Inside Roleplay</span>
+    </a>
     <div class="nl">
-      <a href="index.html">Accueil</a><a href="Lore.html">Lore</a>
+      <a href="index.html">Accueil</a>
+      <a href="Lore.html">Lore</a>
       <a href="Reglementill.html" class="active">Règl. Illégal</a>
       <a href="gangorga.html">Gangs & Orga</a>
       <a href="petitesfrappes.html">PF & Habitants</a>
     </div>
-    <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener" class="nbtn"><i class="fa-brands fa-discord" style="color:#5865F2"></i> Discord</a>
+    <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener" class="nbtn">
+      <i class="fa-brands fa-discord" style="color:#5865F2"></i> Discord
+    </a>
+    <button class="hamburger" id="hbg" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
+<!-- Mobile nav -->
+<div class="mobile-nav" id="mobnav">
+  <a href="index.html"><i class="fa-solid fa-house fa-sm"></i> Accueil</a>
+  <a href="Lore.html"><i class="fa-solid fa-book fa-sm"></i> Lore</a>
+  <a href="Reglementill.html" class="active"><i class="fa-solid fa-gavel fa-sm"></i> Règlement Illégal</a>
+  <a href="gangorga.html"><i class="fa-solid fa-people-group fa-sm"></i> Gangs & Orga</a>
+  <a href="petitesfrappes.html"><i class="fa-solid fa-street-view fa-sm"></i> PF & Habitants</a>
+  <div class="mn-disc">
+    <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener">
+      <i class="fa-brands fa-discord" style="color:#5865F2"></i> Rejoindre le Discord
+    </a>
+  </div>
+</div>
+
+<!-- ═══════════════ HERO ═══════════════ -->
 <div class="hero">
   <div class="badge">Code Criminel · San Andreas</div>
   <h1>RÈGLEMENT<br><span>ILLÉGAL</span></h1>
   <p class="hero-sub">Vie Souterraine · InsideRP · 2026</p>
+  <div class="hero-stats">
+    <div class="stat-pill"><i class="fa-solid fa-list-check"></i><strong>15</strong> sections</div>
+    <div class="stat-pill"><i class="fa-solid fa-people-group"></i><strong>4</strong> types de groupe</div>
+    <div class="stat-pill"><i class="fa-solid fa-ranking-star"></i><strong>4</strong> niveaux de rang</div>
+    <div class="stat-pill"><i class="fa-solid fa-shield-halved"></i>Mis à jour Juin 2026</div>
+  </div>
   <p class="hero-desc">"Ce règlement encadre l'ensemble des activités criminelles. La cohérence et le fair-play sont les piliers de la vie souterraine d'InsideRP."</p>
 </div>
 
+<!-- ═══════════════ SECTION NAV ═══════════════ -->
 <div id="cnav"><div class="cni">
   <button class="cb active" onclick="jumpTo('s1')"><i class="fa-solid fa-shield fa-xs"></i> Principes</button>
   <button class="cb" onclick="jumpTo('s2')"><i class="fa-solid fa-crosshairs fa-xs"></i> Fusillades</button>
@@ -124,7 +529,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
   <button class="cb" onclick="jumpTo('s5')"><i class="fa-solid fa-leaf fa-xs"></i> Économie</button>
   <button class="cb" onclick="jumpTo('s6')"><i class="fa-solid fa-money-bill fa-xs"></i> Braquages</button>
   <button class="cb" onclick="jumpTo('s7')"><i class="fa-solid fa-user-lock fa-xs"></i> PDO & Otages</button>
-  <button class="cb" onclick="jumpTo('s8')"><i class="fa-solid fa-truck-medical fa-xs"></i> Services Publics</button>
+  <button class="cb" onclick="jumpTo('s8')"><i class="fa-solid fa-truck-medical fa-xs"></i> Services Pub.</button>
   <button class="cb" onclick="jumpTo('s9')"><i class="fa-solid fa-car fa-xs"></i> Convois</button>
   <button class="cb" onclick="jumpTo('s10')"><i class="fa-solid fa-handshake fa-xs"></i> Alliances</button>
   <button class="cb" onclick="jumpTo('s11')"><i class="fa-solid fa-gun fa-xs"></i> Armement</button>
@@ -134,6 +539,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
   <button class="cb" onclick="jumpTo('s15')"><i class="fa-solid fa-gavel fa-xs"></i> Sanctions</button>
 </div></div>
 
+<!-- ═══════════════ CONTENU ═══════════════ -->
 <div class="wrap">
 
   <!-- S1 PRINCIPES -->
@@ -151,12 +557,12 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
   <!-- S2 FUSILLADES -->
   <div id="s2" class="sa"><div class="card">
     <div class="sh"><div class="sn">2</div><h3>Fusillades & Combat</h3></div>
-    <div class="ri"><div class="ric"><i class="fa-solid fa-circle-dot"></i></div><div class="rt"><strong>Dernier recours :</strong> Les fusillades doivent rester un <strong>ultime recours</strong>. La montée en tension doit être respectée — pas de fusillade pour un conflit mineur (ex : insulte).</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-circle-dot"></i></div><div class="rt"><strong>Dernier recours :</strong> Les fusillades doivent rester un <strong>ultime recours</strong>. La montée en tension doit être respectée — pas de fusillade pour un conflit mineur.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-skull"></i></div><div class="rt"><strong>Corps en coma :</strong> Interdiction d'emmener toutes les personnes avec soi à l'hôpital lors d'un état de coma. Chaque joueur doit être pris en charge individuellement.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-stairs"></i></div><div class="rt"><strong>Position dominante :</strong> La prise de hauteur est <strong>strictement interdite</strong> lors des fusillades.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-shield"></i></div><div class="rt"><strong>Zones safes :</strong> Toute fusillade dans une zone safe ou neutre est interdite.</div></div>
-    <div class="ri"><div class="ric"><i class="fa-solid fa-gun"></i></div><div class="rt"><strong>Conservation des armes :</strong> Toute arme utilisée lors d'une fusillade doit être <strong>conservée par son utilisateur</strong> jusqu'à la fin complète de la scène. La transférer ou la jeter est strictement interdit durant ce laps de temps.</div></div>
-    <div class="ri"><div class="ric"><i class="fa-solid fa-skull-crossbones"></i></div><div class="rt"><strong>Mort RP :</strong> En cas de blessures répétées liées à plusieurs fusillades, une Mort RP peut être appliquée. Plus les événements sont rapprochés, plus le risque est élevé. <em>→ 2 fusillades initiées sur 48h peuvent entraîner une Mort RP.</em></div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-gun"></i></div><div class="rt"><strong>Conservation des armes :</strong> Toute arme utilisée lors d'une fusillade doit être <strong>conservée par son utilisateur</strong> jusqu'à la fin complète de la scène.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-skull-crossbones"></i></div><div class="rt"><strong>Mort RP :</strong> En cas de blessures répétées liées à plusieurs fusillades, une Mort RP peut être appliquée. <em>→ 2 fusillades initiées sur 48h peuvent entraîner une Mort RP.</em></div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-tire"></i></div><div class="rt"><strong>Tirs sur pneus :</strong> Interdits avant <strong>25 minutes de poursuite</strong>, sauf "No Fear" abusif avéré.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-truck"></i></div><div class="rt"><strong>Plans mules / récup :</strong> Autorisés après <strong>15 min de CP contre la police</strong>, pour grosses scènes/livraisons. Véhicules autorisés : <em>Mule, Speedo, Pounder</em>.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-vest"></i></div><div class="rt"><strong>Gilets factices :</strong> Le port de gilets pare-balles factices est <strong>interdit</strong>.</div></div>
@@ -175,7 +581,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
     <div class="ri"><div class="ric"><i class="fa-solid fa-people-group"></i></div><div class="rt"><strong>Descentes quartier :</strong> Autorisées mais <strong>rares (1 par semaine)</strong>. Minimum <strong>10 attaquants</strong>. Seules les <strong>armes blanches et de poing</strong> sont autorisées.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Interdiction :</strong> La descente quartier pour prendre en otage des joueurs est <strong>formellement interdite</strong>.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-shield"></i></div><div class="rt"><strong>Sécurité :</strong> Le but d'un quartier est qu'il reste safe. Vous vous devez de faire en sorte qu'il le reste.</div></div>
-    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-map"></i> Territoires</p>
+    <p class="sub-title"><i class="fa-solid fa-map"></i> Territoires</p>
     <div class="ri"><div class="ric"><i class="fa-solid fa-map-location-dot"></i></div><div class="rt"><strong>Usage RP :</strong> La carte est un outil à utiliser en RP de manière cohérente. <em>Exemple : "J'ai mes guetteurs sur cette zone."</em></div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-layer-group"></i></div><div class="rt"><strong>Échelle :</strong> Gang, MC, Orga et Mafia ne revendiquent pas la même échelle de territoire. <strong>Les PF ont interdiction d'avoir un territoire.</strong></div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-shield-halved"></i></div><div class="rt"><strong>Protection & taxe :</strong> Un crew ayant un territoire se doit de le protéger et peut imposer une <strong>taxe</strong> à tout crew souhaitant vendre dans ce dernier.</div></div>
@@ -186,12 +592,12 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
   <div id="s4" class="sa"><div class="card">
     <div class="sh"><div class="sn">4</div><h3>Répercussions RP & Revenge RP</h3></div>
     <p class="sub-title"><i class="fa-solid fa-scale-balanced"></i> Répercussions</p>
-    <div class="ri"><div class="ric"><i class="fa-solid fa-stairs"></i></div><div class="rt"><strong>Échelle de violence :</strong> Elle doit être respectée et ne doit pas être gravie trop vite. Les répercussions doivent se faire sur le <strong>long terme</strong> pour développer les interactions entre les groupes.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-stairs"></i></div><div class="rt"><strong>Échelle de violence :</strong> Elle doit être respectée et ne doit pas être gravie trop vite. Les répercussions doivent se faire sur le <strong>long terme</strong>.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-skull"></i></div><div class="rt"><strong>Mort RP :</strong> Les demandes de Mort RP doivent contenir des <strong>preuves détaillées</strong> et ne sont pas à prendre à la légère.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-circle-exclamation"></i></div><div class="rt"><strong>Exposition :</strong> Lorsque vous débutez une scène, vous vous exposez à tout type de sanctions ou de répercussions RP.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-user-injured"></i></div><div class="rt"><strong>Scènes traumatisantes :</strong> Les scènes potentiellement traumatisantes (torture lourde, démembrement) sont soumises à l'accord du <strong>staff</strong> et du <strong>joueur concerné</strong>.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-arrows-up-to-line"></i></div><div class="rt"><strong>Proportionnalité :</strong> Les répercussions doivent être progressives et proportionnelles. <em>Pas de GF pour un "ta gueule" quand un brawl serait plus adapté.</em></div></div>
-    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-clock-rotate-left"></i> Revenge RP</p>
+    <p class="sub-title"><i class="fa-solid fa-clock-rotate-left"></i> Revenge RP</p>
     <div class="ri"><div class="ric"><i class="fa-solid fa-hourglass"></i></div><div class="rt"><strong>Cooldown :</strong> Si vous subissez une scène où vous "perdez", vous ne devez répondre que <strong>les jours suivants</strong>. Un cooldown de <strong>24h est obligatoire</strong>, que vous soyez gagnant ou perdant — sauf en cas de non-respect de territoire.</div></div>
     <div class="info-box"><i class="fa-solid fa-circle-info"></i><div>Nous mettons un gros point d'honneur sur la création de trames intergroupe. Faites vivre votre RP et votre histoire de groupe à travers des scènes intéressantes et théâtrales.</div></div>
   </div></div>
@@ -202,12 +608,12 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
     <div class="ri"><div class="ric"><i class="fa-solid fa-truck"></i></div><div class="rt"><strong>Logistique :</strong> Récolte, production et transfert doivent s'effectuer impérativement en <strong>véhicules utilitaires</strong>.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Vente Nomade :</strong> Motos, vélos ou quads pour la vente de drogue sont <strong>strictement interdits</strong>.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-users"></i></div><div class="rt"><strong>Occupation de Secteur :</strong> Vente en groupe limitée à <strong>5 personnes maximum</strong> sur un même secteur simultanément.</div></div>
-    <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Informations illégales :</strong> Interdit de divulguer gratuitement des informations sensibles (ex : positions de drogues). Ces informations peuvent être vendues ou utilisées dans le cadre de missions RP.</div></div>
-    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-flask"></i> Attaque de Laboratoire</p>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Informations illégales :</strong> Interdit de divulguer gratuitement des informations sensibles. Ces informations peuvent être vendues ou utilisées dans le cadre de missions RP.</div></div>
+    <p class="sub-title"><i class="fa-solid fa-flask"></i> Attaque de Laboratoire</p>
     <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Camp labo :</strong> Interdiction de camper devant le laboratoire.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-hand-fist"></i></div><div class="rt"><strong>Braquage labo :</strong> Si vous croisez un groupe dans l'instance, vous pouvez le braquer.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-percent"></i></div><div class="rt"><strong>Pillage :</strong> Vous pouvez prendre <strong>uniquement 50% de la drogue</strong> lors d'un braquage de laboratoire.</div></div>
-    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-person"></i> Groupe de PF</p>
+    <p class="sub-title"><i class="fa-solid fa-person"></i> Groupe de PF</p>
     <div class="ri"><div class="ric"><i class="fa-solid fa-circle-info"></i></div><div class="rt"><strong>Approvisionnement :</strong> Les PF ne peuvent se fournir en drogue et en armes qu'<strong>auprès des gangs</strong>. Toute autre source est strictement interdite.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-leaf"></i></div><div class="rt"><strong>Trafic PF :</strong> En termes de trafic, les PF sont limités à la <strong>vente de weed uniquement</strong>.</div></div>
   </div></div>
@@ -221,9 +627,9 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
     <div class="ri"><div class="ric"><i class="fa-solid fa-user-secret"></i></div><div class="rt"><strong>Freeloot :</strong> Interdit de racketter un joueur au hasard uniquement pour son argent ou ses objets, sans contexte RP.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-building-columns"></i></div><div class="rt"><strong>Braquage Fleeca / Bijouterie :</strong> Attendre <strong>15 min</strong> l'arrivée du LSPD avant de repartir, <strong>3 otages minimum, 4 braqueurs minimum, 2 armes à feu minimum</strong>, <strong>2 véhicules max</strong> au départ, 15 min de CP pour plan mule/récup.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-store"></i></div><div class="rt"><strong>Braquage ATM / Supérette :</strong> Prise d'otage autorisée. Interdiction des plans pneu / mule / récup. Attente de l'arrivée du LSPD : <strong>10 min minimum</strong>.</div></div>
-    <div class="ri"><div class="ric"><i class="fa-solid fa-building"></i></div><div class="rt"><strong>Entreprises :</strong> Un crew peut imposer une taxe dans son territoire. Les patrons peuvent refuser ou accepter selon le contexte RP. Aucune activité légale ne doit être utilisée à des fins illégales.</div></div>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-building"></i></div><div class="rt"><strong>Entreprises :</strong> Un crew peut imposer une taxe dans son territoire. Les patrons peuvent refuser ou accepter selon le contexte RP.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-crown"></i></div><div class="rt"><strong>Gouvernement :</strong> Interdit de braquer un membre du gouvernement. Toute action contre eux nécessite <strong>l'accord du staff</strong>.</div></div>
-    <div class="warn"><i class="fa-solid fa-triangle-exclamation"></i><div><strong>Arnaques :</strong> Toute forme d'arnaque abusive (fausses ventes d'armes, drogues, immobilier…) est interdite. Les prêts non rendus ne sont pas considérés comme arnaques scriptées par le Staff. Prêter un objet précieux est votre responsabilité RP.</div></div>
+    <div class="warn"><i class="fa-solid fa-triangle-exclamation"></i><div><strong>Arnaques :</strong> Toute forme d'arnaque abusive (fausses ventes d'armes, drogues, immobilier…) est interdite. Les prêts non rendus ne sont pas considérés comme arnaques scriptées par le Staff.</div></div>
   </div></div>
 
   <!-- S7 PDO & OTAGES -->
@@ -236,15 +642,15 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
     <div class="ri"><div class="ric"><i class="fa-solid fa-mobile"></i></div><div class="rt"><strong>Téléphones :</strong> Doivent être rendus en fin de scène. Interdiction de supprimer des contacts (sauf ceux vous concernant).</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-crosshairs"></i></div><div class="rt"><strong>Engagement armé :</strong> Interdiction de tirer si le groupe adverse détient un otage — risque de mort RP pour l'otage.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-clock"></i></div><div class="rt"><strong>Durée maximale :</strong> Il est <strong>strictement interdit de détenir un otage pendant plus d'une heure</strong>.</div></div>
-    <div class="ri"><div class="ric"><i class="fa-solid fa-dollar-sign"></i></div><div class="rt"><strong>Rançon :</strong> Membre : <strong>5 000 $</strong> max — Co-lead : <strong>10 000 $</strong> max — Lead : <strong>15 000 $</strong> max. Cette décision doit rester cohérente et justifiée RP.</div></div>
-    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-ban"></i> Interdictions — Gestion des Otages</p>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-dollar-sign"></i></div><div class="rt"><strong>Rançon :</strong> Membre : <strong>5 000 $</strong> max — Co-lead : <strong>10 000 $</strong> max — Lead : <strong>15 000 $</strong> max.</div></div>
+    <p class="sub-title"><i class="fa-solid fa-ban"></i> Interdictions — Gestion des Otages</p>
     <div class="ri"><div class="ric"><i class="fa-solid fa-box-open"></i></div><div class="rt"><strong>Inventaire :</strong> Interdit de piller les otages ou de vider entièrement leur inventaire.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-wrench"></i></div><div class="rt"><strong>Outils incohérents :</strong> Interdit d'utiliser clé anglaise, marteau, pioche, lampe torche, queue de billard, poing américain, club de golf, masse, pelle, pied de biche, bouteille ou hache lors de scènes d'otage.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-shield"></i></div><div class="rt"><strong>Négociateurs LSPD :</strong> Interdit de les prendre en otage, sauf autorisation Staff.</div></div>
-    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-shield-halved"></i> Prise d'otage LSPD — Cas autorisés</p>
+    <p class="sub-title"><i class="fa-solid fa-shield-halved"></i> Prise d'otage LSPD — Cas autorisés</p>
     <div class="ri"><div class="ric"><i class="fa-solid fa-check"></i></div><div class="rt">Braquer ou prendre en otage un agent du LSPD est interdit <strong>sauf dans les cas suivants</strong> :<br>→ Sécurisation d'un lead risquant la prison à vie<br>→ Attaque de convoi de fonds ou transports spéciaux<br>→ Réaction légitime à un no fear d'une patrouille<br>→ Événement RP spécial validé par le staff<br>→ Sécurisation d'une arme lourde dans un contexte RP sérieux</div></div>
     <div class="warn"><i class="fa-solid fa-triangle-exclamation"></i><div>Les otages policiers entraînent des conséquences RP lourdes (descente, représailles, mandat, etc.). Une raison solide et cohérente est indispensable.</div></div>
-    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-people-group"></i> Si un membre de votre groupe est capturé</p>
+    <p class="sub-title"><i class="fa-solid fa-people-group"></i> Si un membre de votre groupe est capturé</p>
     <div class="ri"><div class="ric"><i class="fa-solid fa-circle-dot"></i></div><div class="rt">Le gang ou l'organisation <strong>doit se présenter pour négocier</strong>. En cas de refus ou d'ignorance : l'otage peut être gardé, une intervention staff peut être demandée, ou une mort RP peut être appliquée si le cas est répété (optionnel).</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-gun"></i></div><div class="rt"><strong>Prêts d'armes :</strong> Les prêts se font 100% en RP. En cas d'abus, le staff n'intervient pas.</div></div>
   </div></div>
@@ -278,8 +684,8 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
     <div class="ri"><div class="ric"><i class="fa-solid fa-clock"></i></div><div class="rt"><strong>Délais standards :</strong> Si vous êtes transporté à l'hôpital, jouez la scène avec les SAMS et respectez les ATA :<br>→ <strong>30 min</strong> sans effort physique<br>→ <strong>45 min</strong> avant de courir ou de conduire<br>→ <strong>1 heure</strong> avant de pouvoir utiliser une arme<br><em>Ces délais peuvent varier selon la gravité des blessures et l'appréciation des SAMS.</em></div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Interdictions strictes :</strong> Mentir sur ses blessures — minimiser son état — refuser une scène médicale cohérente — quitter discrètement — donner ou cacher ses armes — demander un revive via report.</div></div>
     <div class="warn"><i class="fa-solid fa-triangle-exclamation"></i><div>Tout refus abusif de scène avec les SAMS peut entraîner une <strong>ATA lourde</strong> ou une <strong>Mort RP</strong> selon la gravité.</div></div>
-    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-circle-info"></i> Interactions et scènes spécifiques</p>
-    <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Informations illégales :</strong> Interdit de partager gratuitement des informations illégales (ex : positions de drogues). Vous pouvez les vendre ou missionner d'autres groupes dans un cadre RP.</div></div>
+    <p class="sub-title"><i class="fa-solid fa-circle-info"></i> Interactions et scènes spécifiques</p>
+    <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Informations illégales :</strong> Interdit de partager gratuitement des informations illégales. Vous pouvez les vendre ou missionner d'autres groupes dans un cadre RP.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-circle-dot"></i></div><div class="rt"><strong>Conséquences RP :</strong> Prises d'otages LSPD/SAMS — elles peuvent entraîner des répercussions importantes (descentes, représailles, intensification des conflits, etc.).</div></div>
   </div></div>
 
@@ -291,7 +697,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
     <div class="ri"><div class="ric"><i class="fa-solid fa-map"></i></div><div class="rt"><strong>Recherche d'une cible :</strong> Lors de la recherche, séparez-vous sur la carte (pas de limite de nombre) pour favoriser un jeu réaliste.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-car-side"></i></div><div class="rt"><strong>Poursuite :</strong> Une fois la cible localisée, maximum <strong>2 véhicules</strong> pour la poursuite.<br><em>Exception MC : 2 véhicules max OU 7 motos max.</em></div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-box"></i></div><div class="rt"><strong>Protection cargaison :</strong> <strong>4 véhicules maximum</strong> au total, véhicule de transport inclus.</div></div>
-    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-route"></i> Déplacements</p>
+    <p class="sub-title"><i class="fa-solid fa-route"></i> Déplacements</p>
     <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Convois organisés :</strong> <strong>Strictement interdits</strong> pour les activités illégales. Les déplacements doivent rester discrets, cohérents et crédibles en RP.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-van-shuttle"></i></div><div class="rt"><strong>Transactions :</strong> Les transactions importantes (armes, drogues, grosses marchandises) doivent se faire en <strong>van ou véhicule utilitaire discret</strong>.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-car-burst"></i></div><div class="rt"><strong>Véhicules interdits :</strong> Véhicules super sportifs et véhicules d'entreprise/location interdits. Fuites en bateau interdites (sauf accord exceptionnel staff illégal et 911).</div></div>
@@ -305,7 +711,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
     <div class="ri"><div class="ric"><i class="fa-solid fa-check"></i></div><div class="rt"><strong>Autorisées :</strong> Les alliances à <strong>but commercial uniquement</strong> sont autorisées.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Coalitions abusives :</strong> <strong>Strictement interdit</strong> de s'allier à plusieurs groupes dans le but d'en attaquer un autre.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-circle-info"></i></div><div class="rt"><strong>Objectif :</strong> Les alliances doivent servir à créer du jeu, des interactions et des trames RP, sans déséquilibrer ni écraser les autres groupes.</div></div>
-    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-flag"></i> Revendications</p>
+    <p class="sub-title"><i class="fa-solid fa-flag"></i> Revendications</p>
     <div class="ri"><div class="ric"><i class="fa-solid fa-vest"></i></div><div class="rt"><strong>MC — Tenue :</strong> Les membres de MC ne peuvent retirer leur cuir que lors de <strong>gros événements</strong>.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-bullhorn"></i></div><div class="rt"><strong>Obligation :</strong> Tout acte envers un autre groupe <strong>doit être revendiqué</strong>.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-id-card"></i></div><div class="rt"><strong>Appartenance :</strong> Interdit de nier appartenir à un groupe si vous êtes un <strong>haut gradé ou leader</strong>.</div></div>
@@ -321,12 +727,12 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
     <div class="ri"><div class="ric"><i class="fa-solid fa-circle-dot"></i></div><div class="rt"><strong>Armes lourdes (rifles) :</strong> 3 chargeurs max</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-circle-dot"></i></div><div class="rt"><strong>Fusil à pompe :</strong> 3 chargeurs max</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-circle-info"></i></div><div class="rt"><em>Le chargeur déjà engagé dans l'arme n'est pas comptabilisé dans cette limite.</em></div></div>
-    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-gun"></i> Armement par Type de Groupe</p>
+    <p class="sub-title"><i class="fa-solid fa-gun"></i> Armement par Type de Groupe</p>
     <div class="g2">
-      <div class="mc"><h4><i class="fa-solid fa-crown"></i> Mafia</h4><ul><li>3 armes lourdes maximum</li><li>3 armes automatiques maximum</li></ul></div>
-      <div class="mc"><h4><i class="fa-solid fa-people-group"></i> Groupes Criminels</h4><ul><li>2 armes lourdes maximum</li><li>2 armes automatiques maximum</li></ul></div>
-      <div class="mc"><h4><i class="fa-solid fa-motorcycle"></i> Motor Clubs</h4><ul><li>1 arme lourde maximum</li><li>2 armes automatiques maximum</li></ul></div>
-      <div class="mc"><h4><i class="fa-solid fa-street-view"></i> Gangs</h4><ul><li>1 arme lourde maximum</li><li>1 arme automatique maximum</li></ul></div>
+      <div class="mc"><h4 style="color:#fbbf24"><i class="fa-solid fa-crown"></i> Mafia</h4><ul><li>3 armes lourdes maximum</li><li>3 armes automatiques maximum</li></ul></div>
+      <div class="mc"><h4 style="color:#a78bfa"><i class="fa-solid fa-people-group"></i> Groupes Criminels</h4><ul><li>2 armes lourdes maximum</li><li>2 armes automatiques maximum</li></ul></div>
+      <div class="mc"><h4 style="color:#fb923c"><i class="fa-solid fa-motorcycle"></i> Motor Clubs</h4><ul><li>1 arme lourde maximum</li><li>2 armes automatiques maximum</li></ul></div>
+      <div class="mc"><h4 style="color:#f87171"><i class="fa-solid fa-street-view"></i> Gangs</h4><ul><li>1 arme lourde maximum</li><li>1 arme automatique maximum</li></ul></div>
     </div>
     <div class="warn" style="margin-top:1rem"><i class="fa-solid fa-triangle-exclamation"></i><div>En l'absence d'armes lourdes, il est possible de compenser par des armes automatiques. <strong>Le port d'une arme lourde sur une moto est strictement interdit.</strong></div></div>
   </div></div>
@@ -336,27 +742,27 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
     <div class="sh"><div class="sn">12</div><h3>Business & Activités Illégales</h3></div>
     <p class="sub-title"><i class="fa-solid fa-list"></i> Missions Communes — Tous groupes</p>
     <div class="info-box" style="margin-bottom:.9rem"><i class="fa-solid fa-circle-info"></i><div>Accès via <strong>F2 → Missions</strong> pour tous les groupes.</div></div>
-    <table class="rtable">
+    <table class="rtable" id="missions-table">
       <thead><tr><th>Mission</th><th>Rang</th><th>Fréquence</th></tr></thead>
       <tbody>
-        <tr><td>Vente de drogue</td><td>Rang D</td><td>—</td></tr>
-        <tr><td>Vol de sac à main</td><td>Rang D</td><td>—</td></tr>
-        <tr><td>Braquage de tatoueur</td><td>Rang D</td><td>—</td></tr>
-        <tr><td>Braquage de barber</td><td>Rang D</td><td>—</td></tr>
-        <tr><td>Racket</td><td>Rang D</td><td>—</td></tr>
-        <tr><td>GoFast</td><td>Rang B</td><td>1/semaine/groupe</td></tr>
-        <tr><td>GoFast Maritime</td><td>Rang B</td><td>1/semaine/groupe</td></tr>
-        <tr><td>Braquage de Binco</td><td>Rang C</td><td>—</td></tr>
-        <tr><td>Vol d'ATM</td><td>Rang C</td><td>—</td></tr>
-        <tr><td>Braquage de Supérette</td><td>Rang C</td><td>—</td></tr>
-        <tr><td>Braquage de Yacht</td><td>Rang A</td><td>1/semaine (tous groupes)</td></tr>
-        <tr><td>Cambriolage</td><td>Rang B</td><td>—</td></tr>
-        <tr><td>Braquage d'Ammunation</td><td>Rang A</td><td>1/semaine (tous groupes)</td></tr>
-        <tr><td>Braquage de Vangelico</td><td>Rang B</td><td>1/semaine/groupe</td></tr>
-        <tr><td>Braquage de Fleeca</td><td>Rang B</td><td>2/semaine/groupe</td></tr>
+        <tr><td>Vente de drogue</td><td>Rang D</td><td><span class="freq-badge">—</span></td></tr>
+        <tr><td>Vol de sac à main</td><td>Rang D</td><td><span class="freq-badge">—</span></td></tr>
+        <tr><td>Braquage de tatoueur</td><td>Rang D</td><td><span class="freq-badge">—</span></td></tr>
+        <tr><td>Braquage de barber</td><td>Rang D</td><td><span class="freq-badge">—</span></td></tr>
+        <tr><td>Racket</td><td>Rang D</td><td><span class="freq-badge">—</span></td></tr>
+        <tr><td>GoFast</td><td>Rang B</td><td><span class="freq-badge">1/semaine/groupe</span></td></tr>
+        <tr><td>GoFast Maritime</td><td>Rang B</td><td><span class="freq-badge">1/semaine/groupe</span></td></tr>
+        <tr><td>Braquage de Binco</td><td>Rang C</td><td><span class="freq-badge">—</span></td></tr>
+        <tr><td>Vol d'ATM</td><td>Rang C</td><td><span class="freq-badge">—</span></td></tr>
+        <tr><td>Braquage de Supérette</td><td>Rang C</td><td><span class="freq-badge">—</span></td></tr>
+        <tr><td>Braquage de Yacht</td><td>Rang A</td><td><span class="freq-badge">1/semaine (tous groupes)</span></td></tr>
+        <tr><td>Cambriolage</td><td>Rang B</td><td><span class="freq-badge">—</span></td></tr>
+        <tr><td>Braquage d'Ammunation</td><td>Rang A</td><td><span class="freq-badge">1/semaine (tous groupes)</span></td></tr>
+        <tr><td>Braquage de Vangelico</td><td>Rang B</td><td><span class="freq-badge">1/semaine/groupe</span></td></tr>
+        <tr><td>Braquage de Fleeca</td><td>Rang B</td><td><span class="freq-badge">2/semaine/groupe</span></td></tr>
       </tbody>
     </table>
-    <div class="info-box" style="margin-top:.5rem"><i class="fa-solid fa-circle-info"></i><div><strong>Orga, Mafia & MC :</strong> Sont <strong>autorisés à vendre dans la rue</strong>. Les ventes de drogue ont pour but de proposer du jeu et de l'interaction, pas uniquement du profit.</div></div>
+    <div class="success-box" style="margin-top:.5rem"><i class="fa-solid fa-circle-check"></i><div><strong>Orga, Mafia & MC :</strong> Sont <strong>autorisés à vendre dans la rue</strong>. Les ventes de drogue ont pour but de proposer du jeu et de l'interaction, pas uniquement du profit.</div></div>
   </div></div>
 
   <!-- S13 ENTREPÔT, TABLETTES & LOGISTIQUE -->
@@ -365,15 +771,15 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
     <p class="sub-title"><i class="fa-solid fa-warehouse"></i> Entrepôt</p>
     <div class="ri"><div class="ric"><i class="fa-solid fa-map-pin"></i></div><div class="rt"><strong>Stockage obligatoire :</strong> Tout ce qui est destiné à la revente doit être stocké dans un entrepôt à un <strong>minimum de 1,5 km du QG</strong> — c'est du RP.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Nourrices :</strong> Les nourrices sont <strong>formellement interdites</strong>.</div></div>
-    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-tablet-screen-button"></i> Règles Tablettes</p>
+    <p class="sub-title"><i class="fa-solid fa-tablet-screen-button"></i> Règles Tablettes</p>
     <div class="ri"><div class="ric"><i class="fa-solid fa-circle-info"></i></div><div class="rt">La tablette permet de commander tout ce qui est disponible sur le plateau illégal. Tous les groupes y ont accès mais les business diffèrent selon la hiérarchie illégale.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Interdictions :</strong> Interdit de passer <strong>2 fois la même commande</strong> et de looter à <strong>plus de 50% de la commande</strong>.</div></div>
-    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-car"></i> Véhicules par Type de Groupe</p>
+    <p class="sub-title"><i class="fa-solid fa-car"></i> Véhicules par Type de Groupe</p>
     <div class="g2">
-      <div class="mc"><h4><i class="fa-solid fa-people-group"></i> Gang / OC</h4><ul><li>3 voitures</li><li>+ 1 Speedo sur commande</li></ul></div>
-      <div class="mc"><h4><i class="fa-solid fa-motorcycle"></i> MC</h4><ul><li>7 motos</li><li>+ 2 véhicules</li><li>+ 1 Speedo sur commande</li></ul></div>
+      <div class="mc"><h4 style="color:#f87171"><i class="fa-solid fa-people-group"></i> Gang / OC</h4><ul><li>3 voitures</li><li>+ 1 Speedo sur commande</li></ul></div>
+      <div class="mc"><h4 style="color:#fb923c"><i class="fa-solid fa-motorcycle"></i> MC</h4><ul><li>7 motos</li><li>+ 2 véhicules</li><li>+ 1 Speedo sur commande</li></ul></div>
     </div>
-    <div class="ri" style="margin-top:.8rem"><div class="ric"><i class="fa-solid fa-clock"></i></div><div class="rt"><strong>Horaires des commandes :</strong> Entre <strong>18h et 2h</strong>. La cargaison doit être récupérée uniquement en véhicule de transport (Speedo, Burrito, Mule, Pounder…). <em>Le Speedo Express est interdit.</em></div></div>
+    <div class="ri" style="margin-top:.9rem"><div class="ric"><i class="fa-solid fa-clock"></i></div><div class="rt"><strong>Horaires des commandes :</strong> Entre <strong>18h et 2h</strong>. La cargaison doit être récupérée uniquement en véhicule de transport (Speedo, Burrito, Mule, Pounder…). <em>Le Speedo Express est interdit.</em></div></div>
   </div></div>
 
   <!-- S14 IMMERSION & FAIR-PLAY -->
@@ -384,7 +790,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
     <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Trash talk :</strong> Interdit de trash talker, danser ou provoquer une personne à terre.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-ban"></i></div><div class="rt"><strong>Animations :</strong> Pas d'animations/ragdoll pendant un tir ni lors d'un transfert d'arme.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-skull"></i></div><div class="rt"><strong>Coma :</strong> Si vous tombez dans le coma, vous ne pouvez pas revenir sur scène ni dans la zone. Le LSPD peut vous fouiller et récupérer vos armes après réanimation.</div></div>
-    <p class="sub-title" style="margin-top:1rem"><i class="fa-solid fa-video"></i> Vidéo & Communication Externe</p>
+    <p class="sub-title"><i class="fa-solid fa-video"></i> Vidéo & Communication Externe</p>
     <div class="ri"><div class="ric"><i class="fa-solid fa-percent"></i></div><div class="rt"><strong>Contenu GF :</strong> Maximum <strong>40% de scènes "GF"</strong> autorisées dans vos contenus publiés.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-gavel"></i></div><div class="rt"><strong>Sanctions créateurs :</strong> Le Staff se donne le droit de sanctionner les créateurs de contenus GF portant atteinte au serveur publiés sur d'autres plateformes.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-music"></i></div><div class="rt"><strong>Musiques :</strong> Interdit d'utiliser des musiques troll ou des contenus incitant à la haine.</div></div>
@@ -405,6 +811,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
     <div class="info-box" style="margin-top:.9rem"><i class="fa-solid fa-circle-info"></i><div>Toute sanction sera précédée d'un échange avec le staff, afin de permettre au joueur d'exposer sa version des faits.</div></div>
   </div></div>
 
+  <!-- CTA -->
   <div class="apply">
     <h3>💡 Conseils pour les Chefs de Groupe</h3>
     <p>Un groupe respecté n'est pas celui qui tire le plus, mais celui qui propose les scènes les plus immersives. <strong>Privilégiez le jeu plutôt que le shoot et l'égo !</strong></p>
@@ -415,23 +822,91 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.22);line-height:1.9}
   </div>
 </div>
 
+<!-- FOOTER -->
 <footer>
   <p>Dernière mise à jour : Juin 2026 · Privilégiez toujours la scène RP au "Win RP".</p>
   <p>&copy; 2026 Inside Roleplay. Tous droits réservés.</p>
   <div class="fl">
-    <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener"><i class="fa-brands fa-discord"></i></a>
-    <a href="https://www.tiktok.com/@insiderpfr" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok"></i></a>
-    <a href="https://x.com/insiderpfr" target="_blank" rel="noopener"><i class="fa-brands fa-x-twitter"></i></a>
-    <a href="https://www.youtube.com/@inside-roleplay" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i></a>
+    <a href="https://discord.gg/NV4Bq7g3XC" target="_blank" rel="noopener" title="Discord"><i class="fa-brands fa-discord"></i></a>
+    <a href="https://www.tiktok.com/@insiderpfr" target="_blank" rel="noopener" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+    <a href="https://x.com/insiderpfr" target="_blank" rel="noopener" title="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+    <a href="https://www.youtube.com/@inside-roleplay" target="_blank" rel="noopener" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
   </div>
 </footer>
+
+<!-- BACK TO TOP -->
+<button id="btt" title="Retour en haut" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <i class="fa-solid fa-chevron-up"></i>
+</button>
+
 <script>
-window.addEventListener('scroll',()=>{const t=document.documentElement.scrollHeight-window.innerHeight;document.getElementById('pb').style.width=(window.scrollY/t*100)+'%'});
+/* ── Progress bar ── */
+window.addEventListener('scroll',()=>{
+  const t=document.documentElement.scrollHeight-window.innerHeight;
+  document.getElementById('pb').style.width=(window.scrollY/t*100)+'%';
+  // Nav shadow
+  document.getElementById('mainnav').classList.toggle('scrolled',window.scrollY>10);
+  // Back to top
+  document.getElementById('btt').classList.toggle('visible',window.scrollY>400);
+});
+
+/* ── Section jump ── */
 function jumpTo(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'})}
+
+/* ── Active section highlight ── */
 const secs=['s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11','s12','s13','s14','s15'];
 const cbs=document.querySelectorAll('.cb');
-const ob=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const i=secs.indexOf(e.target.id);if(i!==-1)cbs.forEach((b,j)=>b.classList.toggle('active',i===j))}})},{threshold:.3});
+const ob=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const i=secs.indexOf(e.target.id);
+      if(i!==-1)cbs.forEach((b,j)=>b.classList.toggle('active',i===j));
+    }
+  });
+},{threshold:.25,rootMargin:'-130px 0px -55% 0px'});
 secs.forEach(id=>{const el=document.getElementById(id);if(el)ob.observe(el)});
+
+/* ── Hamburger menu ── */
+const hbg=document.getElementById('hbg');
+const mobnav=document.getElementById('mobnav');
+hbg.addEventListener('click',()=>{
+  hbg.classList.toggle('open');
+  mobnav.classList.toggle('open');
+  document.body.style.overflow=mobnav.classList.contains('open')?'hidden':'';
+});
+mobnav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  hbg.classList.remove('open');
+  mobnav.classList.remove('open');
+  document.body.style.overflow='';
+}));
+
+/* ── Rank badge colors ── */
+document.querySelectorAll('#missions-table td:nth-child(2)').forEach(td=>{
+  const t=td.textContent.trim();
+  let cls='';
+  if(t.includes('Rang A'))cls='rank-a';
+  else if(t.includes('Rang B'))cls='rank-b';
+  else if(t.includes('Rang C'))cls='rank-c';
+  else if(t.includes('Rang D'))cls='rank-d';
+  if(cls)td.innerHTML=`<span class="rank-badge ${cls}">${t}</span>`;
+});
+
+/* ── Card entrance animation ── */
+const cardOb=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.animation='cardIn .4s ease both';
+      cardOb.unobserve(e.target);
+    }
+  });
+},{threshold:.05});
+document.querySelectorAll('.card').forEach(c=>{
+  c.style.opacity='0';
+  cardOb.observe(c);
+});
+const style=document.createElement('style');
+style.textContent='@keyframes cardIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}';
+document.head.appendChild(style);
 </script>
 </body>
 </html>
