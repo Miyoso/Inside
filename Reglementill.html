@@ -281,6 +281,7 @@ nav.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.5)}
 .rank-b{background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;box-shadow:0 2px 8px rgba(59,130,246,.3)}
 .rank-c{background:linear-gradient(135deg,#10b981,#059669);color:#fff;box-shadow:0 2px 8px rgba(16,185,129,.3)}
 .rank-d{background:rgba(107,114,128,.25);color:rgba(255,255,255,.55);border:1px solid rgba(107,114,128,.3)}
+.rank-s{background:linear-gradient(135deg,#dc2626,#7f1d1d);color:#fff;box-shadow:0 2px 8px rgba(220,38,38,.6)}
 .freq-badge{
   font-family:'IBM Plex Mono',monospace;font-size:.65rem;
   color:var(--text-dim);white-space:nowrap
@@ -422,7 +423,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
   <div class="hero-stats">
     <div class="stat-pill"><i class="fa-solid fa-list-check"></i><strong>15</strong> sections</div>
     <div class="stat-pill"><i class="fa-solid fa-people-group"></i><strong>4</strong> types de groupe</div>
-    <div class="stat-pill"><i class="fa-solid fa-ranking-star"></i><strong>4</strong> niveaux de rang</div>
+    <div class="stat-pill"><i class="fa-solid fa-ranking-star"></i><strong>5</strong> niveaux de rang</div>
     <div class="stat-pill"><i class="fa-solid fa-shield-halved"></i>Mis à jour Juin 2026</div>
   </div>
   <p class="hero-desc">"Ce règlement encadre l'ensemble des activités criminelles. La cohérence et le fair-play sont les piliers de la vie souterraine d'InsideRP."</p>
@@ -510,6 +511,17 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
     <p class="sub-title"><i class="fa-solid fa-person"></i> Groupe de PF</p>
     <div class="ri"><div class="ric"><i class="fa-solid fa-circle-info"></i></div><div class="rt"><strong>Approvisionnement :</strong> Les PF ne peuvent se fournir en drogue et en armes qu'<strong>auprès des gangs</strong>. Toute autre source est strictement interdite.</div></div>
     <div class="ri"><div class="ric"><i class="fa-solid fa-leaf"></i></div><div class="rt"><strong>Trafic PF :</strong> En termes de trafic, les PF sont limités à la <strong>vente de weed uniquement</strong>.</div></div>
+    <p class="sub-title"><i class="fa-solid fa-tag"></i> Prix de Vente des Drogues</p>
+    <table class="rtable">
+      <thead><tr><th>Drogue</th><th>Prix / unité</th><th>XP / unité</th></tr></thead>
+      <tbody>
+        <tr><td>Weed</td><td>18 $</td><td>3</td></tr>
+        <tr><td>Fentanyl</td><td>20 $</td><td>3</td></tr>
+        <tr><td>Coke</td><td>28 $</td><td>4</td></tr>
+        <tr><td>Meth</td><td>30 $</td><td>4</td></tr>
+        <tr><td>Crack</td><td>30 $</td><td>4</td></tr>
+      </tbody>
+    </table>
   </div></div>
   <div id="s6" class="sa"><div class="card">
     <div class="sh"><div class="sn">6</div><h3>Braquages & Racket</h3></div>
@@ -623,26 +635,51 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
     <p class="sub-title"><i class="fa-solid fa-list"></i> Missions Communes — Tous groupes</p>
     <div class="info-box" style="margin-bottom:.9rem"><i class="fa-solid fa-circle-info"></i><div>Accès via <strong>F2 → Missions</strong> pour tous les groupes.</div></div>
     <table class="rtable" id="missions-table">
-      <thead><tr><th>Mission</th><th>Rang</th><th>Fréquence</th></tr></thead>
+      <thead><tr><th>Mission</th><th>Rang</th><th>Min. Joueurs</th><th>Armement</th><th>Fréquence</th></tr></thead>
       <tbody>
-        <tr><td>Vente de drogue</td><td>Rang D</td><td><span class="freq-badge">—</span></td></tr>
-        <tr><td>Vol de sac à main</td><td>Rang D</td><td><span class="freq-badge">—</span></td></tr>
-        <tr><td>Braquage de tatoueur</td><td>Rang D</td><td><span class="freq-badge">—</span></td></tr>
-        <tr><td>Braquage de barber</td><td>Rang D</td><td><span class="freq-badge">—</span></td></tr>
-        <tr><td>Racket</td><td>Rang D</td><td><span class="freq-badge">—</span></td></tr>
-        <tr><td>GoFast</td><td>Rang B</td><td><span class="freq-badge">1/semaine/groupe</span></td></tr>
-        <tr><td>GoFast Maritime</td><td>Rang B</td><td><span class="freq-badge">1/semaine/groupe</span></td></tr>
-        <tr><td>Braquage de Binco</td><td>Rang C</td><td><span class="freq-badge">—</span></td></tr>
-        <tr><td>Vol d'ATM</td><td>Rang C</td><td><span class="freq-badge">—</span></td></tr>
-        <tr><td>Braquage de Supérette</td><td>Rang C</td><td><span class="freq-badge">—</span></td></tr>
-        <tr><td>Braquage de Yacht</td><td>Rang A</td><td><span class="freq-badge">1/semaine (tous groupes)</span></td></tr>
-        <tr><td>Cambriolage</td><td>Rang B</td><td><span class="freq-badge">—</span></td></tr>
-        <tr><td>Braquage d'Ammunation</td><td>Rang A</td><td><span class="freq-badge">1/semaine (tous groupes)</span></td></tr>
-        <tr><td>Braquage de Vangelico</td><td>Rang B</td><td><span class="freq-badge">1/semaine/groupe</span></td></tr>
-        <tr><td>Braquage de Fleeca</td><td>Rang B</td><td><span class="freq-badge">2/semaine/groupe</span></td></tr>
+        <tr><td>Vente de drogue</td><td>Rang D</td><td>1</td><td>Libre</td><td><span class="freq-badge">Libre / soir / pers.</span></td></tr>
+        <tr><td>Vol de sac à main</td><td>Rang D</td><td>1</td><td>Libre</td><td><span class="freq-badge">20 / soir / pers.</span></td></tr>
+        <tr><td>Braquage de tatoueur</td><td>Rang D</td><td>1</td><td>1 arme blanche</td><td><span class="freq-badge">2 / soir / pers.</span></td></tr>
+        <tr><td>Braquage de barber</td><td>Rang D</td><td>1</td><td>1 arme blanche</td><td><span class="freq-badge">2 / soir / pers.</span></td></tr>
+        <tr><td>Racket</td><td>Rang D</td><td>1</td><td>1 arme blanche</td><td><span class="freq-badge">8 / soir / pers.</span></td></tr>
+        <tr><td>Braquage de Binco</td><td>Rang C</td><td>1</td><td>1 arme blanche</td><td><span class="freq-badge">1 / soir / pers.</span></td></tr>
+        <tr><td>Braquage de Supérette</td><td>Rang C</td><td>1</td><td>1 arme blanche</td><td><span class="freq-badge">1 / soir / pers.</span></td></tr>
+        <tr><td>Vol d'ATM</td><td>Rang C</td><td>1</td><td>1 arme blanche</td><td><span class="freq-badge">2 / soir / pers.</span></td></tr>
+        <tr><td>GoFast</td><td>Rang B</td><td>1</td><td>Libre</td><td><span class="freq-badge">1 / soir / pers.</span></td></tr>
+        <tr><td>GoFast Maritime</td><td>Rang B</td><td>1</td><td>Libre</td><td><span class="freq-badge">2 / soir / pers.</span></td></tr>
+        <tr><td>Cambriolage</td><td>Rang B</td><td>1</td><td>Libre</td><td><span class="freq-badge">3 / soir / pers.</span></td></tr>
+        <tr><td>Braquage de Vangelico</td><td>Rang B</td><td>6</td><td>3 armes à feu</td><td><span class="freq-badge">2 / sem. / groupe · Staff</span></td></tr>
+        <tr><td>Braquage de Fleeca</td><td>Rang B</td><td>4</td><td>2 armes à feu</td><td><span class="freq-badge">2 / sem. / groupe</span></td></tr>
+        <tr><td>Braquage d'Entreprise</td><td>Rang A</td><td>8</td><td>4 armes à feu</td><td><span class="freq-badge">1 / sem. / groupe · Dossier</span></td></tr>
+        <tr><td>Braquage d'Ammunation</td><td>Rang A</td><td>8</td><td>4 armes à feu</td><td><span class="freq-badge">1 / sem. / groupe · Dossier</span></td></tr>
+        <tr><td>Braquage de Yacht</td><td>Rang S</td><td>8</td><td>4 armes à feu</td><td><span class="freq-badge">1 / sem. / groupe · Dossier</span></td></tr>
+        <tr><td>Braquage de Train</td><td>Rang S</td><td>8</td><td>4 armes à feu</td><td><span class="freq-badge">1 / sem. / groupe · Dossier</span></td></tr>
       </tbody>
     </table>
-    <div class="success-box" style="margin-top:.5rem"><i class="fa-solid fa-circle-check"></i><div><strong>Orga, Mafia & MC :</strong> Sont <strong>autorisés à vendre dans la rue</strong>. Les ventes de drogue ont pour but de proposer du jeu et de l'interaction, pas uniquement du profit.</div></div>
+    <p class="sub-title" style="margin-top:1.2rem"><i class="fa-solid fa-ranking-star"></i> Classement des Rangs</p>
+    <div class="g2">
+      <div class="mc"><ul>
+        <li><span class="rank-badge rank-s" style="margin-right:6px">S</span> Train · Yacht</li>
+        <li><span class="rank-badge rank-a" style="margin-right:6px">A</span> Ammunation · Entreprise</li>
+        <li><span class="rank-badge rank-b" style="margin-right:6px">B</span> Fleeca · Vangelico · GoFast Maritime</li>
+      </ul></div>
+      <div class="mc"><ul>
+        <li><span class="rank-badge rank-c" style="margin-right:6px">C</span> ATM · Binco · Supérette · Cambriolage</li>
+        <li><span class="rank-badge rank-d" style="margin-right:6px">D</span> Barber · Tattooshop · GoFast · Racket · Vol à l'arraché</li>
+      </ul></div>
+    </div>
+    <p class="sub-title" style="margin-top:1.2rem"><i class="fa-solid fa-calendar-day"></i> Limites Journalières (par commerce)</p>
+    <div class="g2">
+      <div class="mc"><ul>
+        <li><strong>Barber</strong> — 2 / jour / pers.</li>
+        <li><strong>Tattooshop</strong> — 2 / jour / pers.</li>
+      </ul></div>
+      <div class="mc"><ul>
+        <li><strong>Binco</strong> — 2 / jour / pers.</li>
+        <li><strong>Supérette</strong> — 3 / jour / pers.</li>
+      </ul></div>
+    </div>
+    <div class="success-box" style="margin-top:.9rem"><i class="fa-solid fa-circle-check"></i><div><strong>Orga, Mafia & MC :</strong> Sont <strong>autorisés à vendre dans la rue</strong>. Les ventes de drogue ont pour but de proposer du jeu et de l'interaction, pas uniquement du profit.</div></div>
   </div></div>
   <div id="s13" class="sa"><div class="card">
     <div class="sh"><div class="sn">13</div><h3>Entrepôt, Tablettes & Logistique</h3></div>
@@ -657,7 +694,7 @@ footer p{font-size:.72rem;color:rgba(255,255,255,.2);line-height:2}
       <div class="mc"><h4 style="color:#f87171"><i class="fa-solid fa-people-group"></i> Gang / OC</h4><ul><li>3 voitures</li><li>+ 1 Speedo sur commande</li></ul></div>
       <div class="mc"><h4 style="color:#fb923c"><i class="fa-solid fa-motorcycle"></i> MC</h4><ul><li>7 motos</li><li>+ 2 véhicules</li><li>+ 1 Speedo sur commande</li></ul></div>
     </div>
-    <div class="ri" style="margin-top:.9rem"><div class="ric"><i class="fa-solid fa-clock"></i></div><div class="rt"><strong>Horaires des commandes :</strong> Entre <strong>18h et 2h</strong>. La cargaison doit être récupérée uniquement en véhicule de transport (Speedo, Burrito, Mule, Pounder…). <em>Le Speedo Express est interdit.</em></div></div>
+    <div class="ri" style="margin-top:.9rem"><div class="ric"><i class="fa-solid fa-clock"></i></div><div class="rt"><strong>Horaires des commandes :</strong> Entre <strong>16h et 2h</strong>. La cargaison doit être récupérée uniquement en véhicule de transport (Speedo, Burrito, Mule, Pounder…). <em>Le Speedo Express est interdit.</em></div></div>
   </div></div>
   <div id="s14" class="sa"><div class="card">
     <div class="sh"><div class="sn">14</div><h3>Immersion, Fair-Play & Contenus</h3></div>
@@ -740,7 +777,8 @@ mobnav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
 document.querySelectorAll('#missions-table td:nth-child(2)').forEach(td=>{
   const t=td.textContent.trim();
   let cls='';
-  if(t.includes('Rang A'))cls='rank-a';
+  if(t.includes('Rang S'))cls='rank-s';
+  else if(t.includes('Rang A'))cls='rank-a';
   else if(t.includes('Rang B'))cls='rank-b';
   else if(t.includes('Rang C'))cls='rank-c';
   else if(t.includes('Rang D'))cls='rank-d';
